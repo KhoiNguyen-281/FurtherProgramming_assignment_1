@@ -2,19 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="add version 3.16.2">
+      <change afterPath="$PROJECT_DIR$/Enrolment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Course.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,7 +63,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647416300132</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="v3.16.3 modified toString(), add studentEnrol()">
+      <created>1647428425564</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1647428425564</updated>
+    </task>
+    <task id="LOCAL-00003" summary="v3.16.3 modified toString(), add studentEnrol()">
+      <created>1647428719767</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1647428719767</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

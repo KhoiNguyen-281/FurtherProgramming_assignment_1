@@ -3,42 +3,25 @@ import java.util.ArrayList;
 public class Course {
     private String courseID;
     private String courseName;
-    private String courseNumOfCre;
-    private ArrayList<Student> studentList;
+    private int courseNumOfCre;
 
-    public Course(String courseID, String courseName, String courseNumOfCre) {
+    public Course(String courseID, String courseName, int courseNumOfCre) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseNumOfCre = courseNumOfCre;
-        this.studentList = new ArrayList<Student>();
     }
 
-    public String getCourseID() {
-        return courseID;
-    }
+    public String getCourseID() { return courseID; }
 
-    public String getCourseName() {
-        return courseName;
-    }
+    public String getCourseName() { return courseName; }
 
-    public String getCourseNumOfCre() {
-        return courseNumOfCre;
-    }
+    public int getCourseNumOfCre() { return courseNumOfCre; }
 
-    public ArrayList<Student> getStudentList() {
-        return studentList;
-    }
+    public void setCourseID(String courseID) { this.courseID = courseID; }
 
-    public boolean studentEnrol(Student student){
-        if (studentList.contains(student)){
-            System.out.println("Already exist");
-            return false;
-        }
-        studentList.add(student);
-        student.getCourseList().add(this);
-        System.out.println("Enrolled successfully");
-        return true;
-    }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
+
+    public void setCourseNumOfCre(int courseNumOfCre) { this.courseNumOfCre = courseNumOfCre; }
 
     @Override
     public String toString() {
