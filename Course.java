@@ -31,12 +31,10 @@ public class Course implements Management{
 
     @Override
     public String toString() {
-        return "Course{" +
-                "courseID='" + courseID + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", courseNumOfCre=" + courseNumOfCre +
-                ", studentsList=" + studentsList +
-                '}';
+        return
+                "ID='" + courseID + '\'' +
+                ", Name='" + courseName + '\'' +
+                ", Credits=" + courseNumOfCre ;
     }
 
     @Override

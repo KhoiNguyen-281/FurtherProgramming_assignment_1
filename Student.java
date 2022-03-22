@@ -57,11 +57,9 @@ public class Student implements Management {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studentID='" + studentID + '\'' +
-                ", studentName='" + studentName + '\'' +
-                ", studentBD='" + studentBD + '\'' +
-                ", coursesList=" + coursesList +
-                '}';
+        return
+                "ID='" + studentID + '\'' +
+                ", Name='" + studentName + '\'' +
+                ", BD='" + studentBD + '\'' ;
     }
 }
