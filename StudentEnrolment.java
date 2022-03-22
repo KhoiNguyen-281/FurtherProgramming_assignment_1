@@ -170,29 +170,29 @@ public class StudentEnrolment{
         System.out.println("This course is not available");
     }
 
-//    public boolean addStudentToCourse(Student student, Course course){
-//        if(course.getStudentsList().contains(student)){
-//            System.out.println("This student is already in course.");
-//            return false;
-//        }
-//        studentsList.add(student);
-//        student.getCoursesList().add(course);
-//        System.out.println("Added student successfully.");
-//        return true;
-//    }
-//
-    public boolean findStudent(String input){
-        for (Student value : studentsList) {
-            if (value.getStudentName().equals(input)) {
-                System.out.println(value);
-                return true;
-            }
-            if (value.getStudentID().equals(input)) {
-                System.out.println(value);
-                return true;
+    public void find(String mod, String input){
+        if (mod.equals("student") || mod.equals("Student") || mod.equals("STUDENT")) {
+            for (Student value : studentsList) {
+                if (value.getStudentName().equals(input)) {
+                    System.out.println(value);
+
+                }
+                if (value.getStudentID().equals(input)) {
+                    System.out.println(value);
+                }
             }
         }
-        return false;
+        if (mod.equals("course") || mod.equals("Course") || mod.equals("COURSE")) {
+            for (Course value : courseList) {
+                if (value.getCourseName().equals(input)){
+                    System.out.println(value);
+                }
+                if (value.getCourseID().equals(input)) {
+                    System.out.println(value);
+                }
+            }
+        }
+        System.out.println("Cannot");
     }
 
     public boolean findCourse(String input){
@@ -220,6 +220,5 @@ public class StudentEnrolment{
         System.out.println("Course not found.");
         return false;
     }
-
 
 }
