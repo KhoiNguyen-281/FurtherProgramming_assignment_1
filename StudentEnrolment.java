@@ -13,7 +13,6 @@ public class StudentEnrolment{
     private ArrayList<String> semesters;
     private HashMap<String, ArrayList<Course>> semesterCourses;
     private ArrayList<Enrolment> enrolmentList;
-
     private HashMap<String, ArrayList<Student>> studentInCourse;
 
     public StudentEnrolment() {
@@ -134,7 +133,7 @@ public class StudentEnrolment{
             for (Course semCours : semCourses) {
                 if (semCours.getCourseName().equals(course)) {
                     System.out.println("This course is already in system.");
-                    break;
+                    return semesterCourses;
                 }
             }
             semCourses.add(courseList.get(indexCourse));
@@ -183,8 +182,8 @@ public class StudentEnrolment{
 
     public ArrayList<Enrolment> addEnrolment(String inputStu, String semStr, String inputCou){
         /* Check if semester in the system
-        * check if course in the semester
-        * check if student in the list*/
+         * check if course in the semester
+         * check if student in the list*/
         if (semesters.contains(semStr)){
             String stu = null;
             String cou = null;
@@ -205,6 +204,7 @@ public class StudentEnrolment{
                     stu = stuTemp.getStudentID() + " " + stuTemp.getStudentName();
                     stu_2 =stuTemp.getStudentName();
                     break;
+
                 }
                 System.out.println("Cannot find student");
 
@@ -212,7 +212,6 @@ public class StudentEnrolment{
             Enrolment enrolment = new Enrolment(stu, semStr, cou);
             enrolmentList.add(enrolment);
             addStudentToCourse(cou_2, stu_2);
-            System.out.println("Add enrolment successfully");
             return enrolmentList;
         }
         System.out.println("Semester is not in the system");
