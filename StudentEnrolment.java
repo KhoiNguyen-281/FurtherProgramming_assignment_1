@@ -13,6 +13,7 @@ public class StudentEnrolment{
     private ArrayList<String> semesters;
     private HashMap<String, ArrayList<Course>> semesterCourses;
     private ArrayList<Enrolment> enrolmentList;
+
     private HashMap<String, ArrayList<Student>> studentInCourse;
 
     public StudentEnrolment() {
@@ -114,12 +115,12 @@ public class StudentEnrolment{
         return studentsList;
     }
 
-    public HashMap addSemesterCourses(String semStr, Course course){
+    public HashMap addSemesterCourses(String semStr, String course){
         boolean notFound = true;
         int indexCourse = 0;
         for (int i = 0; i< courseList.size(); i++){
             Course temp = courseList.get(i);
-            if(temp.equals(course)){
+            if(temp.getCourseName().equals(course)){
                 notFound = false;
                 indexCourse = i;
                 break;
@@ -131,7 +132,7 @@ public class StudentEnrolment{
             }
             ArrayList<Course> semCourses = semesterCourses.get(semStr);
             for (Course semCours : semCourses) {
-                if (semCours.equals(course)) {
+                if (semCours.getCourseName().equals(course)) {
                     System.out.println("This course is already in system.");
                     break;
                 }
@@ -180,6 +181,44 @@ public class StudentEnrolment{
         return null;
     }
 
+    public ArrayList<Enrolment> addEnrolment(String inputStu, String semStr, String inputCou){
+        /* Check if semester in the system
+        * check if course in the semester
+        * check if student in the list*/
+        if (semesters.contains(semStr)){
+            String stu = null;
+            String cou = null;
+            String stu_2 = null;
+            String cou_2 = null;
+            ArrayList<Course> couListTemp = semesterCourses.get(semStr);
+
+            for (Course couTemp : couListTemp){
+                if (couTemp.getCourseName().equals(inputCou) || couTemp.getCourseID().equals(inputCou)){
+                    cou = couTemp.getCourseID() + " " + couTemp.getCourseName();
+                    cou_2 = couTemp.getCourseName();
+                    break;
+                }
+                System.out.println("Course not found");
+            }
+            for (Student stuTemp : studentsList){
+                if (stuTemp.getStudentID().equals(inputStu) || stuTemp.getStudentName().equals(inputStu)){
+                    stu = stuTemp.getStudentID() + " " + stuTemp.getStudentName();
+                    stu_2 =stuTemp.getStudentName();
+                    break;
+                }
+                System.out.println("Cannot find student");
+
+            }
+            Enrolment enrolment = new Enrolment(stu, semStr, cou);
+            enrolmentList.add(enrolment);
+            addStudentToCourse(cou_2, stu_2);
+            System.out.println("Add enrolment successfully");
+            return enrolmentList;
+        }
+        System.out.println("Semester is not in the system");
+        return enrolmentList;
+    }
+
     public boolean find(String inputMod, String inputField) {
         if (inputMod.equals("Student") || inputMod.equals("student") || inputMod.equals("STUDENT")){
             for (Student stuTemp : studentsList){
@@ -205,16 +244,9 @@ public class StudentEnrolment{
     }
 
     public boolean dropCourse(String inputCou, String inputStu){
-        String couName = null;
-        for( Course couTemp : courseList){
-            if (couTemp.getCourseName().equals(inputCou)){
-                couName =  inputCou;
-                break;
-            }
-        }
-        if (studentInCourse.containsKey(couName)){
+        if (studentInCourse.containsKey(inputCou)){
             // Need answer
-            ArrayList<Student> stuTempList = studentInCourse.get(couName);
+            ArrayList<Student> stuTempList = studentInCourse.get(inputCou);
             for (Student stuTemp : stuTempList){
                 if (stuTemp.getStudentName().equals(inputStu) || stuTemp.getStudentID().equals(inputStu)){
                     stuTempList.remove(stuTemp);
