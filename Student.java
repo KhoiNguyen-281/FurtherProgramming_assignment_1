@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Student implements Management {
     private String studentID;
@@ -39,20 +40,17 @@ public class Student implements Management {
     public void setStudentBD(String studentBD) { this.studentBD = studentBD; }
 
 
+
     @Override
     public void update(String field, String input){
         if (field.equals("ID")){
             setStudentID(input);
         } if (field.equals("Name")){
             setStudentName(input);
-        } if (field.equals("DoB")){
+        } if (field.equals("DoB") || field.equals("date of birth") || field.equals("Date of birth") ||
+                field.equals("DOB") || field.equals("dob") || field.equals("birthday") || field.equals("Birthday")){
             setStudentBD(input);
         }
-    }
-
-    @Override
-    public void getOne() {
-
     }
 
     @Override
@@ -60,6 +58,6 @@ public class Student implements Management {
         return
                 "ID='" + studentID + '\'' +
                 ", Name='" + studentName + '\'' +
-                ", BD='" + studentBD + '\'' ;
+                ", BD='" + studentBD ;
     }
 }
