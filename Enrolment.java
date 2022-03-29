@@ -1,16 +1,19 @@
 public class Enrolment {
-    private String student;
+    private Student student;
+    private Course course;
     private String semester;
-    private String course;
 
-    public Enrolment(String student, String semester, String course) {
+    public Enrolment(Student student, Course course, String semester) {
         this.student = student;
-        this.semester = semester;
         this.course = course;
+        this.semester = semester;
     }
 
+    public Enrolment(){
 
-    public String getStudent() {
+    }
+
+    public Student getStudent() {
         return student;
     }
 
@@ -18,7 +21,7 @@ public class Enrolment {
         return semester;
     }
 
-    public String getCourse() {
+    public Course getCourse() {
         return course;
     }
 
