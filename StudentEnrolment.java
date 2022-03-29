@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Set;
 import java.time.Year;
 
 public class StudentEnrolment{
@@ -77,7 +77,7 @@ public class StudentEnrolment{
         return studentE;
     }
 
-    public ArrayList<String> setSemesters(){
+    public void setSemesters(){
         String[] semesterList = {"A", "B", "C"};
         int year = Year.now().getValue();
         for (String sem : semesterList) {
@@ -88,7 +88,6 @@ public class StudentEnrolment{
             ArrayList<Course> stuCourse = new ArrayList<>();
             semCouOfStu.put(semStr, stuCourse);
         }
-        return semesters;
     }
 
     public ArrayList<Course> addCourseList(Course course){
@@ -153,12 +152,13 @@ public class StudentEnrolment{
     }
 
     public ArrayList<Enrolment> addEnrolmentList(Enrolment enrolment){
+
         enrolmentList.add(enrolment);
         System.out.println("Add enrolment successfully");
         return enrolmentList;
     }
 
-    public boolean addEnrollment(String inputStu, String semStr, String inputCou){
+    public boolean addEnrollment(String inputStu, String inputCou , String semStr){
         for (Student stuTemp : studentsList)
             if (stuTemp.getStudentID().equals(inputStu)){
                 if (semesters.contains(semStr)){
@@ -175,14 +175,13 @@ public class StudentEnrolment{
                             studentEnrol.put(stuTemp, semCouOfStu);
                             couTemp.getStudentsList().add(stuTemp);
                             studentInCourse.put(couTemp, couTemp.getStudentsList());
+                            enrolment = new Enrolment(stuTemp, couTemp, semStr);
                             for (Enrolment enTemp : enrolmentList)
-                                if (enTemp.getStudent().equals(inputStu) &&
-                                        enTemp.getCourse().equals(inputCou) &&
-                                        enTemp.getSemester().equals(semStr)){
+                                if (enTemp.getStudent().equals(enrolment.getStudent()) &&
+                                        enTemp.getCourse().equals(enrolment.getCourse()) &&
+                                        enTemp.getSemester().equals(enrolment.getSemester())){
                                     System.out.println("Enrollment existed");
-                                    return false;
                                 }
-                            enrolment = new Enrolment(semStr, inputCou, inputStu);
                             addEnrolmentList(enrolment);
                             return true;
                         }
@@ -197,101 +196,97 @@ public class StudentEnrolment{
     }
 
     public void findAll(String inputMod){
-        if (inputMod.equals("Student") || inputMod.equals("STUDENT") || inputMod.equals("student")){
-            for (Student student : studentsList){
-                HashMap<String, ArrayList<Course>> semCouOfStuTemp = studentEnrol.get(student);
-                for (String semStr : semesters) {
-                    ArrayList<Course> couListTemp = semCouOfStuTemp.get(semStr);
-                    for (Course couTemp : couListTemp)
-                        System.out.println("ID: " + student.getStudentID() + "\n" +
-                                "Name: " + student.getStudentName() + "\n" +
-                                "Enrolled course: " + semStr + " " + couTemp + "\n" + "\n");
+        if(inputMod.equals("Student")){
+            String outPutStu = "";
+            for (Student stuTemp : studentsList){
+                outPutStu += "ID: " + stuTemp.getStudentID() + "\n" +
+                        "Name: " + stuTemp.getStudentName() + "\n" +
+                        "Date of birth: " + stuTemp.getStudentBD() + "\n" +
+                        "Enrolled courses: " + "\n";
+                if(studentEnrol.containsKey(stuTemp)){
+                    HashMap<String, ArrayList<Course>> semCouTemp = studentEnrol.get(stuTemp);
+                    Set<String> semString = semCouTemp.keySet();
+                    for (String key : semString) {
+                        ArrayList<Course> couTempList = semCouTemp.get(key);
+                        outPutStu += key + " " + couTempList + "\n";
+                    }
+                    System.out.println(outPutStu);
                 }
             }
         }
-        if (inputMod.equals("Course") || inputMod.equals("course") || inputMod.equals("COURSE")) {
-            String printCourse = "";
-            for (Course course : courseList){
-                printCourse += "ID: " + course.getCourseID() + "\n" +
-                        "Name: " + course.getCourseName() + "\n" +
-                        "Credits: " + course.getCourseNumOfCre() + "\n" +
-                        "Enrolled students: " + "\n";
-
-                ArrayList<Student> students = studentInCourse.get(course);
-                ArrayList<String> studentInCou = new ArrayList<>();
-                String studentString = "";
-                for (Student stuTemp : students)
-                    studentString += stuTemp.getStudentID() + " " + stuTemp.getStudentName() + "\n";
-
-                studentInCou.add(studentString);
-                for (String s : studentInCou)
-                    printCourse += s  + "\n" + "\n";
+        if (inputMod.equals("Course")){
+            String outPutCou = "";
+            for (Course couTemp : courseList){
+                outPutCou += "ID: " + couTemp.getCourseID() + "\n" +
+                        "Name: " + couTemp.getCourseName() + "\n" +
+                        "Credits: " + couTemp.getCourseNumOfCre() + "\n";
             }
-            System.out.println(printCourse);
+            System.out.println(outPutCou);
         }
     }
 
     public boolean findOne(String inputMod, String input){
         if(inputMod.equals("Student")){
-            for (Student student : studentsList){
-                if (student.getStudentName().equals(input) || student.getStudentID().equals(input) ){
-                    System.out.println("ID: " + student.getStudentID() + "\n" +
-                            "Name: " + student.getStudentName() + "\n" +
-                            "DoB: " + student.getStudentBD() + "\n" +
-                            "Enrolled course: " + student.getCoursesList());
-                    return true;
+            String outPutStu = "";
+            for (Student stuTemp : studentsList){
+                if (stuTemp.getStudentID().equals(input) ){
+                    outPutStu += "ID: " + stuTemp.getStudentID() + "\n" +
+                            "Name: " + stuTemp.getStudentName() + "\n" +
+                            "Date of birth: " + stuTemp.getStudentBD() + "\n" +
+                            "Enrolled courses: " + "\n";
+                    if(studentEnrol.containsKey(stuTemp)){
+                        HashMap<String, ArrayList<Course>> semCouTemp = studentEnrol.get(stuTemp);
+                        Set<String> semString = semCouTemp.keySet();
+                        for (String key : semString) {
+                            ArrayList<Course> couTempList = semCouTemp.get(key);
+                            outPutStu += key + " " + couTempList + "\n";
+                        }
+                        System.out.println(outPutStu);
+                        return true;
+                    }
+
                 }
                 System.out.println("Cannot find student");
                 return false;
             }
         }
         if(inputMod.equals("Course") || inputMod.equals("course") || inputMod.equals("COURSE")){
-            String printCourse =  "";
             String courseName = null;
-            for (Course course : courseList){
-                if (course.getCourseName().equals(input) || course.getCourseID().equals(input)){
-                    printCourse += "ID: " + course.getCourseID() + "\n" +
-                            "Name: " + course.getCourseName() + "\n" +
-                            "Credits: " + course.getCourseNumOfCre() + "\n" +
-                            "Enrolled students: " + "\n";
-                    courseName = course.getCourseName();
-                    ArrayList<Student> students = studentInCourse.get(courseName);
-                    ArrayList<String> studentInCou = new ArrayList<>();
-                    String studentString = "";
-                    for (Student student : students){
-                        studentString += student.getStudentID() + " " + student.getStudentName() + ", ";
+            String outPutCou = "";
+                for (Course couTemp : courseList)
+                    if(couTemp.getCourseID().equals(input)) {
+                        outPutCou += "ID: " + couTemp.getCourseID() + "\n" +
+                                "Name: " + couTemp.getCourseName() + "\n" +
+                                "Credits: " + couTemp.getCourseNumOfCre() + "\n";
                     }
-                    studentInCou.add(studentString);
-                    printCourse += studentInCou + "\n" + "\n";
-                }
-                System.out.println("Cannot find course");
-                return false;
+                System.out.println(outPutCou);
             }
-            System.out.println(printCourse);
-            return true;
-        }
+        System.out.println("Cannot find course");
         return false;
     }
 
-    public boolean dropCourse(String inputCou, String inputStu){
-        String couName  = null;
-        for (Course couTemp : courseList)
-            if(couTemp.getCourseID().equals(inputCou) || couTemp.getCourseName().equals(inputCou)){
-                couName = couTemp.getCourseID() + " " + couTemp.getCourseName();
-            }
-            if (studentInCourse.containsKey(couName)){
-                ArrayList<Student> stuTempList = studentInCourse.get(couName);
-                for (Student stuTemp : stuTempList)
-                    if (stuTemp.getStudentID().equals(inputStu)){
-                        stuTempList.remove(stuTemp);
-                        System.out.println("Remove student successfully");
-                        return true;
+    public boolean dropCourse(String inputCou, String inputStu, String inputSem){
+        for (Student stuTemp : studentsList)
+            if(stuTemp.getStudentID().equals(inputStu)){
+                HashMap<String, ArrayList<Course>> semCouTemp = studentEnrol.get(stuTemp);
+                for (String semStr : semesters){
+                    if (semStr.equals(inputSem)){
+                        ArrayList<Course> couListTemp = semCouTemp.get(semStr);
+                        for (Course couTemp : couListTemp)
+                            if (couTemp.getCourseID().equals(inputCou)){
+                                couListTemp.remove(couTemp);
+                                System.out.println("Drop course successfully");
+                                return true;
+                            }
+                        System.out.println("Cannot find course.");
+                        return false;
                     }
-                    System.out.println("Cannot find student");
+                    System.out.println("Semester is invalid");
                     return false;
+                }
             }
-            System.out.println("Cannot find course");
-            return false;
+        System.out.println("Cannot find student");
+        return false;
     }
 
     public boolean update(String mod, String ID, String field, String change) {
