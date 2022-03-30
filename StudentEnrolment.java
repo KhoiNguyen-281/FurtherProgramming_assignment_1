@@ -1,15 +1,18 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+
+
+import java.util.*;
+
 import java.time.Year;
 
+
 public class StudentEnrolment{
-    private static StudentEnrolment studentE = null;
     private Enrolment enrolment;
     private final ArrayList<Student> studentsList;
     private final ArrayList<Course> courseList;
     private final ArrayList<String> semesters;
     private final ArrayList<Enrolment> enrolmentList;
     private final HashMap<String, ArrayList<Course>> semesterCourses;
+    private HashMap<String, HashMap<String, String>> semesterStudent;
 
     //Constructor
     public StudentEnrolment() {
@@ -18,23 +21,11 @@ public class StudentEnrolment{
         this.semesters = new ArrayList<>();
         this.studentsList = new ArrayList<>();
         this.courseList = new ArrayList<>();
-    }
-
-    public void resetEnrolment(){
-        studentE = null;
+        this.semesterStudent = new HashMap<>();
     }
 
     //Getter
-    public static StudentEnrolment getInstance(){
-        if (studentE == null){
-            studentE = new StudentEnrolment();
-        }
-        return studentE;
-    }
 
-    public static StudentEnrolment getStudentE() {
-        return studentE;
-    }
 
     public Enrolment getEnrolment() {
         return enrolment;
@@ -61,6 +52,17 @@ public class StudentEnrolment{
     }
 
     //Setter
+
+
+    public void setEnrolment(Enrolment enrolment) {
+        this.enrolment = enrolment;
+    }
+
+
+    public void setSemesterStudent(HashMap<String, HashMap<String, String>> semesterStudent) {
+        this.semesterStudent = semesterStudent;
+    }
+
     //Create semester and add to semester list
     //Tested
     public void setSemesters(){
@@ -70,7 +72,9 @@ public class StudentEnrolment{
             String semStr = year + sem;
             semesters.add(semStr);
             ArrayList<Course> semCourses = new ArrayList<>();
+            HashMap<Student, Course> couOfStu =  new HashMap<>();
             semesterCourses.put(semStr, semCourses);
+
         }
     }
 
@@ -176,14 +180,14 @@ public class StudentEnrolment{
         if (stuTemp.getStudentID().equals(inputStu)){
             if(semesterCourses.containsKey(semStr)){
                 ArrayList<Course> couListTemp = semesterCourses.get(semStr);
-                for (Course couTemp : couListTemp)
-                    if(couTemp.getCourseID().equals(inputCou)) {
+                for (Course couTemp : couListTemp) {
+                    if (couTemp.getCourseID().equals(inputCou)) {
                         Enrolment enrolment = new Enrolment(stuTemp, couTemp, semStr);
                         addEnrolmentList(enrolment);
+                        System.out.println("Add enrollment successfully");
                         return true;
                     }
-                System.out.println("Course is not available");
-                return false;
+                }
             }
             System.out.println("Semester is not available");
             return false;
@@ -302,7 +306,7 @@ public class StudentEnrolment{
 
     //Drop course, delete student enrollment with student ID, course ID or name, semester
     //Tested
-    public void dropCourse(String inputCou, String inputStu, String inputSem) {
+    public void dropCourse(String inputStu, String inputCou, String inputSem) {
         int indexEnrol =  0;
         boolean isValid = false;
         for(int i = 0; i < enrolmentList.size(); i++){
@@ -387,9 +391,5 @@ public class StudentEnrolment{
             return false;
         }
         return false;
-    }
-
-    public void writeCsv(){
-
     }
 }
