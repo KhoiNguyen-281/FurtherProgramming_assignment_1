@@ -33,15 +33,14 @@ public class Menu {
         System.out.println("Press '1' to start, '2' to end.");
         int choice1 = sc.nextInt();
         while(choice1 == 1){
-            System.out.println("Select feature:" + "\n");
+            System.out.println("Select feature:");
             System.out.println("1. Create (Student, Course)" + "\n" +
                     "2. Add course to semesters" + "\n" +
                     "3. Create enrollment for student" + "\n" +
                     "4. Update (course or student)" + "\n" +
-                    "5. Drop course" + "\n" +
-                    "6. Search (Student or course)" + "\n" +
-                    "7. Show all (Student or course)" + "\n" +
-                    "8. Exit");
+                    "5. Search (Student or course)" + "\n" +
+                    "6. Show all (Student or course)" + "\n" +
+                    "7. Exit");
             System.out.print("Your choice: ");
             int choice2 = sc.nextInt();
             String exit = "";
@@ -62,7 +61,6 @@ public class Menu {
                         System.out.print("Date of birth (dd/mm/yyyy) : ");
                         var = sc.nextLine();
                         stE.create(mod, ID, name, var);
-                        System.out.println(stE.getStudentsList());
                     }
                     if (choice == 2) {
                         mod = "Course";
@@ -74,7 +72,6 @@ public class Menu {
                 if (choice2 == 2) {
                     System.out.println("Available semesters: " + stE.getSemesters());
                     System.out.println("Available courses: " + stE.getCourseList());
-
                     System.out.print("Semester (format 2022X ): ");
                     String semester = sc.next();
                     sc.nextLine();
@@ -121,18 +118,18 @@ public class Menu {
                         stE.update(mod, ID, field, change);
                     }
                 }
+//                if (choice2 == 5) {
+//                    System.out.println("Enter student ID, Course ID and semester:");
+//                    sc.nextLine();
+//                    System.out.print("Course ID: ");
+//                    String couID = sc.nextLine();
+//                    System.out.print("Student ID: ");
+//                    String stuID  = sc.nextLine();
+//                    System.out.print("Semester format (2022X):  ");
+//                    String sem = sc.nextLine();
+//                    stE.dropCourse(couID, stuID, sem);
+//                }
                 if (choice2 == 5) {
-                    System.out.println("Enter student ID, Course ID and semester:");
-                    sc.nextLine();
-                    System.out.print("Course ID: ");
-                    String couID = sc.nextLine();
-                    System.out.print("Student ID: ");
-                    String stuID  = sc.nextLine();
-                    System.out.print("Semester format (2022X):  ");
-                    String sem = sc.nextLine();
-                    stE.dropCourse(couID, stuID, sem);
-                }
-                if (choice2 == 6) {
                     System.out.println("'1' to search student,'2' to search course");
                     int choice = sc.nextInt();
                     sc.nextLine();
@@ -142,13 +139,41 @@ public class Menu {
                     if (choice ==  1){
                         mod = "Student";
                         stE.findOne(mod, ID);
+                        System.out.println("press 'y' if you want to add or delete, 'e' to return to search");
+                        System.out.print("Choice: ");
+                        String choice3 = sc.nextLine();
+                        while (!choice3.equals("e")){
+                            System.out.println("'1' to delete, '2' to add");
+                            String choiceStu = sc.nextLine();
+                            if (choiceStu.equals("1")){
+                                System.out.println("Enter course ID of semester you want to delete");
+                                System.out.print("Course ID: ");
+                                String couID  = sc.nextLine();
+                                System.out.print("Semester: ");
+                                String sem = sc.nextLine();
+                                stE.dropCourse(ID, couID, sem);
+                                stE.findOne(mod, ID);
+                            }
+                            if (choiceStu.equals("2")){
+                                System.out.print("Semester: ");
+                                String sem = sc.nextLine();
+                                System.out.println("Available courses: " + stE.getCoursesOfSemester(sem));
+                                System.out.println("Enter course ID and semester to add");
+                                System.out.print("Course ID: ");
+                                String couID = sc.nextLine();
+                                stE.createEnrollment(ID, couID, sem);
+                                stE.findOne(mod, ID);
+                            }
+                            System.out.println("press 'e' to exit, any key to continue");
+                            choice3 = sc.nextLine();
+                        }
                     }
                     if (choice ==  2){
                         mod = "Course";
                         stE.findOne(mod, ID);
                     }
                 }
-                if (choice2 == 7) {
+                if (choice2 == 6) {
                     System.out.println("'1' to show students, '2' to show courses");
                     int choice = sc.nextInt();
                     sc.nextLine();
@@ -162,11 +187,10 @@ public class Menu {
                         stE.findAll(mod);
                     }
                 }
-                if (choice2 == 8){
-//                    choice1 = 2;
+                if (choice2 == 7){
                     break;
                 }
-                System.out.println("Press any key to continue, 'e' to back to menu");
+                System.out.println("Press any key to continue, 'e' to exit");
                 exit = sc.nextLine();
             }
             System.out.println("Press '1' to start, '2' to end.");
