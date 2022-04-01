@@ -8,6 +8,9 @@ public class Course implements Management{
     private int courseNumOfCre;
     private ArrayList<Student> studentsList;
 
+    public Course() {
+    }
+
     public Course(String courseID, String courseName, int courseNumOfCre) {
         this.courseID = courseID;
         this.courseName = courseName;
@@ -40,14 +43,16 @@ public class Course implements Management{
     @Override
     public String toString() {
         return
-                "ID='" + courseID + '\'' +
-                ", Name='" + courseName + '\'' +
-                ", Credits=" + courseNumOfCre ;
+                "ID: " + courseID +
+                ", Name: " + courseName +
+                ", Credit: " + courseNumOfCre + "\n";
     }
 
     @Override
     public void update(String field, String input) {
-        if(field.equals("id") || field.equals("ID") || field.equals("Id")){
+        String fieldFixedID = "id";
+        String fieldFixedName = "name";
+        if(fieldFixedID.equalsIgnoreCase(field)){
             setCourseID(input);
         } if (field.equals("name") || field.equals("NAME") || field.equals("Name")){
             setCourseName(input);

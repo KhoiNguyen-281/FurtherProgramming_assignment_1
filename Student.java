@@ -43,12 +43,18 @@ public class Student implements Management {
 
     @Override
     public void update(String field, String input){
-        if (field.equals("ID")){
+        String finalID = "id";
+        String finalName = "name";
+        String finalDoB = "dob";
+        String finalBD = "date of birth";
+        String finalDb = "birthday";
+        if (finalID.equalsIgnoreCase(field)){
             setStudentID(input);
-        } if (field.equals("Name")){
+        } if (finalName.equalsIgnoreCase(field)){
             setStudentName(input);
-        } if (field.equals("DoB") || field.equals("date of birth") || field.equals("Date of birth") ||
-                field.equals("DOB") || field.equals("dob") || field.equals("birthday") || field.equals("Birthday")){
+        } if (finalDoB.equalsIgnoreCase(field)
+                || finalBD.equalsIgnoreCase(field)
+                || finalDb.equalsIgnoreCase(field)){
             setStudentBD(input);
         }
     }
@@ -56,8 +62,8 @@ public class Student implements Management {
     @Override
     public String toString() {
         return
-                "ID='" + studentID + '\'' +
-                ", Name='" + studentName + '\'' +
-                ", BD='" + studentBD ;
+                "ID: " + studentID +
+                ", Name: " + studentName +
+                ", BD: " + studentBD + "\n" ;
     }
 }

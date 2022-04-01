@@ -27,10 +27,10 @@ public class Enrolment {
 
     @Override
     public String toString() {
-        return "Enrolment{" +
+        return "Enrolment: " +
                 "student: " + student +
-                ", semester: '" + semester + '\'' +
                 ", course: " + course +
-                '}';
+                ", semester: " + semester +
+                "\n";
     }
 }
