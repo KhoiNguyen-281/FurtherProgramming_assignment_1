@@ -215,9 +215,8 @@ public class StudentEnrolment{
         if (stuTemp.getStudentID().equals(inputStu)){
             if(semesterCourses.containsKey(semStr)){
                 ArrayList<Course> couListTemp = semesterCourses.get(semStr);
-
                 for (Course couTemp : couListTemp) {
-                    if (couTemp.getCourseID().equals(inputCou)) {
+                    if (couTemp.getCourseID().equals(inputCou) || couTemp.getCourseName().equals(inputCou)) {
                         Enrolment enrolment = new Enrolment(stuTemp, couTemp, semStr);
                         addEnrolmentList(enrolment);
                         addStu(stuTemp, couTemp);
@@ -232,44 +231,28 @@ public class StudentEnrolment{
         return false;
     }
 
-    //Find all students in student list, courses in course list
+    //Find all students, courses in semester.
     //Tested
-    public void findAll(String inputMod){
+    public void findAll(String inputMod , String sem){
         String output = "";
         if(inputMod.equals("Student")){
-            for (Student stuTemp : studentsList){
-                output += "ID: " + stuTemp.getStudentID() + "\n" +
-                        "Name: " + stuTemp.getStudentName() + "\n" +
-                        "Date of birth: " + stuTemp.getStudentBD() + "\n" +
+            for (Student stuTemp : semesterStudent.get(sem)){
+                output += "\n" + "Semester: " + sem + "\n"
+                        + stuTemp.toString() +
                         "Enrollment history: " + "\n";
-                for (Enrolment enrolTemp : enrolmentList)
-                    if(enrolTemp.getStudent().getStudentID().equals(stuTemp.getStudentID())) {
-                        output += enrolTemp.getSemester() + " " +
-                                enrolTemp.getCourse().getCourseID() + " " +
-                                enrolTemp.getCourse().getCourseName() + "\n";
-
-                    }
-                output += "\n";
+                for (Course couTemp : stuTemp.getCoursesList()) {
+                    output += couTemp.toString();
+                }
             }
             System.out.println(output);
         }
         if(inputMod.equals("Course")){
-            for (Course couTemp : courseList){
-                output += "\n" + "ID: " + couTemp.getCourseID() + "\n" +
-                        "Name: " + couTemp.getCourseName() + "\n" +
-                        "Number of credits: " + couTemp.getCourseNumOfCre() + "\n" +
-                        "Enrolled students: " +"\n";
-                for (String semStrTemp : semesterCourses.keySet()) {
-                    ArrayList<Course> couListTemp = semesterCourses.get(semStrTemp);
-                    for (Course couTemp2 : couListTemp)
-                    if (couTemp2.getCourseID().equals(couTemp.getCourseID())) {
-                        for (Enrolment enrolTemp : enrolmentList)
-                        if(enrolTemp.getCourse().getCourseID().equals(couTemp.getCourseID())
-                                && enrolTemp.getSemester().equals(semStrTemp)) {
-                            output +=  semStrTemp + " " + enrolTemp.getStudent().getStudentID() +
-                                    " " + enrolTemp.getStudent().getStudentName() + "\n";
-                        }
-                    }
+            for (Course couTemp : semesterCourses.get(sem)){
+                output += "\n" + "Semester: " + sem + "\n"
+                        + couTemp.toString() +
+                        "Enrollment history: " + "\n";
+                for (Student stuTemp : couTemp.getStudentsList()) {
+                    output += stuTemp.toString();
                 }
             }
             System.out.println(output);
@@ -278,154 +261,75 @@ public class StudentEnrolment{
 
     //Find student with student ID, course with course ID
     //Tested
-    public void findOne(String inputMod, String ID){
+    public void findOne(String inputMod, String ID, String sem){
         String output = "";
-        boolean isIdExist = false;
         if (inputMod.equals("Student")){
-            for (Student stuTemp : studentsList) {
+            for (Student stuTemp : semesterStudent.get(sem)) {
                 if (stuTemp.getStudentID().equals(ID)) {
-                    isIdExist = true;
-                    output += "\n" + "ID: " + stuTemp.getStudentID() + "\n" +
-                            "Name: " + stuTemp.getStudentName() + "\n" +
-                            "Date of birth: " + stuTemp.getStudentBD() + "\n" +
-                            "Enrollment history: " + "\n";
-                    for (Enrolment enrolTemp : enrolmentList) {
-                        if (enrolTemp.getStudent().getStudentID().equals(stuTemp.getStudentID())) {
-                            output += enrolTemp.getSemester() + " " +
-                                    enrolTemp.getCourse().getCourseID() + " " +
-                                    enrolTemp.getCourse().getCourseName() + "\n";
-                        }
+                    output += "\n" + stuTemp.toString() +
+                            "Enrolled course: " + "\n";
+                    for (Course couTemp : semesterCourses.get(sem)) {
+                        output += couTemp.toString();
                     }
-                    break;
-                } else {
-                    isIdExist = false;
                 }
             }
-            if (isIdExist){
-                System.out.println(output);
-            } else {
-                System.out.println("Not found");
-            }
+            System.out.println(output);
         }
         if(inputMod.equals("Course")){
-            for (Course couTemp : courseList){
-                if (couTemp.getCourseID().equals(ID)){
-                    isIdExist = true;
-                    output += "\n" + "ID: " + couTemp.getCourseID() + "\n" +
-                            "Name: " + couTemp.getCourseName() + "\n" +
-                            "Number of credits: " + couTemp.getCourseNumOfCre() + "\n" +
-                            "Enrolled students: " +"\n";
-                    for (String semStrTemp : semesterCourses.keySet()) {
-                        ArrayList<Course> couListTemp = semesterCourses.get(semStrTemp);
-                        for (Course couTemp2 : couListTemp)
-                        if (couTemp2.getCourseID().equals(couTemp.getCourseID())) {
-                            for (Enrolment enrolTemp : enrolmentList)
-                            if(enrolTemp.getCourse().getCourseID().equals(couTemp.getCourseID())
-                                    && enrolTemp.getSemester().equals(semStrTemp)) {
-                                output +=  semStrTemp + " " + enrolTemp.getStudent().getStudentID() +
-                                        " " + enrolTemp.getStudent().getStudentName() + "\n";
-                            }
-                        }
+            for (Course couTemp : semesterCourses.get(sem)) {
+                if (couTemp.getCourseID().equals(ID)) {
+                    output += "\n" + couTemp.toString() +
+                            "Enrolled student: " + "\n";
+                    for (Student stuTemp : semesterStudent.get(sem)) {
+                        output += stuTemp.toString();
                     }
-                    break;
-                }else {
-                    isIdExist = false;
                 }
             }
-            if (isIdExist){
-                System.out.println(output);
-            } else {
-                System.out.println("Not found");
-            }
+            System.out.println(output);
         }
     }
 
     //Drop course, delete student enrollment with student ID, course ID or name, semester
     //Tested
     public void dropCourse(String inputStu, String inputCou, String inputSem) {
-        int indexEnrol =  0;
-        boolean isValid = false;
-        for(int i = 0; i < enrolmentList.size(); i++){
-            String stuID = enrolmentList.get(i).getStudent().getStudentID();
-            String couID = enrolmentList.get(i).getCourse().getCourseID();
-            String sem  = enrolmentList.get(i).getSemester();
-            if (stuID.equals(inputStu) && couID.equals(inputCou) && sem.equals(inputSem)){
-                indexEnrol = i;
-                isValid = true;
-                break;
+        for (Student stuTemp : semesterStudent.get(inputSem))
+        if(stuTemp.getStudentID().equals(inputStu)){
+            for (Course couTemp : stuTemp.getCoursesList())
+            if (couTemp.getCourseID().equals(inputCou) || couTemp.getCourseName().equals(inputCou)){
+                stuTemp.getCoursesList().remove(couTemp);
+                System.out.println("Drop course successfully");
             }
-            else {
-                isValid = false;
-            }
-        }
-        if(isValid){
-            enrolmentList.remove(enrolmentList.get(indexEnrol));
-            System.out.println("Drop course successfully");
-        } else {
-            System.out.println("Invalid input");
         }
     }
 
     //Update student, course with ID
     //Tested
-    public boolean update(String mod, String ID, String field, String change) {
-        if(mod.equals("Student")){
-            for(Student student : studentsList)
-                if (student.getStudentID().equals(ID)){
-                    System.out.println(student);
-                    student.update(field, change);
-                    System.out.println("Update successfully");
-                    System.out.println(student);
-                    return true;
-                }
-                System.out.println("Invalid student ID");
-                return false;
+    public void updateCourse(String stuID, String sem, String couIn, String field, String change ) {
+        for (Student stuTemp : semesterStudent.get(sem))
+        if(stuTemp.getStudentID().equals(stuID)){
+            for (Course couTemp : stuTemp.getCoursesList())
+            if (couTemp.getCourseID().equals(couIn) || couTemp.getCourseName().equals(couIn)){
+                couTemp.update(field, change);
+                System.out.println("Update course successfully");
+                System.out.println(couTemp);
+            }
         }
-        if(mod.equals("course")){
-            for (Course course : courseList)
-                if(course.getCourseID().equals(ID)){
-                    System.out.println(course);
-                    course.update(field, change);
-                    System.out.println("Update successfully");
-                    System.out.println(course);
-                    return true;
-                }
-                System.out.println("Invalid course ID");
-                return false;
-        }
-        System.out.println("Error, please check input again");
-        return false;
     }
 
-    //Delete student in student list with ID, course in course list and semester's course with ID
-    //Tested
-    public boolean delete(String mod, String ID){
-        if (mod.equals("Student")){
-            for (Student stuTemp : studentsList)
-            if (stuTemp.getStudentID().equals(ID)){
+    public void updateStudent(String stuID, String mod, String field, String change){
+        for (Student stuTemp : studentsList)
+        if (stuTemp.getStudentID().equals(stuID)){
+            if (mod.equals("Update")){
+                stuTemp.update(field, change);
+                System.out.println(stuTemp);
+                return;
+            }
+            if (mod.equals("Remove")){
                 studentsList.remove(stuTemp);
-                System.out.println("Delete student successfully");
-                return true;
+                System.out.println(studentsList);
+                return;
             }
-            System.out.println("Cannot find student");
         }
-        if (mod.equals("Course")){
-            for (Course couTemp : courseList)
-            if (couTemp.getCourseID().equals(ID)){
-                for (String keySem : semesterCourses.keySet()){
-                    ArrayList<Course> couListTemp = semesterCourses.get(keySem);
-                    for (Course couTemp2 : couListTemp)
-                    if (couTemp2.getCourseID().equals(ID)){
-                        couListTemp.remove(couTemp2);
-                        courseList.remove(couTemp);
-                        System.out.println("Delete course successfully");
-                        return true;
-                    }
-                }
-            }
-            System.out.println("Cannot find course");
-            return false;
-        }
-        return false;
     }
+
 }
