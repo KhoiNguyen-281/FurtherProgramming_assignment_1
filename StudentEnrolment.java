@@ -271,7 +271,10 @@ public class StudentEnrolment{
                     for (Course couTemp : semesterCourses.get(sem)) {
                         output += couTemp.toString();
                     }
+                    break;
                 }
+                System.out.println("Student not found");
+                break;
             }
             System.out.println(output);
         }
@@ -282,8 +285,11 @@ public class StudentEnrolment{
                             "Enrolled student: " + "\n";
                     for (Student stuTemp : semesterStudent.get(sem)) {
                         output += stuTemp.toString();
+                        break;
                     }
                 }
+                System.out.println("Student not found");
+                break;
             }
             System.out.println(output);
         }
@@ -298,7 +304,9 @@ public class StudentEnrolment{
             if (couTemp.getCourseID().equals(inputCou) || couTemp.getCourseName().equals(inputCou)){
                 stuTemp.getCoursesList().remove(couTemp);
                 System.out.println("Drop course successfully");
+                return;
             }
+            System.out.println("Course not found");
         }
     }
 
@@ -312,7 +320,9 @@ public class StudentEnrolment{
                 couTemp.update(field, change);
                 System.out.println("Update course successfully");
                 System.out.println(couTemp);
+                return;
             }
+            System.out.println("Course not found");
         }
     }
 
@@ -330,6 +340,7 @@ public class StudentEnrolment{
                 return;
             }
         }
+        System.out.println("Student not found");
     }
 
 }

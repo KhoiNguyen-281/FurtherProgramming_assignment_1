@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
     public static void main(String[] args){
@@ -19,8 +21,15 @@ public class Menu {
 
         stE.createEnrollment("S001", "C001", "2022A");
         stE.createEnrollment("S001", "C002", "2022A");
-//        create(stE, sc);
-        find(stE, sc);
+        upDateStu(stE, sc, "S001");
+//        upDateCourse(stE, sc, "S001", "2022A");
+//        dropCourse(stE, sc, "S001", "2022A");
+//        find(stE, sc);
+//        String choice = sc.nextLine();
+//        checkChoice(sc, choice);
+//        checkChoiceTask(sc, choice);
+
+//        taskPerform(stE, sc, "S001", "2022A" );
     }
     public static void menu(Scanner sc){
         System.out.println("""
@@ -36,10 +45,11 @@ public class Menu {
         String choice = sc.nextLine();
         while (!choice.equals("e")){
             System.out.println("""
-                            - Press '1': Create new student or new course
-                            - Press '2': Add courses to semesters
-                            - Press '3': Enroll students to course
-                            - Press '4': View students or course
+                            - Press '1': Create new student
+                            - Press '2': Create new course
+                            - Press '3': Add courses to semesters
+                            - Press '4': Enroll students to course
+                            - Press '5': View students or course
                             - Press 'e': exits"""
 
             );
@@ -48,26 +58,27 @@ public class Menu {
         }
     }
 
-    public static void create(StudentEnrolment stE, Scanner sc){
-        System.out.println("""
-                - Press '1': Create student
-                - Press '2': Create course""");
-        System.out.print("Your choice: ");
-        String choice = sc.nextLine();
-        while (choice.equals("1") || choice.equals("2")){
-            if (choice.equals("1")){
-                createStudent(stE, sc);
-            }
-            if (choice.equals("2")){
-               createCourse(stE, sc);
-            }
-            System.out.println("""
-                    - Press '1': Continue create student
-                    - Press '2': Create course
-                    - Press any: Exit to menu""");
-            choice = sc.nextLine();
-        }
-    }
+//    public static void create(StudentEnrolment stE, Scanner sc){
+//        System.out.println("""
+//                - Press '1': Create student
+//                - Press '2': Create course""");
+//        System.out.print("Your choice: ");
+//        String choice = sc.nextLine();
+//        boolean b = true;
+//        while (checkChoiceTask(sc, choice)){
+//            if (choice.equals("1")){
+//                createStudent(stE, sc);
+//            }
+//            if (choice.equals("2")){
+//               createCourse(stE, sc);
+//            }
+////            System.out.println("""
+////                    - Press '1': Continue create student
+////                    - Press '2': Create course
+////                    - Press any: Exit to menu""");
+////            choice = sc.nextLine();
+//        }
+//    }
 
     public static void createStudent(StudentEnrolment stE, Scanner sc){
             String mod = "Student";
@@ -245,7 +256,7 @@ public class Menu {
             System.out.println("Invalid input, please try again, 'exit' to exit");
             System.out.print("Your choice: ");
             allOrOne = sc.nextLine();
-            if (exit(allOrOne)){
+            if (allOrOne.equals("exit")){
                 break;
             }
         }
@@ -318,10 +329,8 @@ public class Menu {
             break;
         }
         stE.findOne(mod, stuID, sem);
-        taskPerform(sc, stE, stuID, sem);
+        taskPerform(stE, sc,  stuID, sem);
     }
-
-
 
     public static void findOneCou(StudentEnrolment stE, Scanner sc, String sem){
             String mod = "Course";
@@ -342,41 +351,26 @@ public class Menu {
 
     }
 
-    public static boolean taskMenuCheck( String choice){
-        String[] choiceList = {"1","2","3","4","5"};
-        for (String s : choiceList)
-            if (s.equals(choice)) {
-                return true;
-            }
-        return false;
-    }
 
-    public static void taskPerform(Scanner sc, StudentEnrolment stE, String stuID, String sem ){
+
+    public static void taskPerform(StudentEnrolment stE, Scanner sc,  String stuID, String sem ){
         System.out.println("""
                 - Press '1': Perform tasks
                 - Press any: Exit to search""");
         System.out.print("Your choice: ");
         String choice = sc.nextLine();
-        checkChoiceTask(sc, choice);
-        System.out.println("""
-                    - Press '1': Update enrolled course
-                    - Press '2': Drop course
-                    - Press '3': Add course
-                    - Press '4': Update student information
-                    - Press '5': Delete student
-                    - Press any or 'exit': Exit""");
-        System.out.print("Your choice: ");
+        if (!choice.equals("1")){
+            return;
+        }
+        taskMenu();
         String option = sc.nextLine();
-        boolean b = taskMenuCheck(option);
-        while (b){
-            if (exit(option)){
-                break;
-            }
+        checkOption(sc, option);
+        while (!option.equals("exit")){
             if(option.equals("1")){
-                upDateCourse(stE, sc, stuID, sem, option);
+                upDateCourse(stE, sc, stuID, sem);
             }
             if (option.equals("2")){
-                dropCourse(stE, sc, stuID, sem, option);
+                dropCourse(stE, sc, stuID, sem);
             }
             if (option.equals("3")){
                 enrollStudent(stE, sc, stuID, sem, option);
@@ -387,23 +381,21 @@ public class Menu {
             if (option.equals("5")){
                 removeStu(stE, stuID);
             }
-            System.out.println("""
-                    - Press '1' to '5': to choose another task
-                    - Press any: to back to search""");
-            System.out.print("Your choice: ");
+            taskMenu();
             option = sc.nextLine();
+            checkOption(sc, option);
         }
     }
 
-
-    public static void upDateCourse(StudentEnrolment stE, Scanner sc, String stuID, String sem, String choice){
-//        String stuID, String sem, String couIn, String field, String change
-        while (choice.equals("c")){
+//tested
+    public static void upDateCourse(StudentEnrolment stE, Scanner sc, String stuID, String sem){
+        String choice = "c";
+        while (!choice.equals("exit")){
             System.out.println("Input course ID or name, field of data and new data,'exit' to exit");
             System.out.print("Course: ");
             String cou = sc.nextLine();
             if(exit(cou)){
-                break;
+                return;
             }
             for (Enrolment enrolTemp : stE.getEnrolmentList()){
                 if (enrolTemp.getStudent().getStudentID().equals(stuID)
@@ -438,20 +430,24 @@ public class Menu {
             System.out.print("New data: ");
             String data = sc.nextLine();
             stE.updateCourse(stuID, sem, cou, field,data);
+            choice = sc.nextLine();
             checkChoiceTask(sc, choice);
+//            }
         }
     }
 
-    public static void dropCourse(StudentEnrolment stE, Scanner sc, String stuID, String sem, String choice){
-        while ( choice.equals("c")){
+//    tested
+    public static void dropCourse(StudentEnrolment stE, Scanner sc, String stuID, String sem){
+        String choice = "c";
+        while (choice.equals("c")){
             if (exit(choice)) {
-                break;
+                return;
             }
             System.out.println("Enter course ID or name to drop, 'exit' to exit");
             System.out.print("Course: ");
             String cou = sc.nextLine();
             if (exit(cou)) {
-                break;
+                return;
             }
             for (Enrolment enrolTemp : stE.getEnrolmentList()) {
                 if (enrolTemp.getStudent().getStudentID().equals(stuID)
@@ -466,65 +462,116 @@ public class Menu {
                         System.out.println("Cannot find course, please try again or type 'exit' to exit");
                         System.out.print("Course: ");
                         cou = sc.nextLine();
-
+                        if (exit(cou)) {
+                            return;
+                        }
                     }
                 }
                 break;
             }
             stE.dropCourse(stuID, cou, sem);
-            checkChoiceTask( sc, choice);
+            choice = sc.nextLine();
+            checkChoiceTask(sc, choice);
             }
         }
 
+//tested
     public static void upDateStu(StudentEnrolment stE, Scanner sc, String stuID){
         String choice = "c";
-        while (choice.equals("c")){
-            if (exit(choice)) {
-                break;
-            }
+        while (choice.equals("c")) {
             String mod = "Update";
-            System.out.println("Enter data field and new data to update, 'exit' to exit");
+            System.out.println("Enter student ID, Name or DoB and new data to update, 'exit' to exit");
             System.out.print("Field (ID, Name, DoB): ");
             String field = sc.nextLine();
+            if (exit(field)) {
+                return;
+            }
             while (!field.equals("ID")) {
-                if (!exit(field)) {
-                    if (field.equals("Name") || field.equals("DoB")) {
-                        break;
-                    }
-                    System.out.println("Field is not exist, please try again, 'exit' to exit");
-                    System.out.print("Field (ID, Name, DoB): ");
-                    field = sc.nextLine();
+                if (field.equals("Name") || field.equals("DoB")) {
                     break;
+                }
+                System.out.println("Field is not exist, please try again, 'exit' to exit");
+                System.out.print("Field (ID, Name, DoB): ");
+                field = sc.nextLine();
+                if (exit(field)) {
+                    return;
                 }
             }
             System.out.print("New data: ");
             String data = sc.nextLine();
             if (exit(data)) {
-                break;
+                return;
             }
-                stE.updateStudent(stuID, mod, field, data);
-                checkChoiceTask(sc, choice);
-            }
+            stE.updateStudent(stuID, mod, field, data);
+            choice = sc.nextLine();
+            checkChoiceTask(sc, choice);
         }
+    }
 
-
-
+//tested
     public static void removeStu(StudentEnrolment stE, String stuID){
         String mod = "Remove";
         stE.updateStudent(stuID, mod, null, null);
+        System.out.println("Removed student successfully");
+        System.out.println("Exited");
     }
 
+//tested
     public static boolean exit(String choice){
-        choice = "exit";
+        if (choice.equals("exit")){
+            System.out.println("Exited");
+            return true;
+        }
         return false;
     }
 
-    public static boolean checkChoiceTask(Scanner sc, String choice){
+//    tested
+    public static void checkChoiceTask(Scanner sc, String choice) {
+        while (!choice.equals("c")){
+            if (exit(choice)){
+                break;
+            }
+            System.out.println("Invalid input, please try again, 'exit' to exit");
+            System.out.print("Your choice: ");
+            choice = sc.nextLine();
+        }
+
+    }
+    public static boolean checkOption(Scanner sc, String option){
+        boolean b = false;
+        while (!option.equals("1")){
+            if (option.equals("2")){
+                b = true;
+                return b;
+            }
+            if (option.equals("3")){
+                b = true;
+                return b;
+            }
+            if (option.equals("4")){
+                b = true;
+                return b;
+            }
+            if (option.equals("5")){
+                b = true;
+                return b;
+            }
+            exit(option);
+            System.out.println("Invalid option, please try again, 'exit' to exit");
+            System.out.print("Your choice: ");
+            option = sc.nextLine();
+        }
+        return b;
+    }
+
+    public static void taskMenu(){
         System.out.println("""
-                    - Press 'c': Continue update
-                    - Press any: Exist to task menu""");
+                    - Press '1': Update enrolled course
+                    - Press '2': Drop course
+                    - Press '3': Add course
+                    - Press '4': Update student information
+                    - Press '5': Delete student
+                    - Press 'exit': Exit""");
         System.out.print("Your choice: ");
-        choice = sc.nextLine();
-        return !exit(choice);
     }
 }

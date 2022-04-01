@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="add version 3.16.2">
-      <change afterPath="$PROJECT_DIR$/Management.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Enrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Enrolment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Management.java" beforeDir="false" afterPath="$PROJECT_DIR$/Management.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Course.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Course.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Student.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +30,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home/lib/src.zip!/java.base/java/io/PrintStream.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="26SQJsA6UpGxsLJzMC8dQR4lt0M" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,7 +47,14 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TestUnit">
+  <component name="RunManager" selected="Application.Menu">
+    <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Menu" />
+      <module name="FurtherProgramming_assignment_1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StudentEnrolment" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="StudentEnrolment" />
       <module name="FurtherProgramming_assignment_1" />
@@ -61,6 +71,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Menu" />
         <item itemvalue="Application.TestUnit" />
         <item itemvalue="Application.StudentEnrolment" />
       </list>
@@ -116,7 +127,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add version 3.16.2" />
