@@ -1,8 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.*;
 
 public class Menu {
     public static void main(String[] args){
@@ -23,10 +20,13 @@ public class Menu {
 
         stE.createEnrollment("S001", "C001", "2022A");
         stE.createEnrollment("S001", "C002", "2022A");
+//        ArrayList<Student> stuTmep = stE.getStudentsList();
+//        System.out.println(stuTmep);
 
-
-
+//        addCourseToSemester(stE, sc);
+//        System.out.println(stE.getSemesterCourses());
         createNew(stE, sc);
+//        System.out.println(exit("ID").equals("ID"));
 
 
     }
@@ -34,7 +34,8 @@ public class Menu {
      * 1. Create new student, Course
      * 2. Add course to semester
      * 3. Enrol student
-     * 4. Search**/
+     * 4. Search
+     * 5. Exit **/
     //Method to check if user's choice is valid
     public static boolean checkChoiceMenu(StudentEnrolment stE, String choice){
         String[] choiceList = {"1","2","3","4"};
@@ -49,67 +50,69 @@ public class Menu {
         return true;
     }
 
-    public static boolean checkChoiceCreate( String choice){
-        String[] choiceList = {"1","2"};
-        for (String c : choiceList){
-            if (choice.equals(c)){
-                return false;
-            }
-            if (exit(choice).equals(choice)){
-                return false;
-            }
-        }
-        return true;
-    }
-
 
 //    1. Create new student, course
-    //Method to input new ID to create student, course
+    //Check if ID is exist to add new student, course
     //Tested
-    public static String inputNewID(StudentEnrolment stE, Scanner sc, String ID, String mod){
-        String valid_ID = "";
+    public static void checkIfIDStuExist(StudentEnrolment stE, Scanner sc, String ID, String mod){
+        ArrayList<Student> stuTempList = stE.getStudentsList();
+        for (Student student : stuTempList) {
+            while (student.getStudentID().equals(ID)) {
+                System.out.println("ID is existed, please input another, or 'exit' to exit");
+                System.out.print(mod + "ID: ");
+                ID = sc.nextLine();
+                if (exit(ID).equals(ID)) {
+                    System.out.println("Exit");
+                    return;
+                }
+            }
+        }
+        System.out.println("ID valid, continue");
+    }
+    public static void checkIfIDCouExist(StudentEnrolment stE, Scanner sc, String ID, String mod){
+        ArrayList<Course> couTempList = stE.getCourseList();
+        for (Course course : couTempList) {
+            while (course.getCourseID().equals(ID)) {
+                System.out.println("ID is existed, please input another, or 'exit' to exit");
+                System.out.print(mod + "ID: ");
+                ID = sc.nextLine();
+                if (exit(ID).equals(ID)) {
+                    System.out.println("Exit");
+                    return;
+                }
+            }
+        }
+        System.out.println("ID valid, continue");
+    }
+    public static void inputNewID(StudentEnrolment stE, Scanner sc, String ID, String mod){
         System.out.print(mod + "ID: ");
         ID = sc.nextLine();
         if (exit(ID).equals(ID)){
-            return null;
+            return;
         }
-        while (checkIfIDExist(stE, ID)){
-            System.out.println("ID existed, try again or type 'exit' to exit");
-            System.out.print("Your choice: ");
-            ID = sc.nextLine();
-        }
-        valid_ID = ID;
-        return valid_ID;
+        checkIfIDStuExist(stE, sc, ID, mod);
+        checkIfIDCouExist(stE, sc, ID, mod);
     }
-    //Method to input new name to create student, course
+    //Method to create student and course
     //Tested
-    public static String inputNewName(Scanner sc, String name){
-        System.out.print("Name: ");
-        name = sc.nextLine();
-        if (exit(name).equals(name)){
-            return null;
-        }
-        return name;
-    }
-    //Method menu for create
-    //Tested
-    public static void createChoice(){
+    public static void createNew(StudentEnrolment stE, Scanner sc){
+        System.out.println("---Create student and course---");
         System.out.println("""
                 +Press '1': Create student
                 +Press '2': Create course
                 +Type 'exit': Exit to menu page""");
         System.out.print("Your choice: ");
-    }
-    //Method to create student and course
-    //Tested
-    public static void createNew(StudentEnrolment stE, Scanner sc){
-        System.out.println("---In this function, create student and course---");
-        createChoice();
         String choice = sc.nextLine();
-        while(checkChoiceCreate(choice)){
+        while(!choice.equals("1")){
+            if (choice.equals("2")){
+                break;
+            }
             System.out.println("Invalid choice, please try again");
             System.out.print("Your choice: ");
             choice = sc.nextLine();
+            if (exit(choice).equals(choice)){
+                return;
+            }
         }
         while (!exit(choice).equals(choice)){
             String ID = "";
@@ -118,7 +121,11 @@ public class Menu {
             if (choice.equals("1")){
                 mod = "Student ";
                 inputNewID(stE, sc, ID, mod);
-                inputNewName(sc, name);
+                System.out.print("Name: ");
+                name = sc.nextLine();
+                if (exit(name).equals(name)){
+                    return;
+                }
                 System.out.print("Date of birth: ");
                 String val = sc.nextLine();
                 if (exit(val).equals(val)){
@@ -128,8 +135,12 @@ public class Menu {
             }
             if (choice.equals("2")){
                 mod = "Course ";
-                inputNewID(stE, sc, ID,mod);
-                inputNewName(sc, name);
+                checkIfIDCouExist(stE, sc, ID, mod);
+                System.out.print("Name: ");
+                name = sc.nextLine();
+                if (exit(name).equals(name)){
+                    return;
+                }
                 System.out.print("Credits: ");
                 String val = sc.nextLine();
                 if (exit(val).equals(val)){
@@ -137,11 +148,100 @@ public class Menu {
                 }
                 stE.createCou(ID, name, val);
             }
-            createChoice();
+            System.out.println("""
+                +Press '1': Create student
+                +Press '2': Create course
+                +Type 'exit': Exit to menu page""");
+            System.out.print("Your choice: ");
             choice = sc.nextLine();
         }
     }
 //
+
+//      Add course to semester
+    //Show available semesters
+    //Tested
+    public static void availableSem(StudentEnrolment stE){
+        String validSem = "";
+        for (String semTemp : stE.getSemesters()){
+            validSem += semTemp + " ";
+        }
+        System.out.println("Available semesters: ");
+        System.out.println(validSem);
+    }
+    //Check if input semester is valid to enroll, add course, find, delete
+    //Tested
+    public static String checkSemValid(StudentEnrolment stE, Scanner sc, String sem){
+        System.out.print("Semester: ");
+        sem = sc.nextLine();
+        for (String semTemp : stE.getSemesters()){
+            while(!semTemp.equals(sem)){
+                System.out.println(semTemp.equals(sem));
+                System.out.println("Semester is not valid, please try again, 'exit' to exit");
+                System.out.print("Semester: ");
+                sem = sc.nextLine();
+                if (exit(sem).equals(sem)){
+                    return sem;
+                }
+            }
+        }
+        System.out.println("Semester valid, continue");
+        return sem;
+    }
+
+    //Check if course is existed to add to semester
+    //Tested
+    public static String checkCourInList(StudentEnrolment stE,Scanner sc, String cou){
+        availableCourseInList(stE);
+        System.out.println("Input course ID or name to add to semester, 'exit' to exit");
+        System.out.print("Course ID or name: ");
+        cou = sc.nextLine();
+        if (exit(cou).equals(cou)){
+            return cou;
+        }
+        for (Course couTemp : stE.getCourseList()){
+            while (!couTemp.getCourseID().equals(cou)){
+                if (couTemp.getCourseName().equals(cou)){
+                    break;
+                }
+                System.out.println("Cannot find course, please try again, 'exit' to exit");
+                System.out.print("Course ID or name: ");
+                cou = sc.nextLine();
+                if (exit(cou).equals(cou)){
+                    return cou;
+                }
+            }
+        }
+        return cou;
+    }
+    //Input course information to add to semester
+    //Tested
+    public static void addCourseToSemester(StudentEnrolment stE, Scanner sc){
+        System.out.println("---Add course to semester---");
+        System.out.println("""
+                +Press any: Start function
+                +Type 'exit': Exit to menu""");
+        String choice = sc.nextLine();
+        while (!exit(choice).equals(choice)){
+            availableSem(stE);
+            String sem = "";
+            checkSemValid(stE, sc, sem);
+            String cou = "";
+            while (!exit(cou).equals(cou)){
+                checkCourInList(stE, sc, cou);
+                stE.addSemesterCourses(cou, sem);
+                System.out.println("""
+                        +Press 'any': Continue adding course
+                        +Type 'exit': Exit to select semester""");
+                System.out.print("Your choice");
+                cou = sc.nextLine();
+            }
+            System.out.println("""
+                +Press any: Start function again
+                +Type 'exit': Exit to menu""");
+            choice = sc.nextLine();
+        }
+    }
 
 
     //Declare exit method() o exit
@@ -154,70 +254,10 @@ public class Menu {
 
     //Declare check methods to check user in put
 
-    //Check if input semester is valid to enroll, add course, find, delete
-    //Tested
-    public static boolean checkSemValid(StudentEnrolment stE, String sem){
-        for (String semTemp : stE.getSemesters()){
-            if(semTemp.equals(sem)){
-                System.out.println("Semester valid, continue");
-                return false;
-            }
-            if (exit(sem).equals(sem)){
-                System.out.println("Exit");
-                return false;
-            }
-        }
-        return true;
-    }
-    //Show available semesters
-    //Tested
-    public static void availableSem(StudentEnrolment stE){
-        String validSem = "";
-        for (String semTemp : stE.getSemesters()){
-            validSem += semTemp + " ";
-        }
-        System.out.println("Available semesters: ");
-        System.out.println(validSem);
-    }
-    //Method to input semesters to find, update, enrol, drop course, update
-    //Tested
-    public static String inputSemester(StudentEnrolment stE, Scanner sc, String sem){
-        String validSem = "";
-        while (checkSemValid(stE, sem)){
-            System.out.println("Semester is not exist in the system, please try again, 'exit' to exit");
-            System.out.print("Your input: ");
-            sem =  sc.nextLine();
-        }
-        validSem = sem;
-        return validSem;
-    }
-    //Check if ID is exist in semester (student) to enrol, find, update student, update course, drop course;
-    //Tested
-    public static boolean checkIfIDExist(StudentEnrolment stE, String ID){
-        for (Student stuTemp : stE.getStudentsList()){
-            if (stuTemp.getStudentID().equals(ID)){;
-                return true;
-            }
-            if (exit(ID).equals(ID)){
-                System.out.println("Exit");
-                return false;
-            }
-            System.out.println("ID valid, continue");
-            return false;
-        }
-        for (Course couTemp : stE.getCourseList()){
-            if (couTemp.getCourseID().equals(ID)){
-                return true;
-            }
-            if (exit(ID).equals(ID)){
-                System.out.println("Exit");
-                return false;
-            }
-            System.out.println("ID valid, continue");
-            return false;
-        }
-        return false;
-    }
+
+
+
+
 
 
     //Check if ID is exist in lists (student, course)
@@ -247,33 +287,8 @@ public class Menu {
         validID = ID;
         return validID;
     }
-    //Check if course is existed to add to semester
-    //Tested
-    public static boolean checkCourInList(StudentEnrolment stE, String cou){
-        for (Course couTemp : stE.getCourseList()){
-            if (couTemp.getCourseID().equals(cou) || couTemp.getCourseName().equals(cou)){
-                System.out.println("Course available, continue");
-                return false;
-            }
-            if (exit(cou).equals(cou)){
-                System.out.println("Exit");
-                return false;
-            }
-        }
-        return true;
-    }
-    //Input course information to add to semester
-    //Tested
-    public static String inputCou(StudentEnrolment stE, Scanner sc, String cou){
-        String validCOurse =  "";
-        while (checkCourInList(stE, cou)){
-            System.out.println("Cannot find course, please try again, 'exit' to exit");
-            System.out.print("Your choice: ");
-            cou =  sc.nextLine();
-        }
-        validCOurse =  cou;
-        return validCOurse;
-    }
+
+
     //Show available course in semester to enrol
     //Tested
     public static void availableCourseInSem(StudentEnrolment stE, String sem){

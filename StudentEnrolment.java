@@ -193,6 +193,7 @@ public class StudentEnrolment{
                 }
                 couListTemp.add(courseList.get(indexCou));
                 semesterCourses.put(semStr, couListTemp);
+                System.out.println("Add course to semester successfully." + "\n");
                 return;
             }
         }
