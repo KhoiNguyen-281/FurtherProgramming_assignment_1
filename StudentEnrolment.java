@@ -1,5 +1,6 @@
 
 
+import javax.swing.*;
 import java.util.*;
 
 import java.time.Year;
@@ -54,11 +55,9 @@ public class StudentEnrolment{
     }
 
     //Setter
-
     public void setEnrolment(Enrolment enrolment) {
         this.enrolment = enrolment;
     }
-
 
     public void setSemesterStudent(HashMap<String, ArrayList<Student>> semesterStudent) {
         this.semesterStudent = semesterStudent;
@@ -81,13 +80,7 @@ public class StudentEnrolment{
 
     //Initialized methods
     public ArrayList<Course> getCoursesOfSemester(String sem){
-        ArrayList<Course> semCou = null;
-        for (String keySem : semesterCourses.keySet())
-        if (keySem.equals(sem)){
-            semCou = semesterCourses.get(sem);
-            return semCou;
-        }
-        return semCou;
+        return semesterCourses.get(sem);
     }
 
     //Add courses to course list
@@ -108,52 +101,73 @@ public class StudentEnrolment{
 
     //Add students to semester
     //Tested
-    public boolean addStudentToSemester(String semStr, String inputStu){
-        if (semesters.contains(semStr)){
-            for (Student stuTemp : studentsList)
-                if (stuTemp.getStudentID().equals(inputStu)){
-                    ArrayList<Student> semStudents = semesterStudent.get(semStr);
-                    for (Student stuTemp2 : semStudents)
-                        if (stuTemp2.getStudentID().equals(inputStu)) {
-                            return false;
-                        }
-                    semStudents.add(stuTemp);
-                    semesterStudent.put(semStr, semStudents);
-                    return true;
-                }
-            return false;
+    public void addStudentToSemester(String semStr, String inputStu){
+        int indexStu = 0;
+        ArrayList<Student> stuSemTemp =  semesterStudent.get(semStr);
+        for (int i = 0; i < studentsList.size(); i++){
+            if (studentsList.get(i).getStudentID().equals(inputStu)){
+                indexStu = i;
+                break;
+            }
         }
-        return false;
+        stuSemTemp.add(studentsList.get(indexStu));
+        semesterStudent.put(semStr, stuSemTemp);
+//        if (semesters.contains(semStr)){
+//            for (Student stuTemp : studentsList)
+//                if (stuTemp.getStudentID().equals(inputStu)){
+//                    ArrayList<Student> semStudents = semesterStudent.get(semStr);
+//                    for (Student stuTemp2 : semStudents)
+//                        if (stuTemp2.getStudentID().equals(inputStu)) {
+//                            return false;
+//                        }
+//                    semStudents.add(stuTemp);
+//                    semesterStudent.put(semStr, semStudents);
+//                    return true;
+//                }
+//            return false;
+//        }
+//        return false;
     }
 
     //Create objects students, courses
     //Tested
-    public boolean create(String mod, String ID, String name, String value){
-        if(mod.equals("Student")){
-            for (Student stuTemp : studentsList)
-                if (stuTemp.getStudentID().equals(ID)) {
-                    System.out.println("Student existed");
-                    return false;
-                }
-                Student student = new Student(ID, name, value);
-                addStudentList(student);
-                for (String sem : semesterStudent.keySet()){
-                    addStudentToSemester(sem, ID);
-                }
-                return true;
-        }
-        if(mod.equals("Course")){
-            for (Course couTemp : courseList)
-                if(couTemp.getCourseID().equals(ID)){
-                    System.out.println("Course existed" );
-                    return false;
-                }
-                Course course = new Course(ID, name, Integer.parseInt(value));
-                addCourseList(course);
-                return true;
-        }
-        System.out.println("Error, please check input again");
-        return false;
+//    public boolean create(String mod, String ID, String name, String value){
+//        if(mod.equals("Student")){
+//            for (Student stuTemp : studentsList)
+//                if (stuTemp.getStudentID().equals(ID)) {
+//                    System.out.println("Student existed");
+//                    return false;
+//                }
+//                Student student = new Student(ID, name, value);
+//                addStudentList(student);
+//                for (String sem : semesterStudent.keySet()){
+//                    addStudentToSemester(sem, ID);
+//                }
+//                return true;
+//        }
+//        if(mod.equals("Course")){
+//            for (Course couTemp : courseList)
+//                if(couTemp.getCourseID().equals(ID)){
+//                    System.out.println("Course existed" );
+//                    return false;
+//                }
+//                Course course = new Course(ID, name, Integer.parseInt(value));
+//                addCourseList(course);
+//                return true;
+//        }
+//        System.out.println("Error, please check input again");
+//        return false;
+//    }
+    public void createStu(String ID, String name, String val){
+        Student student = new Student(ID, name, val);
+        addStudentList(student);
+        for (String semTemp : semesters)
+        addStudentToSemester(semTemp, ID);
+    }
+
+    public void createCou(String ID, String name, String val){
+        Course course  = new Course(ID, name, Integer.parseInt(val));
+        addCourseList(course);
     }
 
     //Add course to available semester
@@ -182,30 +196,7 @@ public class StudentEnrolment{
                 return;
             }
         }
-//        ArrayList<Course> couListTemp = semesterCourses.get(semStr);
-//        couListTemp.add(courseList.get(indexCou));
-//        semesterCourses.put(semStr, couListTemp);
-//        if (semesters.contains(semStr)){
-//            for (Course couTemp : courseList)
-//            if (couTemp.getCourseID().equals(inputCou) || couTemp.getCourseName().equals(inputCou)){
-//                ArrayList<Course> semCourses = semesterCourses.get(semStr);
-//                for (Course couTemp2 : semCourses)
-//                if (couTemp2.getCourseName().equals(inputCou) || couTemp2.getCourseID().equals(inputCou)) {
-//                    System.out.println("This course is already in system.");
-//                    return false;
-//                }
-//                semCourses.add(couTemp);
-//                semesterCourses.put(semStr, semCourses);
-//                System.out.println("Added course to semester successfully");
-//                return true;
-//            }
-//            System.out.println("Course is not available");
-//            return false;
-//        }
-//        System.out.println("Invalid semester.");
-//        return false;
     }
-
 
 
     //Add enrollments to enrollment list
