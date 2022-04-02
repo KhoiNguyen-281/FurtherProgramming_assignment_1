@@ -5,9 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +90,8 @@
       <option name="presentableId" value="Default" />
       <updated>1647414438308</updated>
       <workItem from="1648838478966" duration="5971000" />
-      <workItem from="1648870587345" duration="30294000" />
+      <workItem from="1648870587345" duration="30616000" />
+      <workItem from="1648912180377" duration="5464000" />
     </task>
     <task id="LOCAL-00001" summary="add version 3.16.2">
       <created>1647416300132</created>
@@ -144,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648897711859</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v4.2.2&#10;update create(), checkIDValid()">
+      <created>1648908550938</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1648908550938</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +173,7 @@
     <MESSAGE value="add v4.1.3" />
     <MESSAGE value="add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods" />
     <MESSAGE value="v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course" />
-    <option name="LAST_COMMIT_MESSAGE" value="v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course" />
+    <MESSAGE value="v4.2.2&#10;update create(), checkIDValid()" />
+    <option name="LAST_COMMIT_MESSAGE" value="v4.2.2&#10;update create(), checkIDValid()" />
   </component>
 </project>

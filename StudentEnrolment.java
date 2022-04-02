@@ -158,17 +158,23 @@ public class StudentEnrolment{
 //        System.out.println("Error, please check input again");
 //        return false;
 //    }
-    public void createStu(String ID, String name, String val){
-        Student student = new Student(ID, name, val);
-        addStudentList(student);
-        for (String semTemp : semesters)
-        addStudentToSemester(semTemp, ID);
+    public void createNewData(String choice, String ID, String name, String val){
+        if (choice.equals("1")){
+            Student student = new Student(ID, name, val);
+            addStudentList(student);
+            for (String semTemp : semesters)
+                addStudentToSemester(semTemp, ID);
+        }
+        if (choice.equals("2")){
+            Course course  = new Course(ID, name, Integer.parseInt(val));
+            addCourseList(course);
+        }
     }
 
-    public void createCou(String ID, String name, String val){
-        Course course  = new Course(ID, name, Integer.parseInt(val));
-        addCourseList(course);
-    }
+//    public void createCou(String ID, String name, String val){
+//        Course course  = new Course(ID, name, Integer.parseInt(val));
+//        addCourseList(course);
+//    }
 
     //Add course to available semester
     //Tested
