@@ -165,7 +165,6 @@ public class StudentEnrolment{
         if(enrolTemp.getStudent().equals(enrolment.getStudent()) &&
         enrolTemp.getCourse().equals(enrolment.getCourse()) &&
         enrolTemp.getSemester().equals(enrolment.getSemester())){
-            System.out.println("Enrollment existed");
             return enrolmentList;
         }
         enrolmentList.add(enrolment);
