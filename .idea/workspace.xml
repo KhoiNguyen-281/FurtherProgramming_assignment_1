@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="">
+    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +24,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -35,6 +45,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="26SQJsA6UpGxsLJzMC8dQR4lt0M" />
   <component name="ProjectViewState">
@@ -91,7 +104,8 @@
       <updated>1647414438308</updated>
       <workItem from="1648838478966" duration="5971000" />
       <workItem from="1648870587345" duration="30616000" />
-      <workItem from="1648912180377" duration="5464000" />
+      <workItem from="1648912180377" duration="5747000" />
+      <workItem from="1648961677967" duration="31139000" />
     </task>
     <task id="LOCAL-00001" summary="add version 3.16.2">
       <created>1647416300132</created>
@@ -149,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648908550938</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()">
+      <created>1648917919762</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1648917919762</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +195,7 @@
     <MESSAGE value="add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods" />
     <MESSAGE value="v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course" />
     <MESSAGE value="v4.2.2&#10;update create(), checkIDValid()" />
-    <option name="LAST_COMMIT_MESSAGE" value="v4.2.2&#10;update create(), checkIDValid()" />
+    <MESSAGE value="v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()" />
+    <option name="LAST_COMMIT_MESSAGE" value="v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()" />
   </component>
 </project>
