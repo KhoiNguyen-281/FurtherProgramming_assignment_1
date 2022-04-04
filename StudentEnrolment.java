@@ -184,6 +184,12 @@ public class StudentEnrolment{
     public void createEnrollment(String inputStu, String inputCou, String semStr){
         int indexStu = 0;
         int indexCou = 0;
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(semStr)){
+                semStr = s;
+                break;
+            }
+        }
         for (String semTemp : semesterStudent.keySet()){
             if (semTemp.equalsIgnoreCase(semStr)){
                 ArrayList<Student> stuTempList = semesterStudent.get(semStr);
@@ -212,9 +218,15 @@ public class StudentEnrolment{
     //Find all students, courses in semester.
     //Tested
     public void findAllStuSem(String sem){
-        String output = "";
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(sem)){
+                sem = s;
+                break;
+            }
+        }
+        String output = "\n" + "Semester: " + sem;
         for (Student stuTemp : semesterStudent.get(sem)){
-            output += "\n" + "Semester: " + sem + "\n"
+            output +=  "\n"
                     + stuTemp.toString() +
                     "Enrollment history: " + "\n";
             for (Course couTemp : stuTemp.getCoursesList()) {
@@ -225,9 +237,15 @@ public class StudentEnrolment{
     }
 
     public void findAllCouSem(String sem){
-        String output = "";
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(sem)){
+                sem = s;
+                break;
+            }
+        }
+        String output =  "\n" + "Semester: " + sem;
         for (Course couTemp : semesterCourses.get(sem)){
-            output += "\n" + "Semester: " + sem + "\n"
+            output += "\n"
                     + couTemp.toString() +
                     "Enrolled students: " + "\n";
             for (Student stuTemp : couTemp.getStudentsList()) {
@@ -240,6 +258,12 @@ public class StudentEnrolment{
     //Find student with student ID, course with course ID
     //Tested
     public void findOneStu(String ID, String sem){
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(sem)){
+                sem = s;
+                break;
+            }
+        }
         String output = "";
         for (Student stuTemp : semesterStudent.get(sem)) {
             if (stuTemp.getStudentID().equalsIgnoreCase(ID)) {
@@ -257,6 +281,12 @@ public class StudentEnrolment{
     }
 
     public void findOneCour(String cou, String sem){
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(sem)){
+                sem = s;
+                break;
+            }
+        }
         String output = "";
         for (Course couTemp : semesterCourses.get(sem)) {
             if (couTemp.getCourseID().equalsIgnoreCase(cou) || couTemp.getCourseName().equalsIgnoreCase(cou)) {
@@ -275,6 +305,12 @@ public class StudentEnrolment{
     //Drop course, delete student enrollment with student ID, course ID or name, semester
     //Tested
     public void dropCourse(String inputStu, String inputCou, String inputSem) {
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(inputSem)){
+                inputSem = s;
+                break;
+            }
+        }
         for (Student stuTemp : semesterStudent.get(inputSem))
         if(stuTemp.getStudentID().equalsIgnoreCase(inputStu)){
             for (Course couTemp : stuTemp.getCoursesList())
@@ -289,10 +325,8 @@ public class StudentEnrolment{
 
     //Update student, course with ID
     //Tested
-    public void updateCourseInfo(String stuID, String sem, String couIn, String field, String change ) {
-        for (Student stuTemp : semesterStudent.get(sem))
-        if(stuTemp.getStudentID().equalsIgnoreCase(stuID)){
-            for (Course couTemp : stuTemp.getCoursesList())
+    public void updateCourseInfo(String couIn, String sem,  String field, String change ) {
+        for (Course couTemp : semesterCourses.get(sem))
             if (couTemp.getCourseID().equalsIgnoreCase(couIn) || couTemp.getCourseName().equalsIgnoreCase(couIn)){
                 couTemp.update(field, change);
                 System.out.println("Update course successfully");
@@ -300,7 +334,6 @@ public class StudentEnrolment{
                 return;
             }
         }
-    }
 
     public void updateStudent(String stuID, String field, String change){
         for (Student stuTemp : studentsList)
@@ -310,11 +343,19 @@ public class StudentEnrolment{
             return;
         }
     }
-    public void removeStu(String stuID){
-        for (Student stuTemp : studentsList)
-        if(stuTemp.getStudentID().equalsIgnoreCase(stuID)) {
-            studentsList.remove(stuTemp);
-            System.out.println("Student remove successfully");
+    public void removeStu(String cou, String stuID, String sem){
+        for (Course couTemp : semesterCourses.get(sem)){
+            if(couTemp.getCourseID().equalsIgnoreCase(cou) || couTemp.getCourseName().equalsIgnoreCase(cou)){
+                ArrayList<Student> stuInCou =  couTemp.getStudentsList();
+                for (Student stuTemp : stuInCou){
+                    if (stuTemp.getStudentID().equalsIgnoreCase(stuID)){
+                        stuInCou.remove(stuTemp);
+                        return;
+                    }
+                    System.out.println("This student is not in the list");
+                }
+            }
+
         }
     }
 
