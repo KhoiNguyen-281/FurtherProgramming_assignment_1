@@ -1,8 +1,6 @@
 
 
-import javax.swing.*;
 import java.util.*;
-
 import java.time.Year;
 
 
@@ -147,7 +145,8 @@ public class StudentEnrolment{
             }
         }
     }
-
+    //Remove course in semester
+    //Tested
     public void removeCourseSem(String inputCou, String semester){
         ArrayList<Course> couInSem  =  semesterCourses.get(semester);
         for (Course couTemp : couInSem){
@@ -172,6 +171,8 @@ public class StudentEnrolment{
         return enrolmentList;
     }
 
+    //Method to add student to course's studentList, student's courseList when create enrollment
+    //Tested
     public boolean addStu(Student stu, Course cou){
         cou.getStudentsList().add(stu);
         stu.getCoursesList().add(cou);
@@ -255,7 +256,7 @@ public class StudentEnrolment{
         System.out.println(output);
     }
 
-    //Find student with student ID, course with course ID
+    //Find student with student ID, course with course ID or name
     //Tested
     public void findOneStu(String ID, String sem){
         for (String s : semesters){
@@ -323,7 +324,7 @@ public class StudentEnrolment{
         }
     }
 
-    //Update student, course with ID
+    //Update student, course with ID and name
     //Tested
     public void updateCourseInfo(String couIn, String sem,  String field, String change ) {
         for (Course couTemp : semesterCourses.get(sem))
@@ -343,6 +344,9 @@ public class StudentEnrolment{
             return;
         }
     }
+
+    //Remove student from course in semester
+    //Tested
     public void removeStu(String cou, String stuID, String sem){
         for (Course couTemp : semesterCourses.get(sem)){
             if(couTemp.getCourseID().equalsIgnoreCase(cou) || couTemp.getCourseName().equalsIgnoreCase(cou)){

@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
 
 public class Student implements Management {
     private String studentID;
@@ -23,12 +21,6 @@ public class Student implements Management {
         return studentID;
     }
 
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public String getStudentBD() { return studentBD; }
-
     public ArrayList<Course> getCoursesList() {
         return coursesList;
     }
@@ -43,18 +35,12 @@ public class Student implements Management {
 
     @Override
     public void update(String field, String input){
-        String finalID = "id";
-        String finalName = "name";
-        String finalDoB = "dob";
-        String finalBD = "date of birth";
-        String finalDb = "birthday";
-        if (finalID.equalsIgnoreCase(field)){
+
+        if (field.equalsIgnoreCase("ID")){
             setStudentID(input);
-        } if (finalName.equalsIgnoreCase(field)){
+        } if (field.equalsIgnoreCase("Name")){
             setStudentName(input);
-        } if (finalDoB.equalsIgnoreCase(field)
-                || finalBD.equalsIgnoreCase(field)
-                || finalDb.equalsIgnoreCase(field)){
+        } if (field.equalsIgnoreCase("Date of birth")){
             setStudentBD(input);
         }
     }

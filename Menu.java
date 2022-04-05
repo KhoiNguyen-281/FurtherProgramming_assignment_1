@@ -1,5 +1,3 @@
-import java.awt.image.AreaAveragingScaleFilter;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -543,9 +541,6 @@ public class Menu {
         }
         while (!inputSem.equalsIgnoreCase("exit")) {
             ArrayList<Student> stuInSemList = stE.getSemesterStudent().get(inputSem);
-//            ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
-            //Show all student and enrolled course in semester
-//            showSemesterCourse(couInSemList);
             stE.findOneStu(inputStu, inputSem);
             choiceOfStu();
             String choice = sc.nextLine();
@@ -872,7 +867,6 @@ public class Menu {
                 enrolNewCourse(stE, sc,cou, stuID, semester);
             }
             if (choice.equals("2")){
-
                 checkCouAvailable(sc, cou,couInSem);
                 dropCourse(stE, sc,cou, stuID, semester);
             }

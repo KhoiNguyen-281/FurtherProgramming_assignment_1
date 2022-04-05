@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
 public class Course implements Management{
     private String courseID;
@@ -23,8 +21,6 @@ public class Course implements Management{
 
     public String getCourseName() { return courseName; }
 
-    public int getCourseNumOfCre() { return courseNumOfCre; }
-
     public ArrayList<Student> getStudentsList() {
         return studentsList;
     }
@@ -34,10 +30,6 @@ public class Course implements Management{
     public void setCourseName(String courseName) { this.courseName = courseName; }
 
     public void setCourseNumOfCre(int courseNumOfCre) { this.courseNumOfCre = courseNumOfCre; }
-
-    public void setStudentsList(ArrayList<Student> studentsList) {
-        this.studentsList = studentsList;
-    }
 
 
     @Override
@@ -50,18 +42,11 @@ public class Course implements Management{
 
     @Override
     public void update(String field, String input) {
-        String fieldFixedID = "id";
-        String fieldFixedName = "name";
-        if(fieldFixedID.equalsIgnoreCase(field)){
+        if(field.equalsIgnoreCase("ID")){
             setCourseID(input);
-        } if (field.equals("name") || field.equals("NAME") || field.equals("Name")){
+        } if (field.equalsIgnoreCase("Name")){
             setCourseName(input);
-        } if (field.equals("credits") ||
-                field.equals("Number of credits") ||
-                field.equals("Credits") ||
-                field.equals("NoC") ||
-                field.equals("noc") ||
-                field.equals("NOC")){
+        } if (field.equalsIgnoreCase("Number of credits")){
             setCourseNumOfCre(Integer.parseInt(input));
         }
     }
