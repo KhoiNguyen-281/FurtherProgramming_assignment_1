@@ -4,6 +4,7 @@ public class TestUnit {
 
         //Test create semester and add to system
         stE.setSemesters();
+        System.out.println(stE.getSemesters());
 
         //Test create new function and add to list
         //Create student
@@ -22,6 +23,7 @@ public class TestUnit {
         //Test add course to semester
         stE.addSemesterCourses("C001", "2022A");
         stE.addSemesterCourses("Further programming", "2022A");
+        stE.addSemesterCourses("C003", "2022A");
 
         //Test display all course in semester (after add course)
         stE.getSemesterCourses().get("2022A");
@@ -54,6 +56,10 @@ public class TestUnit {
 
         //Test update course information
         stE.updateCourseInfo("Further programming", "2022A", "Name", "Programming 1");
+        System.out.println(stE.getSemesterCourses().get("2022A"));
+
+        //Test remove course in semester
+        stE.removeCourseSem("C002", "2022A");
         System.out.println(stE.getSemesterCourses().get("2022A"));
     }
 }
