@@ -1,105 +1,59 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Scanner;
-
 public class TestUnit {
-    public static void main(String args[]) {
+    public static void main (String[] args){
         StudentEnrolment stE = new StudentEnrolment();
-        Scanner sc = new Scanner(System.in);
-        //Test create semester method
-        stE.setSemesters();
-        System.out.println(stE.getSemesters());
 
-        //Test create() method (course)
-//        stE.create("Course", "C001", "Further programming", "12");
-//        stE.create("Course", "C002", "Building IT System", "12");
-//        System.out.println(stE.getCourseList());
-//
-//        //Test create() method (student)
-//        stE.create("Student", "S001", "Khoi", "28/01/2000");
-//        stE.create("Student", "S002", "Khoa", "20/10/2002");
-//        stE.create("Student", "S003", "Khang", "20/10/2002");
-//        System.out.println(stE.getStudentsList());
+        //Test create semester and add to system
+        stE.setSemesters();
+
+        //Test create new function and add to list
+        //Create student
+        stE.createNewData("1", "S001", "Khoi", "29/12/2000");
+        stE.createNewData("1", "S002", "Khoa", "27/06/2000");
+        stE.createNewData("1", "S003", "Minh", "07/01/2000");
+        stE.createNewData("1", "S004", "Duc", "28/01/2000");
+        //Create course
+        stE.createNewData("2", "C001", "MATH", "6");
+        stE.createNewData("2", "C002", "Further programming", "12");
+        stE.createNewData("2", "C003", "Building IT System", "12");
+
+        //Test display all course in semester (before add course)
+        stE.getSemesterCourses().get("2022A");
 
         //Test add course to semester
-        enrol(stE, sc);
         stE.addSemesterCourses("C001", "2022A");
-        stE.addSemesterCourses("C001", "2022A");
-        stE.addSemesterCourses("C001", "2022B");
-//        stE.addSemesterCourses("2022A", "C002");
-//        stE.addSemesterCourses("2022C", "C003");
-        System.out.println(stE.getSemesterCourses());
+        stE.addSemesterCourses("Further programming", "2022A");
 
+        //Test display all course in semester (after add course)
+        stE.getSemesterCourses().get("2022A");
 
-//        Test add student to course
+        //Test show student in 1 semester (before add course)
+        stE.findOneStu("S001", "2022A");
 
-
-
-////        stE.createEnrollment("S002", "C001", "2022B");
-
+        //Test show course in 1 semester (before add student)
+        stE.findOneCour("C001", "2022A");
 
         stE.createEnrollment("S001", "C001", "2022A");
-        stE.createEnrollment("S001", "C001", "2022A");
-        stE.createEnrollment("S001", "C002", "2022A");
-        stE.createEnrollment("S001", "C001", "2022B");
-        stE.createEnrollment("S002", "C001", "2022B");
-        System.out.println(stE.getEnrolmentList());
+        stE.createEnrollment("S001", "Further programming", "2022A");
 
-//        Test update method
+        //Test show student in 1 semester (after add course)
+        stE.findOneStu("S001", "2022A");
 
-//
-//        //Test findAll() method (Course)
-//        stE.findAll("Course", "2022B");
-//        stE.findAll("Course", "2022A");
-//
-//        //Test findAll() method (Student)
-//        stE.findAll("Student", "2022A");
-//        stE.findAll("Student", "2022B");
+        //Test show course in 1 semester (after add student)
+        stE.findOneCour("C001", "2022A");
+        stE.findOneCour("Further programming", "2022A");
 
-//        Test findOne() method(Student)
-//        stE.create("Student", "S002", "Khoa", "20/10/2002");
-//        stE.createEnrollment("S002", "C001", "2022B");
-//        stE.findOne("Student", "S004");
-//        stE.findOne("Student", "S002");
-//
-//        //Test findOne() method(Course)
-//        stE.findOne("Course", "C002");
-//        stE.findOne("Course", "C004");
-//
-//        //Test delete() method(Student)
-//        stE.delete("Student", "S003");
-//        stE.delete("Student", "S004");
-//        System.out.println(stE.getStudentsList());
-////
-////        Test delete() method(Course)
-//        stE.delete("Course","C002");
-//        stE.delete("Course","C004");
-//        System.out.println(stE.getCourseList());
-//        System.out.println(stE.getSemesterCourses());
-//
-//        //Test dropCourse() method
-//        stE.dropCourse("C001", "S001", "2022B");
-//        stE.dropCourse("C002", "S001", "2022A");
-//        stE.dropCourse("C001", "S004", "2022A");
-////        System.out.println(stE.getEnrolmentList());
-//
-//        //Write test
-//        stE.writeCsv();
-    }
+        //Test drop course
+        stE.dropCourse("S001", "C001", "2022A");
 
-    public static void enrol(StudentEnrolment stE, Scanner sc){
-        System.out.println("asd");
-        String couOD = sc.nextLine();
-        System.out.println("asd");
-        String sem = sc.nextLine();
-        ArrayList<Course> temp = stE.getSemesterCourses().get(sem);
-        for (Course couTemp : temp){
-            if (couTemp.getCourseID().equals(couOD)){
-                System.out.println("Cant do shit");
-                return;
-            }
-            stE.addSemesterCourses(couOD, sem);
-        }
+        //Test show course and student after remove student
+        stE.findOneCour("C001", "2022A");
+        stE.findOneStu("S001", "2022A");
+
+        //Test update student information
+        stE.updateStudent("S001", "ID", "S004");
+
+        //Test update course information
+        stE.updateCourseInfo("Further programming", "2022A", "Name", "Programming 1");
+        System.out.println(stE.getSemesterCourses().get("2022A"));
     }
 }

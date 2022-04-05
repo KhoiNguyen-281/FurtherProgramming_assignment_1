@@ -41,36 +41,26 @@ public class Menu {
     public void choiceFind(){
         System.out.println("""
                 +Press '1': View available course of semester
-                +Press '2': View all student with their enrolled course in semester
-                +Press '3': View one student with their enrolled course in semester
-                +Press '4': View all course with enrolled student in semester
+                +Press '2': View one student with their enrolled course in semester
+                +Press '3': View one course with enrolled student in semester
                 +Type 'exit': Exit to main menu""");
         System.out.print("Your choice: ");
     }
     //Method to check if user choice is valid
     //Tested
     public void checkChoiceFind(Scanner sc, String choice){
-        String[] choiceList = {"1","2","3","4"};
-        for (String s : choiceList){
-            while (!choice.equalsIgnoreCase("exit")){
-                if (choice.equals("1")){
-                    break;
+        String[] choiceList = {"1", "2", "3"};
+        while (!choice.equalsIgnoreCase("exit")){
+            for (String s : choiceList){
+                if (choice.equals(s)){
+                    return;
                 }
-                if (choice.equals("2")){
-                    break;
-                }
-                if (choice.equals("3")){
-                    break;
-                }
-                if (choice.equals("4")){
-                    break;
-                }
-                System.out.println("Invalid choice, please try again, 'exit' to exit");
-                System.out.print("Your choice: ");
-                choice = sc.nextLine();
             }
-            break;
+            System.out.println("Invalid choice, please try again, 'exit' to exit");
+            System.out.print("Your choice: ");
+            choice = sc.nextLine();
         }
+
     }
     //Main find menu
     //Tested
@@ -87,14 +77,11 @@ public class Menu {
                 viewCoursesOfSem(stE, sc);
             }
             if (choice.equals("2")){
-                findAllStudentIn1Sem(stE, sc);
-            }
-            if (choice.equals("3")){
                 findStudentInSem(stE, sc);
 
             }
-            if (choice.equals("4")){
-                findAllCourseIn1SemInCluStu(stE, sc);
+            if (choice.equals("3")){
+                findCourseIn1SemInCluStu(stE, sc);
             }
             choiceFind();
             choice = sc.nextLine();
@@ -540,7 +527,6 @@ public class Menu {
             break;
         }
         while (!inputSem.equalsIgnoreCase("exit")) {
-            ArrayList<Student> stuInSemList = stE.getSemesterStudent().get(inputSem);
             stE.findOneStu(inputStu, inputSem);
             choiceOfStu();
             String choice = sc.nextLine();
@@ -589,95 +575,8 @@ public class Menu {
 
     }
 //-----------------------------------------------------------------------------------------
-//   4. Find all student in 1 semester
-    //Tested
-    public void findAllStudentIn1Sem(StudentEnrolment stE, Scanner sc){
-        System.out.println("---View all student in 1 semester---");
-        ArrayList<String> semesters = new ArrayList<>();
-        showSemester(stE, semesters);
-        System.out.println("Input semester to view all student");
-        System.out.print("Semester: ");
-        String inputSem =  sc.nextLine();
-        if (inputSem.equalsIgnoreCase("exit")){
-            return;
-        }
-        for (String s : semesters){
-            while (!inputSem.equalsIgnoreCase("exit")){
-                if (s.equalsIgnoreCase(inputSem)){
-                    inputSem = s;
-                    break;
-                }
-                System.out.println("Cannot find this semester, please try again or 'exit' to exit");
-                inputSem = sc.nextLine();
-            }
-            break;
-        }
-        stE.findAllStuSem(inputSem);
-
-        System.out.println("Do you want to perform tasks ? (y/n)");
-        String yN = sc.nextLine();
-        if(yN.equalsIgnoreCase("n")){
-            return;
-        }
-        while (!yN.equalsIgnoreCase("n")){
-            if (yN.equalsIgnoreCase("y")){
-                choiceOfStu();
-                String choice =  sc.nextLine();
-                if (choice.equalsIgnoreCase("exit")){
-                    return;
-                }
-                checkStuChoice(sc, choice);
-                while (!choice.equalsIgnoreCase("exit")){
-                    ArrayList<Student> studentList =  stE.getStudentsList();
-                    System.out.println("Input student ID, 'exit' to exit");
-                    System.out.print("Student ID: ");
-                    String stuID = sc.nextLine();
-                    checkStudentAvailable(sc, stuID, studentList);
-                    if (choice.equals("1")){
-                        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
-                        System.out.println("Input course ID or name to enroll");
-                        System.out.print("Course ID or name: ");
-                        String cou = sc.nextLine();
-                        if (cou.equalsIgnoreCase("exit")) {
-                            return;
-                        }
-                        checkCouAvailable(sc, cou, couInSemList);
-                        enrolNewCourse(stE, sc,cou, stuID, inputSem);
-                    }
-                    if (choice.equals("2")) {
-                        System.out.println("Input course ID or name to drop, 'exit' to exit");
-                        System.out.print("Course ID or name: ");
-                        String cou = sc.nextLine();
-                        if (cou.equalsIgnoreCase("exit")) {
-                            return;
-                        }
-                        dropCourse(stE, sc, cou, stuID, inputSem);
-                    }
-                    if (choice.equals("3")){
-                        System.out.println("Input field and new data to update, 'exit' to exit");
-                        System.out.print("Field (ID, Name, Date of birth): ");
-                        String field = sc.nextLine();
-                        if (field.equalsIgnoreCase("exit")){
-                            return;
-                        }
-                        upDate(stE, sc, stuID, field);
-                    }
-                    choiceOfStu();
-                    choice = sc.nextLine();
-                    if (choice.equalsIgnoreCase("exit")) {
-                        return;
-                    }
-                    checkStuChoice(sc, choice);
-                }
-            }
-            System.out.println("Invalid input, please try again, 'exit' to exit");
-            System.out.print("Your choice: ");
-            yN = sc.nextLine();
-        }
-
-    }
 //-----------------------------------------------------------------------------------------
-//   5. Find all course in 1 semester
+//   4. Find one course in 1 semester
     //Method to show course task after showing
     //Tested
     public void choiceOfCouIn1Sem(){
@@ -709,10 +608,10 @@ public class Menu {
         String change = sc.nextLine();
         stE.updateCourseInfo(cou, sem, field, change);
     }
-    //Main method to find all course in 1 sem
+    //Main method to find 1 course in 1 sem
     //Tested
-    public void findAllCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){
-        System.out.println("---Find all course in semester function---");
+    public void findCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){
+        System.out.println("---Find one course in semester function---");
         ArrayList<String> semesters =  new ArrayList<>();
         showSemester(stE, semesters);
         System.out.println("Input semester to view");
@@ -724,6 +623,7 @@ public class Menu {
         for (String s : semesters){
             while (!inputSem.equalsIgnoreCase("exit")){
                 if (s.equalsIgnoreCase(inputSem)){
+                    inputSem = s;
                     break;
                 }
                 System.out.println("Cannot find semester, please try again, 'exit' to exit");
@@ -736,71 +636,57 @@ public class Menu {
             System.out.println("Course list is empty, please create course first");
             return;
         }
-        stE.findAllCouSem(inputSem);
-        System.out.println("Do you want to perform tasks ? (y/n)");
-        String yN = sc.nextLine();
-        if(yN.equalsIgnoreCase("n")){
+        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
+        System.out.println("Input course ID or name to view");
+        System.out.print("Course: ");
+        String cou =  sc.nextLine();
+        if (cou.equalsIgnoreCase("Exit")){
             return;
         }
-        while (!yN.equalsIgnoreCase("n")){
-            if (yN.equalsIgnoreCase("y")){
-                break;
-            }
-            System.out.println("Invalid input, please try again, 'exit' to exit");
-            System.out.print("Your choice: ");
-            yN = sc.nextLine();
+        checkCouAvailable(sc, cou, couInSemList);
+        stE.findOneCour(cou, inputSem);
+
+        choiceOfCouIn1Sem();
+        String choice = sc.nextLine();
+        if (choice.equalsIgnoreCase("exit")){
+            return;
         }
-        while (!yN.equalsIgnoreCase("exit")){
-            ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
-            System.out.println("Input course ID or name to perform tasks");
-            System.out.print("Course: ");
-            String cou =  sc.nextLine();
-            if (cou.equalsIgnoreCase("exit")){
-                return;
+        checkStuChoice(sc, choice);
+        while (!choice.equalsIgnoreCase("exit")){
+            String stuID = "";
+            if (choice.equals("1")){
+                ArrayList<Student> studentList = stE.getStudentsList();
+                System.out.println("Input student ID to enroll, 'exit' to exit");
+                System.out.print("Student ID: ");
+                stuID = sc.nextLine();
+                checkStudentAvailable(sc, stuID, studentList);
+                enrolNewCourse(stE, sc,cou, stuID, inputSem);
             }
-            checkCouAvailable(sc,cou, couInSemList);
+            if (choice.equals("2")){
+                System.out.println("Input field and new data to update, 'exit' to exit");
+                System.out.print("Field (ID, Name, Number of credits): ");
+                String field = sc.nextLine();
+                if (field.equalsIgnoreCase("exit")){
+                    return;
+                }
+                upDateCou(stE, sc, cou, inputSem, field);
+            }
+            if (choice.equals("3")){
+                System.out.println("Input student ID to remove, 'exit' to exit");
+                System.out.print("Student ID: ");
+                stuID = sc.nextLine();
+                stE.dropCourse(stuID, cou, inputSem);
+            }
             choiceOfCouIn1Sem();
-            String choice = sc.nextLine();
-            if (choice.equalsIgnoreCase("exit")){
+            choice = sc.nextLine();
+            if (choice.equalsIgnoreCase("exit")) {
                 return;
             }
             checkStuChoice(sc, choice);
-            while (!choice.equalsIgnoreCase("exit")){
-                String stuID = "";
-                if (choice.equals("1")){
-                    ArrayList<Student> studentList = stE.getStudentsList();
-                    System.out.println("Input student ID to enroll, 'exit' to exit");
-                    System.out.print("Student ID: ");
-                    stuID = sc.nextLine();
-                    checkStudentAvailable(sc, stuID, studentList);
-                    enrolNewCourse(stE, sc,cou, stuID, inputSem);
-                }
-                if (choice.equals("2")){
-                    System.out.println("Input field and new data to update, 'exit' to exit");
-                    System.out.print("Field (ID, Name, Number of credits): ");
-                    String field = sc.nextLine();
-                    if (field.equalsIgnoreCase("exit")){
-                        return;
-                    }
-                    upDateCou(stE, sc, cou, inputSem, field);
-                }
-                if (choice.equals("3")){
-                    System.out.println("Input student ID to remove, 'exit' to exit");
-                    System.out.print("Student ID: ");
-                    stuID = sc.nextLine();
-                    stE.removeStu(cou, stuID, inputSem);
-                }
-                choiceOfCouIn1Sem();
-                choice = sc.nextLine();
-                if (choice.equalsIgnoreCase("exit")) {
-                    return;
-                }
-                checkStuChoice(sc, choice);
-            }
         }
     }
 //-----------------------------------------------------------------------------------------
-//   6. View all enrollment
+//   5. View all enrollment
     public void choiceEnrolment(){
         System.out.println("""
                 +Press '1': Create new enrollment

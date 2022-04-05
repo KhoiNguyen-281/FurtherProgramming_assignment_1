@@ -123,7 +123,6 @@ public class StudentEnrolment{
             addCourseList(course);
         }
     }
-
     //Add course to available semester
     //Tested
     public void addSemesterCourses( String inputCou, String semStr){
@@ -148,6 +147,12 @@ public class StudentEnrolment{
     //Remove course in semester
     //Tested
     public void removeCourseSem(String inputCou, String semester){
+        for (String s : semesters){
+            if (s.equalsIgnoreCase(semester)){
+                semester = s;
+                break;
+            }
+        }
         ArrayList<Course> couInSem  =  semesterCourses.get(semester);
         for (Course couTemp : couInSem){
             if (couTemp.getCourseID().equalsIgnoreCase(inputCou)){
@@ -178,7 +183,6 @@ public class StudentEnrolment{
         stu.getCoursesList().add(cou);
         return true;
     }
-
 
     //Enroll students to courses in semesters, add to enrollment list
     //Tested
@@ -216,67 +220,25 @@ public class StudentEnrolment{
         addStu(studentsList.get(indexStu), courseList.get(indexCou));
     }
 
-    //Find all students, courses in semester.
-    //Tested
-    public void findAllStuSem(String sem){
-        for (String s : semesters){
-            if (s.equalsIgnoreCase(sem)){
-                sem = s;
-                break;
-            }
-        }
-        String output = "\n" + "Semester: " + sem;
-        for (Student stuTemp : semesterStudent.get(sem)){
-            output +=  "\n"
-                    + stuTemp.toString() +
-                    "Enrollment history: " + "\n";
-            for (Course couTemp : stuTemp.getCoursesList()) {
-                output += couTemp.toString();
-            }
-        }
-        System.out.println(output);
-    }
-
-    public void findAllCouSem(String sem){
-        for (String s : semesters){
-            if (s.equalsIgnoreCase(sem)){
-                sem = s;
-                break;
-            }
-        }
-        String output =  "\n" + "Semester: " + sem;
-        for (Course couTemp : semesterCourses.get(sem)){
-            output += "\n"
-                    + couTemp.toString() +
-                    "Enrolled students: " + "\n";
-            for (Student stuTemp : couTemp.getStudentsList()) {
-                output += stuTemp.toString();
-            }
-        }
-        System.out.println(output);
-    }
-
     //Find student with student ID, course with course ID or name
     //Tested
     public void findOneStu(String ID, String sem){
+        String output = "";
         for (String s : semesters){
             if (s.equalsIgnoreCase(sem)){
                 sem = s;
                 break;
             }
         }
-        String output = "";
         for (Student stuTemp : semesterStudent.get(sem)) {
             if (stuTemp.getStudentID().equalsIgnoreCase(ID)) {
                 output += "\n" + stuTemp.toString() +
                         "Enrolled course: " + "\n";
-                for (Course couTemp : semesterCourses.get(sem)) {
+                for (Course couTemp : stuTemp.getCoursesList()) {
                     output += couTemp.toString();
                 }
                 break;
             }
-            System.out.println("Student not found");
-            break;
         }
         System.out.println(output);
     }
@@ -293,13 +255,11 @@ public class StudentEnrolment{
             if (couTemp.getCourseID().equalsIgnoreCase(cou) || couTemp.getCourseName().equalsIgnoreCase(cou)) {
                 output += "\n" + couTemp.toString() +
                         "Enrolled student: " + "\n";
-                for (Student stuTemp : semesterStudent.get(sem)) {
+                for (Student stuTemp : couTemp.getStudentsList()) {
                     output += stuTemp.toString();
                     break;
                 }
             }
-            System.out.println("Student not found");
-            break;
         }
         System.out.println(output);
     }
@@ -317,6 +277,7 @@ public class StudentEnrolment{
             for (Course couTemp : stuTemp.getCoursesList())
             if (couTemp.getCourseID().equalsIgnoreCase(inputCou) || couTemp.getCourseName().equalsIgnoreCase(inputCou)){
                 stuTemp.getCoursesList().remove(couTemp);
+                couTemp.getStudentsList().remove(stuTemp);
                 System.out.println("Drop course successfully");
                 return;
             }
@@ -345,23 +306,7 @@ public class StudentEnrolment{
         }
     }
 
-    //Remove student from course in semester
-    //Tested
-    public void removeStu(String cou, String stuID, String sem){
-        for (Course couTemp : semesterCourses.get(sem)){
-            if(couTemp.getCourseID().equalsIgnoreCase(cou) || couTemp.getCourseName().equalsIgnoreCase(cou)){
-                ArrayList<Student> stuInCou =  couTemp.getStudentsList();
-                for (Student stuTemp : stuInCou){
-                    if (stuTemp.getStudentID().equalsIgnoreCase(stuID)){
-                        stuInCou.remove(stuTemp);
-                        return;
-                    }
-                    System.out.println("This student is not in the list");
-                }
-            }
 
-        }
-    }
 
 
 }
