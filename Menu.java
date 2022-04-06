@@ -1,4 +1,6 @@
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Menu {
@@ -13,7 +15,9 @@ public class Menu {
     }
     //Main menu
     //Tested
-    public void mainMenu(StudentEnrolment stE, Scanner sc){
+    public void mainMenu(StudentEnrolment stE, Scanner sc,
+                         ArrayList<String> semesters, ArrayList<Student> studentList,
+                         ArrayList<Course> courseList, HashMap<String, ArrayList<Course>> couInSem){
         System.out.println("---Welcome to student management system---");
         choiceMainMenu();
         String choice = sc.nextLine();
@@ -23,13 +27,13 @@ public class Menu {
         checkStuChoice(sc, choice);
         while (!choice.equalsIgnoreCase("exit")){
             if (choice.equals("1")){
-                createNew(stE, sc);
+                createNew(stE, sc, studentList,courseList );
             }
             if (choice.equals("2")){
-                mainFind(stE, sc);
+                mainFind(stE, sc, semesters,studentList, courseList,couInSem );
             }
             if (choice.equals("3")){
-                viewEnrollment(stE, sc);
+                viewEnrollment(stE, sc, studentList,couInSem);
             }
             choiceMainMenu();
             choice = sc.nextLine();
@@ -64,7 +68,9 @@ public class Menu {
     }
     //Main find menu
     //Tested
-    public void mainFind(StudentEnrolment stE, Scanner sc){
+    public void mainFind(StudentEnrolment stE, Scanner sc,
+                         ArrayList<String> semesters, ArrayList<Student> studentList,
+                         ArrayList<Course> couList, HashMap<String, ArrayList<Course>> couInSem){
         System.out.println("---Find program---");
         choiceFind();
         String choice = sc.nextLine();
@@ -74,14 +80,14 @@ public class Menu {
         checkChoiceFind(sc, choice);
         while (!choice.equalsIgnoreCase("exit")){
             if (choice.equals("1")){
-                viewCoursesOfSem(stE, sc);
+                viewCoursesOfSem(stE, sc, semesters,couList, couInSem );
             }
             if (choice.equals("2")){
-                findStudentInSem(stE, sc);
+                findStudentInSem(stE, sc, semesters, studentList, couInSem);
 
             }
             if (choice.equals("3")){
-                findCourseIn1SemInCluStu(stE, sc);
+                findCourseIn1SemInCluStu(stE, sc, semesters, studentList, couInSem);
             }
             choiceFind();
             choice = sc.nextLine();
@@ -91,37 +97,31 @@ public class Menu {
 //    1. Create new student, course
     //Check if input ID is valid to create new object
     //Tested
-    public void checkIfIDExist(StudentEnrolment stE, Scanner sc, String choice) {
+    public void checkIfIDExist(Scanner sc, String choice, String ID,
+                               ArrayList<Student> stuTempList, ArrayList<Course> couTempList) {
         if (choice.equals("1") || choice.equals("2")) {
-            ArrayList<Student> stuTempList = stE.getStudentsList();
-            ArrayList<Course> couTempList = stE.getCourseList();
-            System.out.print("ID: ");
-            String ID = sc.nextLine();
-            if (ID.equalsIgnoreCase("exit")) {
-                return;
-            }
             if (choice.equals("1")) {
-                for (Student student : stuTempList) {
-                    while (student.getStudentID().equalsIgnoreCase(ID)) {
-                        System.out.println("ID is existed, please input another, or 'exit' to exit");
-                        System.out.print("ID: ");
-                        ID = sc.nextLine();
-                        if (ID.equalsIgnoreCase("exit")) {
-                            return;
+                while (!ID.equalsIgnoreCase("exit")) {
+                    for (Student student : stuTempList) {
+                        if (student.getStudentID().equalsIgnoreCase(ID)) {
+                            System.out.println("ID is existed, please input another, or 'exit' to exit");
+                            System.out.print("ID: ");
+                            ID = sc.nextLine();
                         }
+                        return;
                     }
                     break;
                 }
             }
             if (choice.equals("2")) {
-                for (Course course : couTempList) {
-                    while (course.getCourseID().equalsIgnoreCase(ID)) {
+                while (!ID.equalsIgnoreCase("exit")) {
+                    for (Course course : couTempList) {
+                        if (course.getCourseID().equalsIgnoreCase(ID)){
                         System.out.println("ID is existed, please input another, or 'exit' to exit");
                         System.out.print("ID: ");
                         ID = sc.nextLine();
-                        if (ID.equalsIgnoreCase("exit")) {
-                            return;
                         }
+                        return;
                     }
                     break;
                 }
@@ -130,9 +130,8 @@ public class Menu {
             String name = "";
             String val = "";
             inputNewData(sc, name, val, choice);
-            stE.createNewData(choice, ID, name, val);
-        }
 
+        }
     }
     //Method for input new data
     //Tested
@@ -148,6 +147,7 @@ public class Menu {
             if (val.equalsIgnoreCase("exit")) {
                 return;
             }
+
         }
         if (choice.equals("2")) {
             System.out.print("Number of credits: ");
@@ -177,7 +177,7 @@ public class Menu {
     }
     //Method to create student and course
     //Tested
-    public void createNew(StudentEnrolment stE, Scanner sc) {
+    public void createNew(StudentEnrolment stE, Scanner sc, ArrayList<Student> studentList, ArrayList<Course> courseList) {
         System.out.println("---Create student and course---");
         System.out.println("""
                 +Press '1': Create student
@@ -187,7 +187,30 @@ public class Menu {
         String choice = sc.nextLine();
         checkChoice(sc, choice);
         while (!choice.equalsIgnoreCase("exit")) {
-            checkIfIDExist(stE, sc, choice);
+            System.out.println("Input student ID: ");
+            System.out.print("ID: ");
+            String ID = sc.nextLine();
+            if (ID.equalsIgnoreCase("exit")) {
+                return;
+            }
+            checkIfIDExist(sc,ID, choice, studentList, courseList);
+            String name = "";
+            String val = "";
+            if (choice.equals("1")) {
+                System.out.print("Date of birth: ");
+                val = sc.nextLine();
+                if (val.equalsIgnoreCase("exit")) {
+                    return;
+                }
+            }
+            if (choice.equals("2")) {
+                System.out.print("Number of credits: ");
+                val = sc.nextLine();
+                if (val.equalsIgnoreCase("exit")) {
+                    return;
+                }
+            }
+            stE.createNewData(choice, ID, name, val);
             System.out.println("""
                     +Press '1': Create student
                     +Press '2': Create course
@@ -209,20 +232,19 @@ public class Menu {
     }
     //Method to show all available semesters in the system
     //Tested
-    public void showSemester(StudentEnrolment stE, ArrayList<String> semesterList) {
+    public void showSemester(ArrayList<String> semesterList) {
         String aSem = "";
-        for (String sem : stE.getSemesters()) {
+        for (String sem : semesterList) {
             aSem += sem + " ";
-            semesterList.add(sem);
         }
         System.out.println("Available semester: ");
         System.out.println(aSem);
     }
     //Method to show all course in semester and available course in course list
     //Tested
-    public void showSemesterCourse(ArrayList<Course> couSem) {
+    public void showSemesterCourse(String sem, HashMap<String, ArrayList<Course>> couSem) {
         String couInSem = "";
-        for (Course couTemp : couSem) {
+        for (Course couTemp : couSem.get(sem)) {
             couInSem += couTemp;
         }
         System.out.println("Available course in this semester: ");
@@ -256,8 +278,8 @@ public class Menu {
     }
     //Method to check if course is in semester or not
     //Tested
-    public void checkCourseInSem(StudentEnrolment stE, String input, String sem, ArrayList<Course> couListSem) {
-        for (Course couTemp : couListSem) {
+    public void checkCourseInSem(StudentEnrolment stE, String input, String sem, HashMap<String, ArrayList<Course>> couInSem) {
+        for (Course couTemp : couInSem.get(sem)) {
             if (couTemp.getCourseID().equalsIgnoreCase(input)) {
                 System.out.println("Course is existed");
                 return;
@@ -282,9 +304,9 @@ public class Menu {
     }
     //Method to remove course from semester;
     //Tested
-    public void removeCourse(StudentEnrolment stE, Scanner sc, String input, String sem, ArrayList<Course> couInSem) {
+    public void removeCourse(StudentEnrolment stE, Scanner sc, String input, String sem, HashMap<String, ArrayList<Course>> couInSem) {
         while (!input.equalsIgnoreCase("exit")) {
-            for (Course couTemp : couInSem) {
+            for (Course couTemp : couInSem.get(sem)) {
                 if (couTemp.getCourseID().equalsIgnoreCase(input)) {
                     stE.removeCourseSem(input, sem);
                     return;
@@ -297,10 +319,11 @@ public class Menu {
     }
     //Main method to add or remove course from semester
     //Tested
-    public void viewCoursesOfSem(StudentEnrolment stE, Scanner sc) {
+    public void viewCoursesOfSem(StudentEnrolment stE, Scanner sc, ArrayList<String> semesters,
+                                 ArrayList<Course> couList, HashMap<String, ArrayList<Course>> couInSem) {
+
         System.out.println("---Populate courses of semester---");
-        ArrayList<String> semesters = new ArrayList<>();
-        showSemester(stE, semesters);
+        showSemester(semesters);
         System.out.println("Input semester you want to see, 'exit' to exit");
         System.out.print("Semester: ");
         String inputSem = sc.nextLine();
@@ -320,10 +343,9 @@ public class Menu {
             }
             break;
         }
+
         while (!inputSem.equalsIgnoreCase("exit")) {
-            ArrayList<Course> couList = stE.getCourseList();
-            ArrayList<Course> couListSem = stE.getSemesterCourses().get(inputSem);
-            showSemesterCourse(couListSem);
+            showSemesterCourse(inputSem, couInSem);
             showCourseList(couList);
             choice();
             String choice = sc.nextLine();
@@ -338,14 +360,14 @@ public class Menu {
                     System.out.print("Course ID or name: ");
                     input2 = sc.nextLine();
                     checkIfCourseValidToAdd(sc, input2, couList);
-                    checkCourseInSem(stE, input2, inputSem, couListSem);
+                    checkCourseInSem(stE, input2, inputSem, couInSem);
 
                 }
                 if (choice.equals("2")) {
                     System.out.println("Input course ID or name to remove, 'exit' to exit");
                     System.out.print("Course ID or name: ");
                     input2 = sc.nextLine();
-                    removeCourse(stE, sc, input2, inputSem, couListSem);
+                    removeCourse(stE, sc, input2, inputSem, couInSem);
                 }
                 choice();
                 choice = sc.nextLine();
@@ -360,7 +382,7 @@ public class Menu {
 //  3. Find 1 student in sem
     //Method to show all available student in semester
     //Tested
-    public void showCurrentStudent(StudentEnrolment stE, ArrayList<Student> stuList) {
+    public void showCurrentStudent(ArrayList<Student> stuList) {
         String availableStu = "";
         for (Student stuTemp : stuList) {
             availableStu += stuTemp;
@@ -385,9 +407,9 @@ public class Menu {
     }
     //Method to check if course is available in semester
     //Tested
-    public void checkCouAvailable(Scanner sc, String input, ArrayList<Course> couListSem) {
+    public void checkCouAvailable(Scanner sc, String input,String sem, HashMap<String, ArrayList<Course>> couInSem) {
         while (!input.equalsIgnoreCase("exit")) {
-            for (Course cou : couListSem) {
+            for (Course cou : couInSem.get(sem)) {
                 if (cou.getCourseID().equalsIgnoreCase(input) || cou.getCourseName().equalsIgnoreCase(input)) {
                     return;
                 }
@@ -436,10 +458,10 @@ public class Menu {
     //Method to check if input data is valid to enrol
     //Tested
     public void enrolNewCourse(StudentEnrolment stE,
-                                      Scanner sc,String cou ,String stuID, String sem) {
+                               String cou , String stuID, String sem, ArrayList<Student> studentList) {
 
 
-        for (Student stuTemp : stE.getSemesterStudent().get(sem)) {
+        for (Student stuTemp : studentList) {
             if (stuTemp.getStudentID().equalsIgnoreCase(stuID)) {
                 ArrayList<Course> couOfStu = stuTemp.getCoursesList();
                 checkStuHaveCourse(stE, cou, stuID, sem, couOfStu);
@@ -450,9 +472,9 @@ public class Menu {
     }
     //Method to check if input data is valid to drop course
     //Tested
-    public void dropCourse(StudentEnrolment stE, Scanner sc, String cou, String stuID, String sem) {
-
-        for (Student stuTemp : stE.getSemesterStudent().get(sem)) {
+    public void dropCourse(StudentEnrolment stE, String cou, String stuID, String sem,
+                           ArrayList<Student> studentList) {
+        for (Student stuTemp : studentList) {
             if (stuTemp.getStudentID().equalsIgnoreCase(stuID)) {
                 ArrayList<Course> couOfStu = stuTemp.getCoursesList();
                 checkStuHaveCourse(stE, cou, stuID, sem, couOfStu);
@@ -486,21 +508,19 @@ public class Menu {
         }
         System.out.print("New data: ");
         String change = sc.nextLine();
-
-            stE.updateStudent(ID, field, change);
+        stE.updateStudent(ID, field, change);
 
     }
     //Main method to find student and perform tasks
     //Tested
-    public void findStudentInSem(StudentEnrolment stE, Scanner sc) {
+    public void findStudentInSem(StudentEnrolment stE, Scanner sc,
+                                 ArrayList<String> semesters, ArrayList<Student> studentList, HashMap<String, ArrayList<Course>> couInSem) {
         if (stE.getStudentsList().isEmpty()) {
             System.out.println("Student list is empty, please create student first");
             return;
         }
         System.out.println("---Find student function---");
-        ArrayList<String> semesters = new ArrayList<>();
-        ArrayList<Student> studentList = stE.getStudentsList();
-        showSemester(stE, semesters);
+        showSemester(semesters);
         System.out.println("PLease input student ID and semester you want to find, 'exit' to exit");
         System.out.print("Student ID: ");
         String inputStu = sc.nextLine();
@@ -543,8 +563,8 @@ public class Menu {
                     if (cou.equalsIgnoreCase("exit")) {
                         return;
                     }
-                    checkCouAvailable(sc, cou, couInSemList);
-                    enrolNewCourse(stE, sc, cou, inputStu, inputSem);
+                    checkCouAvailable(sc, cou, inputSem, couInSem);
+                    enrolNewCourse(stE, cou, inputStu, inputSem, studentList);
                 }
                 if (choice.equals("2")) {
                     System.out.println("Input course ID or name to drop, 'exit' to exit");
@@ -553,7 +573,7 @@ public class Menu {
                     if (cou.equalsIgnoreCase("exit")) {
                         return;
                     }
-                    dropCourse(stE, sc,cou, inputStu, inputSem);
+                    dropCourse(stE, cou, inputStu, inputSem, studentList);
                 }
                 if (choice.equals("3")){
                     System.out.println("Input field and new data to update, 'exit' to exit");
@@ -606,14 +626,16 @@ public class Menu {
         }
         System.out.print("New data: ");
         String change = sc.nextLine();
-        stE.updateCourseInfo(cou, sem, field, change);
+        stE.updateCourseInfo(cou,sem, field, change);
     }
     //Main method to find 1 course in 1 sem
     //Tested
-    public void findCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){
+    public void findCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc,
+                                         ArrayList<String> semesters, ArrayList<Student> studentList,
+                                         HashMap<String, ArrayList<Course>> couInSem){
         System.out.println("---Find one course in semester function---");
-        ArrayList<String> semesters =  new ArrayList<>();
-        showSemester(stE, semesters);
+
+        showSemester(semesters);
         System.out.println("Input semester to view");
         System.out.print("Semester (2022A): ");
         String inputSem = sc.nextLine();
@@ -636,14 +658,13 @@ public class Menu {
             System.out.println("Course list is empty, please create course first");
             return;
         }
-        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
         System.out.println("Input course ID or name to view");
         System.out.print("Course: ");
         String cou =  sc.nextLine();
         if (cou.equalsIgnoreCase("Exit")){
             return;
         }
-        checkCouAvailable(sc, cou, couInSemList);
+        checkCouAvailable(sc, cou, inputSem,couInSem );
         stE.findOneCour(cou, inputSem);
 
         choiceOfCouIn1Sem();
@@ -655,12 +676,11 @@ public class Menu {
         while (!choice.equalsIgnoreCase("exit")){
             String stuID = "";
             if (choice.equals("1")){
-                ArrayList<Student> studentList = stE.getStudentsList();
                 System.out.println("Input student ID to enroll, 'exit' to exit");
                 System.out.print("Student ID: ");
                 stuID = sc.nextLine();
                 checkStudentAvailable(sc, stuID, studentList);
-                enrolNewCourse(stE, sc,cou, stuID, inputSem);
+                enrolNewCourse(stE, cou, stuID, inputSem, studentList);
             }
             if (choice.equals("2")){
                 System.out.println("Input field and new data to update, 'exit' to exit");
@@ -695,7 +715,7 @@ public class Menu {
         System.out.print("Your choice: ");
     }
     //Tested
-    public void viewEnrollment(StudentEnrolment stE, Scanner sc){
+    public void viewEnrollment(StudentEnrolment stE, Scanner sc, ArrayList<Student> studentList, HashMap<String, ArrayList<Course>> couInSem){
         System.out.println("---Show all enrollment in enrollment's list---");
         System.out.println(stE.getEnrolmentList());
         System.out.println("Do you want to add more enrollment or delete enrollment? (y/n) ");
@@ -733,7 +753,6 @@ public class Menu {
                 }
                 break;
             }
-            ArrayList<Student> studentList = stE.getSemesterStudent().get(semester);
             System.out.println("Input student ID");
             System.out.print("Student ID: ");
             String stuID = sc.nextLine();
@@ -747,14 +766,13 @@ public class Menu {
             if (cou.equalsIgnoreCase("exit")){
                 return;
             }
-            ArrayList<Course> couInSem = stE.getSemesterCourses().get(semester);
             if (choice.equals("1")){
-                checkCouAvailable(sc, cou, couInSem);
-                enrolNewCourse(stE, sc,cou, stuID, semester);
+                checkCouAvailable(sc, cou, semester, couInSem);
+                enrolNewCourse(stE, cou, stuID, semester, studentList);
             }
             if (choice.equals("2")){
-                checkCouAvailable(sc, cou,couInSem);
-                dropCourse(stE, sc,cou, stuID, semester);
+                checkCouAvailable(sc, cou, semester, couInSem);
+                dropCourse(stE, cou, stuID, semester, studentList);
             }
             choiceEnrolment();
             choice = sc.nextLine();

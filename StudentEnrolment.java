@@ -1,5 +1,3 @@
-
-
 import java.util.*;
 import java.time.Year;
 
@@ -166,11 +164,11 @@ public class StudentEnrolment{
     //Tested
     public ArrayList<Enrolment> addEnrolmentList(Enrolment enrolment){
         for(Enrolment enrolTemp : enrolmentList)
-        if(enrolTemp.getStudent().equals(enrolment.getStudent()) &&
-        enrolTemp.getCourse().equals(enrolment.getCourse()) &&
-        enrolTemp.getSemester().equals(enrolment.getSemester())){
-            return enrolmentList;
-        }
+            if(enrolTemp.getStudent().equals(enrolment.getStudent()) &&
+                    enrolTemp.getCourse().equals(enrolment.getCourse()) &&
+                    enrolTemp.getSemester().equals(enrolment.getSemester())){
+                return enrolmentList;
+            }
         enrolmentList.add(enrolment);
         System.out.println("Add enrolment successfully");
         return enrolmentList;
@@ -273,16 +271,16 @@ public class StudentEnrolment{
             }
         }
         for (Student stuTemp : semesterStudent.get(inputSem))
-        if(stuTemp.getStudentID().equalsIgnoreCase(inputStu)){
-            for (Course couTemp : stuTemp.getCoursesList())
-            if (couTemp.getCourseID().equalsIgnoreCase(inputCou) || couTemp.getCourseName().equalsIgnoreCase(inputCou)){
-                stuTemp.getCoursesList().remove(couTemp);
-                couTemp.getStudentsList().remove(stuTemp);
-                System.out.println("Drop course successfully");
-                return;
+            if(stuTemp.getStudentID().equalsIgnoreCase(inputStu)){
+                for (Course couTemp : stuTemp.getCoursesList())
+                    if (couTemp.getCourseID().equalsIgnoreCase(inputCou) || couTemp.getCourseName().equalsIgnoreCase(inputCou)){
+                        stuTemp.getCoursesList().remove(couTemp);
+                        couTemp.getStudentsList().remove(stuTemp);
+                        System.out.println("Drop course successfully");
+                        return;
+                    }
+                System.out.println("Course not found");
             }
-            System.out.println("Course not found");
-        }
     }
 
     //Update student, course with ID and name
@@ -295,15 +293,15 @@ public class StudentEnrolment{
                 System.out.println(couTemp);
                 return;
             }
-        }
+    }
 
     public void updateStudent(String stuID, String field, String change){
         for (Student stuTemp : studentsList)
-        if (stuTemp.getStudentID().equalsIgnoreCase(stuID)){
-            stuTemp.update(field, change);
-            System.out.println(stuTemp);
-            return;
-        }
+            if (stuTemp.getStudentID().equalsIgnoreCase(stuID)){
+                stuTemp.update(field, change);
+                System.out.println(stuTemp);
+                return;
+            }
     }
 
 }
