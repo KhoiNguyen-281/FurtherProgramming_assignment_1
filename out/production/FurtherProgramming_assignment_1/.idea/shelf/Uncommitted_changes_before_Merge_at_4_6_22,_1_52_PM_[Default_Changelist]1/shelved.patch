@@ -1,0 +1,670 @@
+Index: TestUnit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\nimport java.util.Collection;\nimport java.util.HashMap;\nimport java.util.Scanner;\n\npublic class TestUnit {\n    public static void main(String args[]) {\n        StudentEnrolment stE = new StudentEnrolment();\n        Scanner sc = new Scanner(System.in);\n        //Test create semester method\n        stE.setSemesters();\n        System.out.println(stE.getSemesters());\n\n        //Test create() method (course)\n//        stE.create(\"Course\", \"C001\", \"Further programming\", \"12\");\n//        stE.create(\"Course\", \"C002\", \"Building IT System\", \"12\");\n//        System.out.println(stE.getCourseList());\n//\n//        //Test create() method (student)\n//        stE.create(\"Student\", \"S001\", \"Khoi\", \"28/01/2000\");\n//        stE.create(\"Student\", \"S002\", \"Khoa\", \"20/10/2002\");\n//        stE.create(\"Student\", \"S003\", \"Khang\", \"20/10/2002\");\n//        System.out.println(stE.getStudentsList());\n\n        //Test add course to semester\n        enrol(stE, sc);\n        stE.addSemesterCourses(\"C001\", \"2022A\");\n        stE.addSemesterCourses(\"C001\", \"2022A\");\n        stE.addSemesterCourses(\"C001\", \"2022B\");\n//        stE.addSemesterCourses(\"2022A\", \"C002\");\n//        stE.addSemesterCourses(\"2022C\", \"C003\");\n        System.out.println(stE.getSemesterCourses());\n\n\n//        Test add student to course\n\n\n\n////        stE.createEnrollment(\"S002\", \"C001\", \"2022B\");\n\n\n        stE.createEnrollment(\"S001\", \"C001\", \"2022A\");\n        stE.createEnrollment(\"S001\", \"C001\", \"2022A\");\n        stE.createEnrollment(\"S001\", \"C002\", \"2022A\");\n        stE.createEnrollment(\"S001\", \"C001\", \"2022B\");\n        stE.createEnrollment(\"S002\", \"C001\", \"2022B\");\n        System.out.println(stE.getEnrolmentList());\n\n//        Test update method\n\n//\n//        //Test findAll() method (Course)\n//        stE.findAll(\"Course\", \"2022B\");\n//        stE.findAll(\"Course\", \"2022A\");\n//\n//        //Test findAll() method (Student)\n//        stE.findAll(\"Student\", \"2022A\");\n//        stE.findAll(\"Student\", \"2022B\");\n\n//        Test findOne() method(Student)\n//        stE.create(\"Student\", \"S002\", \"Khoa\", \"20/10/2002\");\n//        stE.createEnrollment(\"S002\", \"C001\", \"2022B\");\n//        stE.findOne(\"Student\", \"S004\");\n//        stE.findOne(\"Student\", \"S002\");\n//\n//        //Test findOne() method(Course)\n//        stE.findOne(\"Course\", \"C002\");\n//        stE.findOne(\"Course\", \"C004\");\n//\n//        //Test delete() method(Student)\n//        stE.delete(\"Student\", \"S003\");\n//        stE.delete(\"Student\", \"S004\");\n//        System.out.println(stE.getStudentsList());\n////\n////        Test delete() method(Course)\n//        stE.delete(\"Course\",\"C002\");\n//        stE.delete(\"Course\",\"C004\");\n//        System.out.println(stE.getCourseList());\n//        System.out.println(stE.getSemesterCourses());\n//\n//        //Test dropCourse() method\n//        stE.dropCourse(\"C001\", \"S001\", \"2022B\");\n//        stE.dropCourse(\"C002\", \"S001\", \"2022A\");\n//        stE.dropCourse(\"C001\", \"S004\", \"2022A\");\n////        System.out.println(stE.getEnrolmentList());\n//\n//        //Write test\n//        stE.writeCsv();\n    }\n\n    public static void enrol(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"asd\");\n        String couOD = sc.nextLine();\n        System.out.println(\"asd\");\n        String sem = sc.nextLine();\n        ArrayList<Course> temp = stE.getSemesterCourses().get(sem);\n        for (Course couTemp : temp){\n            if (couTemp.getCourseID().equals(couOD)){\n                System.out.println(\"Cant do shit\");\n                return;\n            }\n            stE.addSemesterCourses(couOD, sem);\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/TestUnit.java b/TestUnit.java
+--- a/TestUnit.java	
++++ b/TestUnit.java	
+@@ -11,95 +11,32 @@
+         stE.setSemesters();
+         System.out.println(stE.getSemesters());
+ 
+-        //Test create() method (course)
+-//        stE.create("Course", "C001", "Further programming", "12");
+-//        stE.create("Course", "C002", "Building IT System", "12");
+-//        System.out.println(stE.getCourseList());
+-//
+-//        //Test create() method (student)
+-//        stE.create("Student", "S001", "Khoi", "28/01/2000");
+-//        stE.create("Student", "S002", "Khoa", "20/10/2002");
+-//        stE.create("Student", "S003", "Khang", "20/10/2002");
+-//        System.out.println(stE.getStudentsList());
++        //Test create new student and course
++        stE.createNewData("1", "S001", "Khoi", "28/01/2000");
++        stE.createNewData("1", "S002", "Khoa", "12/09/1999");
++        stE.createNewData("1", "S003", "Tuan", "07/10/1998");
++
++        stE.createNewData("2", "C001", "Further programming", "12");
++        stE.createNewData("2", "C002", "Building IT System", "12");
++        stE.createNewData("2", "C003", "Programming 1", "12");
+ 
+         //Test add course to semester
+-        enrol(stE, sc);
+-        stE.addSemesterCourses("C001", "2022A");
++        System.out.println(stE.getSemesterCourses().get("2022A"));
+         stE.addSemesterCourses("C001", "2022A");
+-        stE.addSemesterCourses("C001", "2022B");
+-//        stE.addSemesterCourses("2022A", "C002");
+-//        stE.addSemesterCourses("2022C", "C003");
+-        System.out.println(stE.getSemesterCourses());
+-
++        stE.addSemesterCourses("Building IT System", "2022A");
++        stE.addSemesterCourses("C003", "2022A");
++        System.out.println(stE.getSemesterCourses().get("2022A"));
+ 
+-//        Test add student to course
++        //Test find functions before enroll
++        stE.findOneCour("C001", "2022A");
++        stE.findOneStu("S001", "2022A");
+ 
+-
+-
+-////        stE.createEnrollment("S002", "C001", "2022B");
+-
+-
++        //Test enrollment
+         stE.createEnrollment("S001", "C001", "2022A");
+-        stE.createEnrollment("S001", "C001", "2022A");
+-        stE.createEnrollment("S001", "C002", "2022A");
+-        stE.createEnrollment("S001", "C001", "2022B");
+-        stE.createEnrollment("S002", "C001", "2022B");
+-        System.out.println(stE.getEnrolmentList());
+-
+-//        Test update method
++        stE.createEnrollment("S001", "Building IT System", "2022A");
+ 
+-//
+-//        //Test findAll() method (Course)
+-//        stE.findAll("Course", "2022B");
+-//        stE.findAll("Course", "2022A");
+-//
+-//        //Test findAll() method (Student)
+-//        stE.findAll("Student", "2022A");
+-//        stE.findAll("Student", "2022B");
+-
+-//        Test findOne() method(Student)
+-//        stE.create("Student", "S002", "Khoa", "20/10/2002");
+-//        stE.createEnrollment("S002", "C001", "2022B");
+-//        stE.findOne("Student", "S004");
+-//        stE.findOne("Student", "S002");
+-//
+-//        //Test findOne() method(Course)
+-//        stE.findOne("Course", "C002");
+-//        stE.findOne("Course", "C004");
+-//
+-//        //Test delete() method(Student)
+-//        stE.delete("Student", "S003");
+-//        stE.delete("Student", "S004");
+-//        System.out.println(stE.getStudentsList());
+-////
+-////        Test delete() method(Course)
+-//        stE.delete("Course","C002");
+-//        stE.delete("Course","C004");
+-//        System.out.println(stE.getCourseList());
+-//        System.out.println(stE.getSemesterCourses());
+-//
+-//        //Test dropCourse() method
+-//        stE.dropCourse("C001", "S001", "2022B");
+-//        stE.dropCourse("C002", "S001", "2022A");
+-//        stE.dropCourse("C001", "S004", "2022A");
+-////        System.out.println(stE.getEnrolmentList());
+-//
+-//        //Write test
+-//        stE.writeCsv();
+-    }
+-
+-    public static void enrol(StudentEnrolment stE, Scanner sc){
+-        System.out.println("asd");
+-        String couOD = sc.nextLine();
+-        System.out.println("asd");
+-        String sem = sc.nextLine();
+-        ArrayList<Course> temp = stE.getSemesterCourses().get(sem);
+-        for (Course couTemp : temp){
+-            if (couTemp.getCourseID().equals(couOD)){
+-                System.out.println("Cant do shit");
+-                return;
+-            }
+-            stE.addSemesterCourses(couOD, sem);
+-        }
++        //Test find functions after enroll
++        stE.findOneCour("C001", "2022A");
++        stE.findOneStu("S001", "2022A");
+     }
+ }
+\ No newline at end of file
+Index: Menu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.awt.image.AreaAveragingScaleFilter;\nimport java.security.PublicKey;\nimport java.util.ArrayList;\nimport java.util.Scanner;\n\npublic class Menu {\n//\n    public void choiceMainMenu(){\n        System.out.println(\"\"\"\n                +Press '1': Create new student or course\n                +Press '2': Find\n                +Press '3': View all enrollment\n                +Type 'exit': Exit program\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Main menu\n    //Tested\n    public void mainMenu(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"---Welcome to student management system---\");\n        choiceMainMenu();\n        String choice = sc.nextLine();\n        if (choice.equalsIgnoreCase(\"exit\")){\n            return;\n        }\n        checkStuChoice(sc, choice);\n        while (!choice.equalsIgnoreCase(\"exit\")){\n            if (choice.equals(\"1\")){\n                createNew(stE, sc);\n            }\n            if (choice.equals(\"2\")){\n                mainFind(stE, sc);\n            }\n            if (choice.equals(\"3\")){\n                viewEnrollment(stE, sc);\n            }\n            choiceMainMenu();\n            choice = sc.nextLine();\n            checkStuChoice(sc, choice);\n        }\n    }\n\n//    Find functions\n    public void choiceFind(){\n        System.out.println(\"\"\"\n                +Press '1': View available course of semester\n                +Press '2': View all student with their enrolled course in semester\n                +Press '3': View one student with their enrolled course in semester\n                +Press '4': View all course with enrolled student in semester\n                +Type 'exit': Exit to main menu\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Method to check if user choice is valid\n    //Tested\n    public void checkChoiceFind(Scanner sc, String choice){\n        String[] choiceList = {\"1\",\"2\",\"3\",\"4\"};\n        for (String s : choiceList){\n            while (!choice.equalsIgnoreCase(\"exit\")){\n                if (choice.equals(\"1\")){\n                    break;\n                }\n                if (choice.equals(\"2\")){\n                    break;\n                }\n                if (choice.equals(\"3\")){\n                    break;\n                }\n                if (choice.equals(\"4\")){\n                    break;\n                }\n                System.out.println(\"Invalid choice, please try again, 'exit' to exit\");\n                System.out.print(\"Your choice: \");\n                choice = sc.nextLine();\n            }\n            break;\n        }\n    }\n    //Main find menu\n    //Tested\n    public void mainFind(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"---Find program---\");\n        choiceFind();\n        String choice = sc.nextLine();\n        if (choice.equalsIgnoreCase(\"exit\")){\n            return;\n        }\n        checkChoiceFind(sc, choice);\n        while (!choice.equalsIgnoreCase(\"exit\")){\n            if (choice.equals(\"1\")){\n                viewCoursesOfSem(stE, sc);\n            }\n            if (choice.equals(\"2\")){\n                findAllStudentIn1Sem(stE, sc);\n            }\n            if (choice.equals(\"3\")){\n                findStudentInSem(stE, sc);\n\n            }\n            if (choice.equals(\"4\")){\n                findAllCourseIn1SemInCluStu(stE, sc);\n            }\n            choiceFind();\n            choice = sc.nextLine();\n            checkChoiceFind(sc, choice);\n        }\n    }\n//    1. Create new student, course\n    //Check if input ID is valid to create new object\n    //Tested\n    public void checkIfIDExist(StudentEnrolment stE, Scanner sc, String choice) {\n        if (choice.equals(\"1\") || choice.equals(\"2\")) {\n            ArrayList<Student> stuTempList = stE.getStudentsList();\n            ArrayList<Course> couTempList = stE.getCourseList();\n            System.out.print(\"ID: \");\n            String ID = sc.nextLine();\n            if (ID.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n            if (choice.equals(\"1\")) {\n                for (Student student : stuTempList) {\n                    while (student.getStudentID().equalsIgnoreCase(ID)) {\n                        System.out.println(\"ID is existed, please input another, or 'exit' to exit\");\n                        System.out.print(\"ID: \");\n                        ID = sc.nextLine();\n                        if (ID.equalsIgnoreCase(\"exit\")) {\n                            return;\n                        }\n                    }\n                    break;\n                }\n            }\n            if (choice.equals(\"2\")) {\n                for (Course course : couTempList) {\n                    while (course.getCourseID().equalsIgnoreCase(ID)) {\n                        System.out.println(\"ID is existed, please input another, or 'exit' to exit\");\n                        System.out.print(\"ID: \");\n                        ID = sc.nextLine();\n                        if (ID.equalsIgnoreCase(\"exit\")) {\n                            return;\n                        }\n                    }\n                    break;\n                }\n            }\n            System.out.println(\"ID valid, continue\");\n            String name = \"\";\n            String val = \"\";\n            inputNewData(sc, name, val, choice);\n            stE.createNewData(choice, ID, name, val);\n        }\n\n    }\n    //Method for input new data\n    //Tested\n    public void inputNewData(Scanner sc, String name, String val, String choice) {\n        System.out.print(\"Name: \");\n        name = sc.nextLine();\n        if (name.equalsIgnoreCase(\"exit\")) {\n            return;\n        }\n        if (choice.equals(\"1\")) {\n            System.out.print(\"Date of birth: \");\n            val = sc.nextLine();\n            if (val.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n        }\n        if (choice.equals(\"2\")) {\n            System.out.print(\"Number of credits: \");\n            val = sc.nextLine();\n            if (val.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n        }\n    }\n    //Method check if user choice is valid\n    //Tested\n    public void checkChoice(Scanner sc, String choice) {\n        if (choice.equalsIgnoreCase(\"exit\")) {\n            return;\n        }\n        while (!choice.equals(\"1\")) {\n            if (choice.equals(\"2\")) {\n                break;\n            }\n            System.out.println(\"Invalid input, please try again or type 'exit' to back\");\n            System.out.print(\"Input: \");\n            choice = sc.nextLine();\n            if (choice.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n        }\n    }\n    //Method to create student and course\n    //Tested\n    public void createNew(StudentEnrolment stE, Scanner sc) {\n        System.out.println(\"---Create student and course---\");\n        System.out.println(\"\"\"\n                +Press '1': Create student\n                +Press '2': Create course\n                +Type 'exit': Exit to menu page\"\"\");\n        System.out.print(\"Input: \");\n        String choice = sc.nextLine();\n        checkChoice(sc, choice);\n        while (!choice.equalsIgnoreCase(\"exit\")) {\n            checkIfIDExist(stE, sc, choice);\n            System.out.println(\"\"\"\n                    +Press '1': Create student\n                    +Press '2': Create course\n                    +Type 'exit': Exit to menu page\"\"\");\n            System.out.print(\"Your choice: \");\n            choice = sc.nextLine();\n            checkChoice(sc, choice);\n        }\n    }\n//----------------------------------------------------------------------------------------\n//   2. Find course of semester\n    //Option for user to choose\n    public void choice() {\n        System.out.println(\"\"\"\n                +Press '1': Add course to semester\n                +Press '2': Remove course of semester\n                +Type 'exit': Back to select semester\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Method to show all available semesters in the system\n    //Tested\n    public void showSemester(StudentEnrolment stE, ArrayList<String> semesterList) {\n        String aSem = \"\";\n        for (String sem : stE.getSemesters()) {\n            aSem += sem + \" \";\n            semesterList.add(sem);\n        }\n        System.out.println(\"Available semester: \");\n        System.out.println(aSem);\n    }\n    //Method to show all course in semester and available course in course list\n    //Tested\n    public void showSemesterCourse(ArrayList<Course> couSem) {\n        String couInSem = \"\";\n        for (Course couTemp : couSem) {\n            couInSem += couTemp;\n        }\n        System.out.println(\"Available course in this semester: \");\n        System.out.println(couInSem);\n\n    }\n    //Method to show all available course to add\n    //Tested\n    public void showCourseList(ArrayList<Course> couList) {\n        String couInList = \"\";\n        for (Course couTemp2 : couList) {\n            couInList += couTemp2;\n        }\n        System.out.println(\"Available course in system: \");\n        System.out.println(couInList);\n    }\n    //Method to check if user choice is valid\n    //Tested\n    public void checkChoiceCou(Scanner sc, String choice) {\n        while (!choice.equalsIgnoreCase(\"exit\")) {\n            if (choice.equals(\"2\")) {\n                break;\n            }\n            if (choice.equalsIgnoreCase(\"1\")) {\n                return;\n            }\n            System.out.println(\"Invalid input, please try again, 'exit' to back to select semesters\");\n            System.out.print(\"Input: \");\n            choice = sc.nextLine();\n        }\n    }\n    //Method to check if course is in semester or not\n    //Tested\n    public void checkCourseInSem(StudentEnrolment stE, String input, String sem, ArrayList<Course> couListSem) {\n        for (Course couTemp : couListSem) {\n            if (couTemp.getCourseID().equalsIgnoreCase(input)) {\n                System.out.println(\"Course is existed\");\n                return;\n            }\n        }\n        stE.addSemesterCourses(input, sem);\n    }\n    //Method to check if course is available to add\n    //Tested\n    public void checkIfCourseValidToAdd(Scanner sc, String input, ArrayList<Course> couList) {\n        while (!input.equalsIgnoreCase(\"exit\")) {\n            for (Course cou : couList) {\n                if (cou.getCourseID().equalsIgnoreCase(input) || cou.getCourseName().equalsIgnoreCase(input)) {\n                    return;\n                }\n            }\n            System.out.println(\"Course is not available, please try again or 'exit' to exit\");\n            System.out.print(\"Course ID or name: \");\n            input = sc.nextLine();\n        }\n\n    }\n    //Method to remove course from semester;\n    //Tested\n    public void removeCourse(StudentEnrolment stE, Scanner sc, String input, String sem, ArrayList<Course> couInSem) {\n        while (!input.equalsIgnoreCase(\"exit\")) {\n            for (Course couTemp : couInSem) {\n                if (couTemp.getCourseID().equalsIgnoreCase(input)) {\n                    stE.removeCourseSem(input, sem);\n                    return;\n                }\n            }\n            System.out.println(\"Course is not available, please try again or 'exit' to exit\");\n            System.out.print(\"Course ID or name: \");\n            input = sc.nextLine();\n        }\n    }\n    //Main method to add or remove course from semester\n    //Tested\n    public void viewCoursesOfSem(StudentEnrolment stE, Scanner sc) {\n        System.out.println(\"---Populate courses of semester---\");\n        ArrayList<String> semesters = new ArrayList<>();\n        showSemester(stE, semesters);\n        System.out.println(\"Input semester you want to see, 'exit' to exit\");\n        System.out.print(\"Semester: \");\n        String inputSem = sc.nextLine();\n        if (inputSem.equalsIgnoreCase(\"exit\")) {\n            return;\n        }\n        for (String sem : semesters) {\n            while (!inputSem.equalsIgnoreCase(\"exit\")) {\n                if (inputSem.equalsIgnoreCase(sem)) {\n                    System.out.println(\"Valid semester, continue\");\n                    inputSem = sem;\n                    break;\n                }\n                System.out.println(\"This semester is not in the system, please input again or type 'exit' to exit\");\n                System.out.print(\"Input: \");\n                inputSem = sc.nextLine();\n            }\n            break;\n        }\n        while (!inputSem.equalsIgnoreCase(\"exit\")) {\n            ArrayList<Course> couList = stE.getCourseList();\n            ArrayList<Course> couListSem = stE.getSemesterCourses().get(inputSem);\n            showSemesterCourse(couListSem);\n            showCourseList(couList);\n            choice();\n            String choice = sc.nextLine();\n            if (choice.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n            checkChoiceCou(sc, choice);\n            while (!choice.equalsIgnoreCase(\"exit\")) {\n                String input2 = \"\";\n                if (choice.equals(\"1\")) {\n                    System.out.println(\"Input course ID or name to add to this semester, 'exit' to exit\");\n                    System.out.print(\"Course ID or name: \");\n                    input2 = sc.nextLine();\n                    checkIfCourseValidToAdd(sc, input2, couList);\n                    checkCourseInSem(stE, input2, inputSem, couListSem);\n\n                }\n                if (choice.equals(\"2\")) {\n                    System.out.println(\"Input course ID or name to remove, 'exit' to exit\");\n                    System.out.print(\"Course ID or name: \");\n                    input2 = sc.nextLine();\n                    removeCourse(stE, sc, input2, inputSem, couListSem);\n                }\n                choice();\n                choice = sc.nextLine();\n                if (choice.equalsIgnoreCase(\"exit\")) {\n                    return;\n                }\n                checkChoiceCou(sc, choice);\n            }\n        }\n    }\n//-----------------------------------------------------------------------------------------\n//  3. Find 1 student in sem\n    //Method to show all available student in semester\n    //Tested\n    public void showCurrentStudent(StudentEnrolment stE, ArrayList<Student> stuList) {\n        String availableStu = \"\";\n        for (Student stuTemp : stuList) {\n            availableStu += stuTemp;\n        }\n        System.out.println(\"Available student: \");\n        System.out.print(availableStu);\n    }\n    //Method to check if student is available in system\n    //Tested\n    public void checkStudentAvailable(Scanner sc, String input, ArrayList<Student> studentList) {\n        while (!input.equalsIgnoreCase(\"exit\")) {\n            for (Student stuTemp : studentList) {\n                if (stuTemp.getStudentID().equalsIgnoreCase(input)) {\n                    System.out.println(\"Valid student: \");\n                    return;\n                }\n            }\n            System.out.println(\"Cannot find student, please try again or 'exit' to exit\");\n            System.out.print(\"Input: \");\n            input = sc.nextLine();\n        }\n    }\n    //Method to check if course is available in semester\n    //Tested\n    public void checkCouAvailable(Scanner sc, String input, ArrayList<Course> couListSem) {\n        while (!input.equalsIgnoreCase(\"exit\")) {\n            for (Course cou : couListSem) {\n                if (cou.getCourseID().equalsIgnoreCase(input) || cou.getCourseName().equalsIgnoreCase(input)) {\n                    return;\n                }\n            }\n            System.out.println(\"Course is not in the semester, please try again or 'exit' to exit\");\n            System.out.print(\"Course ID or name: \");\n            input = sc.nextLine();\n        }\n    }\n    //Method to check if student has enrolled course\n    //Tested\n    public void checkStuHaveCourse(StudentEnrolment stE, String input, String stuID, String sem, ArrayList<Course> coursOfStu) {\n        for (Course couTemp : coursOfStu) {\n            if (couTemp.getCourseID().equalsIgnoreCase(input) || couTemp.getCourseName().equalsIgnoreCase(input)) {\n                System.out.println(\"Student has already enrolled this course\");\n                return;\n            }\n        }\n        stE.createEnrollment(stuID, input, sem);\n    }\n    //Method to show option after finding student\n    //Tested\n    public void choiceOfStu() {\n        System.out.println(\"\"\"\n                +Press '1': Enroll new course\n                +Press '2': Drop course\n                +Press '3': Update student information\n                +Type 'exit': Exit to menu\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Method to check if user choice is valid\n    //Tested\n    public void checkStuChoice(Scanner sc, String choice) {\n        String[] choiceList = {\"1\", \"2\", \"3\"};\n        while (!choice.equalsIgnoreCase(\"exit\")) {\n            for (String s : choiceList) {\n                if (choice.equalsIgnoreCase(s)) {\n                    return;\n                }\n            }\n            System.out.println(\"Invalid input, please try again, 'exit' to exit\");\n            System.out.print(\"Your choice: \");\n            choice = sc.nextLine();\n        }\n    }\n    //Method to check if input data is valid to enrol\n    //Tested\n    public void enrolNewCourse(StudentEnrolment stE,\n                                      Scanner sc,String cou ,String stuID, String sem) {\n\n\n        for (Student stuTemp : stE.getSemesterStudent().get(sem)) {\n            if (stuTemp.getStudentID().equalsIgnoreCase(stuID)) {\n                ArrayList<Course> couOfStu = stuTemp.getCoursesList();\n                checkStuHaveCourse(stE, cou, stuID, sem, couOfStu);\n                stE.createEnrollment(stuID, cou, sem);\n                return;\n            }\n        }\n    }\n    //Method to check if input data is valid to drop course\n    //Tested\n    public void dropCourse(StudentEnrolment stE, Scanner sc, String cou, String stuID, String sem) {\n\n        for (Student stuTemp : stE.getSemesterStudent().get(sem)) {\n            if (stuTemp.getStudentID().equalsIgnoreCase(stuID)) {\n                ArrayList<Course> couOfStu = stuTemp.getCoursesList();\n                checkStuHaveCourse(stE, cou, stuID, sem, couOfStu);\n                stE.dropCourse(stuID, cou, sem);\n                return;\n            }\n        }\n    }\n    //Method to check if input is valid to update student information\n    //Tested\n    public void upDate(StudentEnrolment stE, Scanner sc, String ID, String field){\n        while (!field.equalsIgnoreCase(\"exit\")){\n            if (field.equalsIgnoreCase(\"ID\")){\n                break;\n            }\n            if (field.equalsIgnoreCase(\"Name\")){\n                break;\n            }\n\n                if (field.equalsIgnoreCase(\"Date of birth\")){\n                    break;\n                }\n\n\n                if (field.equalsIgnoreCase(\"Number or credits\")){\n                    break;\n                }\n            System.out.println(\"Invalid input, please try again or 'exit' to exit\");\n            System.out.print(\"Input: \");\n            field = sc.nextLine();\n        }\n        System.out.print(\"New data: \");\n        String change = sc.nextLine();\n\n            stE.updateStudent(ID, field, change);\n\n    }\n    //Main method to find student and perform tasks\n    //Tested\n    public void findStudentInSem(StudentEnrolment stE, Scanner sc) {\n        if (stE.getStudentsList().isEmpty()) {\n            System.out.println(\"Student list is empty, please create student first\");\n            return;\n        }\n        System.out.println(\"---Find student function---\");\n        ArrayList<String> semesters = new ArrayList<>();\n        ArrayList<Student> studentList = stE.getStudentsList();\n        showSemester(stE, semesters);\n        System.out.println(\"PLease input student ID and semester you want to find, 'exit' to exit\");\n        System.out.print(\"Student ID: \");\n        String inputStu = sc.nextLine();\n        if (inputStu.equalsIgnoreCase(\"exit\")) {\n            return;\n        }\n        checkStudentAvailable(sc, inputStu, studentList);\n        System.out.print(\"Semester: \");\n        String inputSem = sc.nextLine();\n        if (inputSem.equalsIgnoreCase(\"exit\")) {\n            return;\n        }\n        for (String sem : semesters) {\n            while (!inputSem.equalsIgnoreCase(\"exit\")) {\n                if (inputSem.equalsIgnoreCase(sem)) {\n                    System.out.println(\"Valid semester, continue\");\n                    inputSem = sem;\n                    break;\n                }\n                System.out.println(\"This semester is not in the system, please input again or type 'exit' to exit\");\n                System.out.print(\"Input: \");\n                inputSem = sc.nextLine();\n            }\n            break;\n        }\n        while (!inputSem.equalsIgnoreCase(\"exit\")) {\n            ArrayList<Student> stuInSemList = stE.getSemesterStudent().get(inputSem);\n//            ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);\n            //Show all student and enrolled course in semester\n//            showSemesterCourse(couInSemList);\n            stE.findOneStu(inputStu, inputSem);\n            choiceOfStu();\n            String choice = sc.nextLine();\n            if (choice.equalsIgnoreCase(\"exit\")) {\n                return;\n            }\n            checkStuChoice(sc, choice);\n            while (!choice.equalsIgnoreCase(\"exit\")) {\n                if (choice.equals(\"1\")) {\n                    ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);\n                    System.out.println(\"Input course ID or name to enrol\");\n                    System.out.print(\"Course ID or name: \");\n                    String cou = sc.nextLine();\n                    if (cou.equalsIgnoreCase(\"exit\")) {\n                        return;\n                    }\n                    checkCouAvailable(sc, cou, couInSemList);\n                    enrolNewCourse(stE, sc, cou, inputStu, inputSem);\n                }\n                if (choice.equals(\"2\")) {\n                    System.out.println(\"Input course ID or name to drop, 'exit' to exit\");\n                    System.out.print(\"Course ID or name: \");\n                    String cou = sc.nextLine();\n                    if (cou.equalsIgnoreCase(\"exit\")) {\n                        return;\n                    }\n                    dropCourse(stE, sc,cou, inputStu, inputSem);\n                }\n                if (choice.equals(\"3\")){\n                    System.out.println(\"Input field and new data to update, 'exit' to exit\");\n                    System.out.print(\"Field (ID, Name, Date of birth): \");\n                    String field = sc.nextLine();\n                    if (field.equalsIgnoreCase(\"exit\")){\n                        return;\n                    }\n                    upDate(stE, sc, inputStu, field);\n                }\n                choiceOfStu();\n                choice = sc.nextLine();\n                if (choice.equalsIgnoreCase(\"exit\")) {\n                    return;\n                }\n                checkStuChoice(sc, choice);\n            }\n        }\n\n    }\n//-----------------------------------------------------------------------------------------\n//   4. Find all student in 1 semester\n    //Tested\n    public void findAllStudentIn1Sem(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"---View all student in 1 semester---\");\n        ArrayList<String> semesters = new ArrayList<>();\n        showSemester(stE, semesters);\n        System.out.println(\"Input semester to view all student\");\n        System.out.print(\"Semester: \");\n        String inputSem =  sc.nextLine();\n        if (inputSem.equalsIgnoreCase(\"exit\")){\n            return;\n        }\n        for (String s : semesters){\n            while (!inputSem.equalsIgnoreCase(\"exit\")){\n                if (s.equalsIgnoreCase(inputSem)){\n                    inputSem = s;\n                    break;\n                }\n                System.out.println(\"Cannot find this semester, please try again or 'exit' to exit\");\n                inputSem = sc.nextLine();\n            }\n            break;\n        }\n        stE.findAllStuSem(inputSem);\n\n        System.out.println(\"Do you want to perform tasks ? (y/n)\");\n        String yN = sc.nextLine();\n        if(yN.equalsIgnoreCase(\"n\")){\n            return;\n        }\n        while (!yN.equalsIgnoreCase(\"n\")){\n            if (yN.equalsIgnoreCase(\"y\")){\n                choiceOfStu();\n                String choice =  sc.nextLine();\n                if (choice.equalsIgnoreCase(\"exit\")){\n                    return;\n                }\n                checkStuChoice(sc, choice);\n                while (!choice.equalsIgnoreCase(\"exit\")){\n                    ArrayList<Student> studentList =  stE.getStudentsList();\n                    System.out.println(\"Input student ID, 'exit' to exit\");\n                    System.out.print(\"Student ID: \");\n                    String stuID = sc.nextLine();\n                    checkStudentAvailable(sc, stuID, studentList);\n                    if (choice.equals(\"1\")){\n                        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);\n                        System.out.println(\"Input course ID or name to enroll\");\n                        System.out.print(\"Course ID or name: \");\n                        String cou = sc.nextLine();\n                        if (cou.equalsIgnoreCase(\"exit\")) {\n                            return;\n                        }\n                        checkCouAvailable(sc, cou, couInSemList);\n                        enrolNewCourse(stE, sc,cou, stuID, inputSem);\n                    }\n                    if (choice.equals(\"2\")) {\n                        System.out.println(\"Input course ID or name to drop, 'exit' to exit\");\n                        System.out.print(\"Course ID or name: \");\n                        String cou = sc.nextLine();\n                        if (cou.equalsIgnoreCase(\"exit\")) {\n                            return;\n                        }\n                        dropCourse(stE, sc, cou, stuID, inputSem);\n                    }\n                    if (choice.equals(\"3\")){\n                        System.out.println(\"Input field and new data to update, 'exit' to exit\");\n                        System.out.print(\"Field (ID, Name, Date of birth): \");\n                        String field = sc.nextLine();\n                        if (field.equalsIgnoreCase(\"exit\")){\n                            return;\n                        }\n                        upDate(stE, sc, stuID, field);\n                    }\n                    choiceOfStu();\n                    choice = sc.nextLine();\n                    if (choice.equalsIgnoreCase(\"exit\")) {\n                        return;\n                    }\n                    checkStuChoice(sc, choice);\n                }\n            }\n            System.out.println(\"Invalid input, please try again, 'exit' to exit\");\n            System.out.print(\"Your choice: \");\n            yN = sc.nextLine();\n        }\n\n    }\n//-----------------------------------------------------------------------------------------\n//   5. Find all course in 1 semester\n    //Method to show course task after showing\n    //Tested\n    public void choiceOfCouIn1Sem(){\n        System.out.println(\"\"\"\n                +Press '1': Enroll student to course\n                +Press '2': Update course information\n                +Press '3': Remove student from course\n                +Type 'exit': Exit\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Method to update course information\n    //Tested\n    public void upDateCou(StudentEnrolment stE, Scanner sc, String cou, String sem, String field){\n        while (!field.equalsIgnoreCase(\"exit\")){\n            if (field.equalsIgnoreCase(\"ID\")){\n                break;\n            }\n            if (field.equalsIgnoreCase(\"Name\")){\n                break;\n            }\n            if (field.equalsIgnoreCase(\"Number of credits\")){\n                break;\n            }\n            System.out.println(\"Field is not exist, please try again, 'exit' to exit\");\n            System.out.print(\"Input: \");\n            field = sc.nextLine();\n        }\n        System.out.print(\"New data: \");\n        String change = sc.nextLine();\n        stE.updateCourseInfo(cou, sem, field, change);\n    }\n    //Main method to find all course in 1 sem\n    //Tested\n    public void findAllCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"---Find all course in semester function---\");\n        ArrayList<String> semesters =  new ArrayList<>();\n        showSemester(stE, semesters);\n        System.out.println(\"Input semester to view\");\n        System.out.print(\"Semester (2022A): \");\n        String inputSem = sc.nextLine();\n        if (inputSem.equalsIgnoreCase(\"exit\")){\n            return;\n        }\n        for (String s : semesters){\n            while (!inputSem.equalsIgnoreCase(\"exit\")){\n                if (s.equalsIgnoreCase(inputSem)){\n                    break;\n                }\n                System.out.println(\"Cannot find semester, please try again, 'exit' to exit\");\n                System.out.print(\"Input: \");\n                inputSem = sc.nextLine();\n            }\n            break;\n        }\n        if (stE.getCourseList().isEmpty()) {\n            System.out.println(\"Course list is empty, please create course first\");\n            return;\n        }\n        stE.findAllCouSem(inputSem);\n        System.out.println(\"Do you want to perform tasks ? (y/n)\");\n        String yN = sc.nextLine();\n        if(yN.equalsIgnoreCase(\"n\")){\n            return;\n        }\n        while (!yN.equalsIgnoreCase(\"n\")){\n            if (yN.equalsIgnoreCase(\"y\")){\n                break;\n            }\n            System.out.println(\"Invalid input, please try again, 'exit' to exit\");\n            System.out.print(\"Your choice: \");\n            yN = sc.nextLine();\n        }\n        while (!yN.equalsIgnoreCase(\"exit\")){\n            ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);\n            System.out.println(\"Input course ID or name to perform tasks\");\n            System.out.print(\"Course: \");\n            String cou =  sc.nextLine();\n            if (cou.equalsIgnoreCase(\"exit\")){\n                return;\n            }\n            checkCouAvailable(sc,cou, couInSemList);\n            choiceOfCouIn1Sem();\n            String choice = sc.nextLine();\n            if (choice.equalsIgnoreCase(\"exit\")){\n                return;\n            }\n            checkStuChoice(sc, choice);\n            while (!choice.equalsIgnoreCase(\"exit\")){\n                String stuID = \"\";\n                if (choice.equals(\"1\")){\n                    ArrayList<Student> studentList = stE.getStudentsList();\n                    System.out.println(\"Input student ID to enroll, 'exit' to exit\");\n                    System.out.print(\"Student ID: \");\n                    stuID = sc.nextLine();\n                    checkStudentAvailable(sc, stuID, studentList);\n                    enrolNewCourse(stE, sc,cou, stuID, inputSem);\n                }\n                if (choice.equals(\"2\")){\n                    System.out.println(\"Input field and new data to update, 'exit' to exit\");\n                    System.out.print(\"Field (ID, Name, Number of credits): \");\n                    String field = sc.nextLine();\n                    if (field.equalsIgnoreCase(\"exit\")){\n                        return;\n                    }\n                    upDateCou(stE, sc, cou, inputSem, field);\n                }\n                if (choice.equals(\"3\")){\n                    System.out.println(\"Input student ID to remove, 'exit' to exit\");\n                    System.out.print(\"Student ID: \");\n                    stuID = sc.nextLine();\n                    stE.removeStu(cou, stuID, inputSem);\n                }\n                choiceOfCouIn1Sem();\n                choice = sc.nextLine();\n                if (choice.equalsIgnoreCase(\"exit\")) {\n                    return;\n                }\n                checkStuChoice(sc, choice);\n            }\n        }\n    }\n//-----------------------------------------------------------------------------------------\n//   6. View all enrollment\n    public void choiceEnrolment(){\n        System.out.println(\"\"\"\n                +Press '1': Create new enrollment\n                +Press '2': Remove enrollment\n                +Type 'exit': Exit\"\"\");\n        System.out.print(\"Your choice: \");\n    }\n    //Tested\n    public void viewEnrollment(StudentEnrolment stE, Scanner sc){\n        System.out.println(\"---Show all enrollment in enrollment's list---\");\n        System.out.println(stE.getEnrolmentList());\n        System.out.println(\"Do you want to add more enrollment or delete enrollment? (y/n) \");\n        String yN = sc.nextLine();\n        if(yN.equalsIgnoreCase(\"n\")){\n            return;\n        }\n        while (!yN.equalsIgnoreCase(\"n\")){\n            if (yN.equalsIgnoreCase(\"y\")){\n                break;\n            }\n            System.out.println(\"Invalid input, please try again, 'exit' to exit\");\n            System.out.print(\"Your choice: \");\n            yN = sc.nextLine();\n        }\n        choiceEnrolment();\n        String choice = sc.nextLine();\n        if (choice.equalsIgnoreCase(\"exit\")){\n            return;\n        }\n        checkChoiceCou(sc, choice);\n        while (!choice.equalsIgnoreCase(\"exit\")){\n            System.out.println(\"Input semester you want to perform tasks, 'exit' to exit\");\n            System.out.print(\"Semester: \");\n            String semester = sc.nextLine();\n            if (semester.equalsIgnoreCase(\"exit\")){\n                return;\n            }\n            for (String s : stE.getSemesters()){\n                while (!semester.equalsIgnoreCase(\"exit\")){\n                    if (s.equalsIgnoreCase(semester)){\n                        semester = s;\n                        break;\n                    }\n                }\n                break;\n            }\n            ArrayList<Student> studentList = stE.getSemesterStudent().get(semester);\n            System.out.println(\"Input student ID\");\n            System.out.print(\"Student ID: \");\n            String stuID = sc.nextLine();\n            if (stuID.equalsIgnoreCase(\"exit\")){\n                return;\n            }\n            checkStudentAvailable(sc, stuID, studentList);\n            System.out.println(\"Input course ID or name: \");\n            System.out.print(\"Course: \");\n            String cou =  sc.nextLine();\n            if (cou.equalsIgnoreCase(\"exit\")){\n                return;\n            }\n            ArrayList<Course> couInSem = stE.getSemesterCourses().get(semester);\n            if (choice.equals(\"1\")){\n                checkCouAvailable(sc, cou, couInSem);\n                enrolNewCourse(stE, sc,cou, stuID, semester);\n            }\n            if (choice.equals(\"2\")){\n\n                checkCouAvailable(sc, cou,couInSem);\n                dropCourse(stE, sc,cou, stuID, semester);\n            }\n            choiceEnrolment();\n            choice = sc.nextLine();\n            checkChoiceCou(sc, choice);\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Menu.java b/Menu.java
+--- a/Menu.java	
++++ b/Menu.java	
+@@ -43,18 +43,17 @@
+     public void choiceFind(){
+         System.out.println("""
+                 +Press '1': View available course of semester
+-                +Press '2': View all student with their enrolled course in semester
++                +Press '2': View one student with their enrolled course in semester
+                 +Press '3': View one student with their enrolled course in semester
+-                +Press '4': View all course with enrolled student in semester
+                 +Type 'exit': Exit to main menu""");
+         System.out.print("Your choice: ");
+     }
+     //Method to check if user choice is valid
+     //Tested
+     public void checkChoiceFind(Scanner sc, String choice){
+-        String[] choiceList = {"1","2","3","4"};
+-        for (String s : choiceList){
+-            while (!choice.equalsIgnoreCase("exit")){
++        String[] choiceList = {"1","2","3"};
++        while (!choice.equalsIgnoreCase("exit")){
++            for (String s : choiceList){
+                 if (choice.equals("1")){
+                     break;
+                 }
+@@ -63,9 +62,6 @@
+                 }
+                 if (choice.equals("3")){
+                     break;
+-                }
+-                if (choice.equals("4")){
+-                    break;
+                 }
+                 System.out.println("Invalid choice, please try again, 'exit' to exit");
+                 System.out.print("Your choice: ");
+@@ -89,14 +85,11 @@
+                 viewCoursesOfSem(stE, sc);
+             }
+             if (choice.equals("2")){
+-                findAllStudentIn1Sem(stE, sc);
+-            }
+-            if (choice.equals("3")){
+                 findStudentInSem(stE, sc);
+ 
+             }
+-            if (choice.equals("4")){
+-                findAllCourseIn1SemInCluStu(stE, sc);
++            if (choice.equals("3")){
++                findCourseIn1SemInCluStu(stE, sc);
+             }
+             choiceFind();
+             choice = sc.nextLine();
+@@ -594,95 +587,8 @@
+ 
+     }
+ //-----------------------------------------------------------------------------------------
+-//   4. Find all student in 1 semester
+-    //Tested
+-    public void findAllStudentIn1Sem(StudentEnrolment stE, Scanner sc){
+-        System.out.println("---View all student in 1 semester---");
+-        ArrayList<String> semesters = new ArrayList<>();
+-        showSemester(stE, semesters);
+-        System.out.println("Input semester to view all student");
+-        System.out.print("Semester: ");
+-        String inputSem =  sc.nextLine();
+-        if (inputSem.equalsIgnoreCase("exit")){
+-            return;
+-        }
+-        for (String s : semesters){
+-            while (!inputSem.equalsIgnoreCase("exit")){
+-                if (s.equalsIgnoreCase(inputSem)){
+-                    inputSem = s;
+-                    break;
+-                }
+-                System.out.println("Cannot find this semester, please try again or 'exit' to exit");
+-                inputSem = sc.nextLine();
+-            }
+-            break;
+-        }
+-        stE.findAllStuSem(inputSem);
+ 
+-        System.out.println("Do you want to perform tasks ? (y/n)");
+-        String yN = sc.nextLine();
+-        if(yN.equalsIgnoreCase("n")){
+-            return;
+-        }
+-        while (!yN.equalsIgnoreCase("n")){
+-            if (yN.equalsIgnoreCase("y")){
+-                choiceOfStu();
+-                String choice =  sc.nextLine();
+-                if (choice.equalsIgnoreCase("exit")){
+-                    return;
+-                }
+-                checkStuChoice(sc, choice);
+-                while (!choice.equalsIgnoreCase("exit")){
+-                    ArrayList<Student> studentList =  stE.getStudentsList();
+-                    System.out.println("Input student ID, 'exit' to exit");
+-                    System.out.print("Student ID: ");
+-                    String stuID = sc.nextLine();
+-                    checkStudentAvailable(sc, stuID, studentList);
+-                    if (choice.equals("1")){
+-                        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
+-                        System.out.println("Input course ID or name to enroll");
+-                        System.out.print("Course ID or name: ");
+-                        String cou = sc.nextLine();
+-                        if (cou.equalsIgnoreCase("exit")) {
+-                            return;
+-                        }
+-                        checkCouAvailable(sc, cou, couInSemList);
+-                        enrolNewCourse(stE, sc,cou, stuID, inputSem);
+-                    }
+-                    if (choice.equals("2")) {
+-                        System.out.println("Input course ID or name to drop, 'exit' to exit");
+-                        System.out.print("Course ID or name: ");
+-                        String cou = sc.nextLine();
+-                        if (cou.equalsIgnoreCase("exit")) {
+-                            return;
+-                        }
+-                        dropCourse(stE, sc, cou, stuID, inputSem);
+-                    }
+-                    if (choice.equals("3")){
+-                        System.out.println("Input field and new data to update, 'exit' to exit");
+-                        System.out.print("Field (ID, Name, Date of birth): ");
+-                        String field = sc.nextLine();
+-                        if (field.equalsIgnoreCase("exit")){
+-                            return;
+-                        }
+-                        upDate(stE, sc, stuID, field);
+-                    }
+-                    choiceOfStu();
+-                    choice = sc.nextLine();
+-                    if (choice.equalsIgnoreCase("exit")) {
+-                        return;
+-                    }
+-                    checkStuChoice(sc, choice);
+-                }
+-            }
+-            System.out.println("Invalid input, please try again, 'exit' to exit");
+-            System.out.print("Your choice: ");
+-            yN = sc.nextLine();
+-        }
+-
+-    }
+-//-----------------------------------------------------------------------------------------
+-//   5. Find all course in 1 semester
++//   5. Find course in 1 semester
+     //Method to show course task after showing
+     //Tested
+     public void choiceOfCouIn1Sem(){
+@@ -714,10 +620,10 @@
+         String change = sc.nextLine();
+         stE.updateCourseInfo(cou, sem, field, change);
+     }
+-    //Main method to find all course in 1 sem
++    //Main method to find course in 1 sem
+     //Tested
+-    public void findAllCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){
+-        System.out.println("---Find all course in semester function---");
++    public void findCourseIn1SemInCluStu(StudentEnrolment stE, Scanner sc){
++        System.out.println("---Find course with enrolled in semester function---");
+         ArrayList<String> semesters =  new ArrayList<>();
+         showSemester(stE, semesters);
+         System.out.println("Input semester to view");
+@@ -741,67 +647,52 @@
+             System.out.println("Course list is empty, please create course first");
+             return;
+         }
+-        stE.findAllCouSem(inputSem);
+-        System.out.println("Do you want to perform tasks ? (y/n)");
+-        String yN = sc.nextLine();
+-        if(yN.equalsIgnoreCase("n")){
+-            return;
+-        }
+-        while (!yN.equalsIgnoreCase("n")){
+-            if (yN.equalsIgnoreCase("y")){
+-                break;
+-            }
+-            System.out.println("Invalid input, please try again, 'exit' to exit");
+-            System.out.print("Your choice: ");
+-            yN = sc.nextLine();
+-        }
+-        while (!yN.equalsIgnoreCase("exit")){
+-            ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
+-            System.out.println("Input course ID or name to perform tasks");
+-            System.out.print("Course: ");
+-            String cou =  sc.nextLine();
+-            if (cou.equalsIgnoreCase("exit")){
+-                return;
+-            }
+-            checkCouAvailable(sc,cou, couInSemList);
+-            choiceOfCouIn1Sem();
+-            String choice = sc.nextLine();
+-            if (choice.equalsIgnoreCase("exit")){
+-                return;
+-            }
+-            checkStuChoice(sc, choice);
+-            while (!choice.equalsIgnoreCase("exit")){
+-                String stuID = "";
+-                if (choice.equals("1")){
+-                    ArrayList<Student> studentList = stE.getStudentsList();
+-                    System.out.println("Input student ID to enroll, 'exit' to exit");
+-                    System.out.print("Student ID: ");
+-                    stuID = sc.nextLine();
+-                    checkStudentAvailable(sc, stuID, studentList);
+-                    enrolNewCourse(stE, sc,cou, stuID, inputSem);
+-                }
+-                if (choice.equals("2")){
+-                    System.out.println("Input field and new data to update, 'exit' to exit");
+-                    System.out.print("Field (ID, Name, Number of credits): ");
+-                    String field = sc.nextLine();
+-                    if (field.equalsIgnoreCase("exit")){
+-                        return;
+-                    }
+-                    upDateCou(stE, sc, cou, inputSem, field);
+-                }
+-                if (choice.equals("3")){
+-                    System.out.println("Input student ID to remove, 'exit' to exit");
+-                    System.out.print("Student ID: ");
+-                    stuID = sc.nextLine();
+-                    stE.removeStu(cou, stuID, inputSem);
+-                }
+-                choiceOfCouIn1Sem();
+-                choice = sc.nextLine();
+-                if (choice.equalsIgnoreCase("exit")) {
+-                    return;
+-                }
+-                checkStuChoice(sc, choice);
+-            }
++        ArrayList<Course> couInSemList = stE.getSemesterCourses().get(inputSem);
++        System.out.println("Input course ID or name to perform tasks");
++        System.out.print("Course: ");
++        String cou =  sc.nextLine();
++        if (cou.equalsIgnoreCase("exit")){
++            return;
++        }
++        checkCouAvailable(sc,cou, couInSemList);
++        stE.findOneCour(cou, inputSem);
++        choiceOfCouIn1Sem();
++        String choice = sc.nextLine();
++        if (choice.equalsIgnoreCase("exit")){
++            return;
++        }
++        checkStuChoice(sc, choice);
++        while (!choice.equalsIgnoreCase("exit")){
++            String stuID = "";
++            if (choice.equals("1")){
++                ArrayList<Student> studentList = stE.getStudentsList();
++                System.out.println("Input student ID to enroll, 'exit' to exit");
++                System.out.print("Student ID: ");
++                stuID = sc.nextLine();
++                checkStudentAvailable(sc, stuID, studentList);
++                enrolNewCourse(stE, sc,cou, stuID, inputSem);
++            }
++            if (choice.equals("2")){
++                System.out.println("Input field and new data to update, 'exit' to exit");
++                System.out.print("Field (ID, Name, Number of credits): ");
++                String field = sc.nextLine();
++                if (field.equalsIgnoreCase("exit")){
++                    return;
++                }
++                upDateCou(stE, sc, cou, inputSem, field);
++            }
++            if (choice.equals("3")){
++                System.out.println("Input student ID to remove, 'exit' to exit");
++                System.out.print("Student ID: ");
++                stuID = sc.nextLine();
++                stE.dropCourse(stuID, cou, inputSem);
++            }
++            choiceOfCouIn1Sem();
++            choice = sc.nextLine();
++            if (choice.equalsIgnoreCase("exit")) {
++                return;
++            }
++            checkStuChoice(sc, choice);
+         }
+     }
+ //-----------------------------------------------------------------------------------------
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"63807f1d-d708-43e7-bffb-85317d4b1bb4\" name=\"Default Changelist\" comment=\"v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester\">\n      <change afterPath=\"$PROJECT_DIR$/Main.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Menu.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Menu.java\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Interface\" />\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"GithubPullRequestsUISettings\">\n    <option name=\"selectedUrlAndAccountId\">\n      <UrlAndAccount>\n        <option name=\"accountId\" value=\"ef7e7048-1cda-4a91-aed3-e8030a9f7f41\" />\n        <option name=\"url\" value=\"https://github.com/KhoiNguyen-281/FurtherProgramming_assignment_1.git\" />\n      </UrlAndAccount>\n    </option>\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"jar://$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home/lib/src.zip!/java.base/java/io/PrintStream.java\" root0=\"FORCE_HIGHLIGHTING\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectId\" id=\"26SQJsA6UpGxsLJzMC8dQR4lt0M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"ExtractSuperBase.RECENT_KEYS\">\n      <recent name=\"\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Application.Menu\">\n    <configuration name=\"Menu\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Menu\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"StudentEnrolment\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"StudentEnrolment\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"TestUnit\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"TestUnit\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Menu\" />\n        <item itemvalue=\"Application.TestUnit\" />\n        <item itemvalue=\"Application.StudentEnrolment\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"63807f1d-d708-43e7-bffb-85317d4b1bb4\" name=\"Default Changelist\" comment=\"\" />\n      <created>1647414438308</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1647414438308</updated>\n      <workItem from=\"1648838478966\" duration=\"5971000\" />\n      <workItem from=\"1648870587345\" duration=\"30616000\" />\n      <workItem from=\"1648912180377\" duration=\"5747000\" />\n      <workItem from=\"1648961677967\" duration=\"31163000\" />\n      <workItem from=\"1649003452119\" duration=\"7676000\" />\n      <workItem from=\"1649044102591\" duration=\"13499000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"add version 3.16.2\">\n      <created>1647416300132</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647416300132</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"v3.16.3 modified toString(), add studentEnrol()\">\n      <created>1647428425564</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647428425564</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"v3.16.3 modified toString(), add studentEnrol()\">\n      <created>1647428719767</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647428719767</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Modified and added code, v.3.19.1\">\n      <created>1647686224814</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647686224814</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"add v4.1.3\">\n      <created>1648831029029</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648831029029</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods\">\n      <created>1648844462514</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648844462514</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course\">\n      <created>1648897711859</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648897711859</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"v4.2.2&#10;update create(), checkIDValid()\">\n      <created>1648908550938</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648908550938</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()\">\n      <created>1648917919762</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648917919762</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student\">\n      <created>1649000254428</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1649000254428</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\">\n      <created>1649011018327</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1649011018327</updated>\n    </task>\n    <task id=\"LOCAL-00012\" summary=\"v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester\">\n      <created>1649054899812</created>\n      <option name=\"number\" value=\"00012\" />\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1649054899812</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"13\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"add version 3.16.2\" />\n    <MESSAGE value=\"v3.16.3 modified toString(), add studentEnrol()\" />\n    <MESSAGE value=\"Modified and added code, v.3.19.1\" />\n    <MESSAGE value=\"add v4.1.3\" />\n    <MESSAGE value=\"add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods\" />\n    <MESSAGE value=\"v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course\" />\n    <MESSAGE value=\"v4.2.2&#10;update create(), checkIDValid()\" />\n    <MESSAGE value=\"v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()\" />\n    <MESSAGE value=\"v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student\" />\n    <MESSAGE value=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\" />\n    <MESSAGE value=\"v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,10 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester">
+-      <change afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
++    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/TestUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestUnit.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -20,6 +25,11 @@
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="FurtherProgramming_Assignment_1_New" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitSEFilterConfiguration">
+@@ -62,7 +72,14 @@
+       <recent name="" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.Menu">
++  <component name="RunManager" selected="Application.TestUnit">
++    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="Main" />
++      <module name="FurtherProgramming_assignment_1" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Menu" />
+       <module name="FurtherProgramming_assignment_1" />
+@@ -86,9 +103,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.TestUnit" />
+         <item itemvalue="Application.Menu" />
+-        <item itemvalue="Application.TestUnit" />
+         <item itemvalue="Application.StudentEnrolment" />
++        <item itemvalue="Application.TestUnit" />
++        <item itemvalue="Application.Main" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -105,7 +124,12 @@
+       <workItem from="1648912180377" duration="5747000" />
+       <workItem from="1648961677967" duration="31163000" />
+       <workItem from="1649003452119" duration="7676000" />
+-      <workItem from="1649044102591" duration="13499000" />
++      <workItem from="1649044102591" duration="13946000" />
++      <workItem from="1649073916295" duration="1503000" />
++      <workItem from="1649083849879" duration="1158000" />
++      <workItem from="1649088785442" duration="599000" />
++      <workItem from="1649130356925" duration="4872000" />
++      <workItem from="1649169137370" duration="7162000" />
+     </task>
+     <task id="LOCAL-00001" summary="add version 3.16.2">
+       <created>1647416300132</created>
+@@ -191,7 +215,28 @@
+       <option name="project" value="LOCAL" />
+       <updated>1649054899812</updated>
+     </task>
+-    <option name="localTasksCounter" value="13" />
++    <task id="LOCAL-00013" summary="v4.4.2 final&#10;complete menu class">
++      <created>1649061909032</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1649061909032</updated>
++    </task>
++    <task id="LOCAL-00014" summary="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu.">
++      <created>1649158302021</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1649158302021</updated>
++    </task>
++    <task id="LOCAL-00015" summary="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
++      <created>1649177160462</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1649177160462</updated>
++    </task>
++    <option name="localTasksCounter" value="16" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -220,6 +265,9 @@
+     <MESSAGE value="v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student" />
+     <MESSAGE value="v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester" />
+     <MESSAGE value="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester" />
+-    <option name="LAST_COMMIT_MESSAGE" value="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester" />
++    <MESSAGE value="v4.4.2 final&#10;complete menu class" />
++    <MESSAGE value="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu." />
++    <MESSAGE value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
++    <option name="LAST_COMMIT_MESSAGE" value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: out/production/FurtherProgramming_assignment_1/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"63807f1d-d708-43e7-bffb-85317d4b1bb4\" name=\"Default Changelist\" comment=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Menu.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Menu.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n        <option value=\"Interface\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitSEFilterConfiguration\">\n    <file-type-list>\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\n      <filtered-out-file-type name=\"TAG\" />\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\n    </file-type-list>\n  </component>\n  <component name=\"GithubPullRequestsUISettings\">\n    <option name=\"selectedUrlAndAccountId\">\n      <UrlAndAccount>\n        <option name=\"accountId\" value=\"ef7e7048-1cda-4a91-aed3-e8030a9f7f41\" />\n        <option name=\"url\" value=\"https://github.com/KhoiNguyen-281/FurtherProgramming_assignment_1.git\" />\n      </UrlAndAccount>\n    </option>\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"jar://$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-16.0.1/Contents/Home/lib/src.zip!/java.base/java/io/PrintStream.java\" root0=\"FORCE_HIGHLIGHTING\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectId\" id=\"26SQJsA6UpGxsLJzMC8dQR4lt0M\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"ExtractSuperBase.RECENT_KEYS\">\n      <recent name=\"\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Application.Menu\">\n    <configuration name=\"Menu\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"Menu\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"StudentEnrolment\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"StudentEnrolment\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"TestUnit\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"TestUnit\" />\n      <module name=\"FurtherProgramming_assignment_1\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.Menu\" />\n        <item itemvalue=\"Application.TestUnit\" />\n        <item itemvalue=\"Application.StudentEnrolment\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"63807f1d-d708-43e7-bffb-85317d4b1bb4\" name=\"Default Changelist\" comment=\"\" />\n      <created>1647414438308</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1647414438308</updated>\n      <workItem from=\"1648838478966\" duration=\"5971000\" />\n      <workItem from=\"1648870587345\" duration=\"30616000\" />\n      <workItem from=\"1648912180377\" duration=\"5747000\" />\n      <workItem from=\"1648961677967\" duration=\"31163000\" />\n      <workItem from=\"1649003452119\" duration=\"7676000\" />\n      <workItem from=\"1649044102591\" duration=\"2029000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"add version 3.16.2\">\n      <created>1647416300132</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647416300132</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"v3.16.3 modified toString(), add studentEnrol()\">\n      <created>1647428425564</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647428425564</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"v3.16.3 modified toString(), add studentEnrol()\">\n      <created>1647428719767</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647428719767</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Modified and added code, v.3.19.1\">\n      <created>1647686224814</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1647686224814</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"add v4.1.3\">\n      <created>1648831029029</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648831029029</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods\">\n      <created>1648844462514</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648844462514</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course\">\n      <created>1648897711859</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648897711859</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"v4.2.2&#10;update create(), checkIDValid()\">\n      <created>1648908550938</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648908550938</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()\">\n      <created>1648917919762</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1648917919762</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student\">\n      <created>1649000254428</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1649000254428</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\">\n      <created>1649011018327</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1649011018327</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"12\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"add version 3.16.2\" />\n    <MESSAGE value=\"v3.16.3 modified toString(), add studentEnrol()\" />\n    <MESSAGE value=\"Modified and added code, v.3.19.1\" />\n    <MESSAGE value=\"add v4.1.3\" />\n    <MESSAGE value=\"add v4.1.4 &#10;recreate menu class&#10;modified find methods, update methods, enrol methods, add semester course methods\" />\n    <MESSAGE value=\"v4.2.1&#10;add menu's function to check user input&#10;create() to create new student, course\" />\n    <MESSAGE value=\"v4.2.2&#10;update create(), checkIDValid()\" />\n    <MESSAGE value=\"v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()\" />\n    <MESSAGE value=\"v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student\" />\n    <MESSAGE value=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml b/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml
+--- a/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml	
++++ b/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml	
+@@ -1,11 +1,13 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester">
++    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/TestUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestUnit.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Main.class" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -15,12 +17,17 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="Class" />
+         <option value="Interface" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="FurtherProgramming_Assignment_1_New" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="GitSEFilterConfiguration">
+@@ -64,6 +71,13 @@
+     </key>
+   </component>
+   <component name="RunManager" selected="Application.Menu">
++    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="Main" />
++      <module name="FurtherProgramming_assignment_1" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Menu" />
+       <module name="FurtherProgramming_assignment_1" />
+@@ -90,6 +104,8 @@
+         <item itemvalue="Application.Menu" />
+         <item itemvalue="Application.TestUnit" />
+         <item itemvalue="Application.StudentEnrolment" />
++        <item itemvalue="Application.TestUnit" />
++        <item itemvalue="Application.Main" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -106,7 +122,12 @@
+       <workItem from="1648912180377" duration="5747000" />
+       <workItem from="1648961677967" duration="31163000" />
+       <workItem from="1649003452119" duration="7676000" />
+-      <workItem from="1649044102591" duration="2029000" />
++      <workItem from="1649044102591" duration="13946000" />
++      <workItem from="1649073916295" duration="1503000" />
++      <workItem from="1649083849879" duration="1158000" />
++      <workItem from="1649088785442" duration="599000" />
++      <workItem from="1649130356925" duration="4872000" />
++      <workItem from="1649169137370" duration="7162000" />
+     </task>
+     <task id="LOCAL-00001" summary="add version 3.16.2">
+       <created>1647416300132</created>
+@@ -185,7 +206,35 @@
+       <option name="project" value="LOCAL" />
+       <updated>1649011018327</updated>
+     </task>
+-    <option name="localTasksCounter" value="12" />
++    <task id="LOCAL-00012" summary="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester">
++      <created>1649054899812</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1649054899812</updated>
++    </task>
++    <task id="LOCAL-00013" summary="v4.4.2 final&#10;complete menu class">
++      <created>1649061909032</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1649061909032</updated>
++    </task>
++    <task id="LOCAL-00014" summary="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu.">
++      <created>1649158302021</created>
++      <option name="number" value="00014" />
++      <option name="presentableId" value="LOCAL-00014" />
++      <option name="project" value="LOCAL" />
++      <updated>1649158302021</updated>
++    </task>
++    <task id="LOCAL-00015" summary="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
++      <created>1649177160462</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1649177160462</updated>
++    </task>
++    <option name="localTasksCounter" value="16" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -213,6 +262,10 @@
+     <MESSAGE value="v4.2.3&#10;update createNew() method in menu&#10;delete exit(), checkIDStuExist(), checkIDCouExist()" />
+     <MESSAGE value="v4.3.1&#10;create findCourseInSem to view, add more course, remove course.&#10;working on enrol student" />
+     <MESSAGE value="v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester" />
+-    <option name="LAST_COMMIT_MESSAGE" value="v4.3.2&#10;complete methods in menu to find courses of semester, find student of semester" />
++    <MESSAGE value="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester" />
++    <MESSAGE value="v4.4.2 final&#10;complete menu class" />
++    <MESSAGE value="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu." />
++    <MESSAGE value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
++    <option name="LAST_COMMIT_MESSAGE" value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
+   </component>
+ </project>
+\ No newline at end of file
