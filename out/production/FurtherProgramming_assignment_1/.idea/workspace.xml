@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu.">
+    <list default="true" id="63807f1d-d708-43e7-bffb-85317d4b1bb4" name="Default Changelist" comment="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StudentEnrolment.java" beforeDir="false" afterPath="$PROJECT_DIR$/StudentEnrolment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/TestUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/StudentEnrolment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FurtherProgramming_assignment_1/TestUnit.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,13 +67,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Menu">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="FurtherProgramming_assignment_1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Menu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Menu" />
       <module name="FurtherProgramming_assignment_1" />
@@ -91,8 +105,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Menu" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.TestUnit" />
+        <item itemvalue="Application.Menu" />
         <item itemvalue="Application.StudentEnrolment" />
       </list>
     </recent_temporary>
@@ -115,7 +130,7 @@
       <workItem from="1649083849879" duration="1158000" />
       <workItem from="1649088785442" duration="599000" />
       <workItem from="1649130356925" duration="4872000" />
-      <workItem from="1649169137370" duration="1086000" />
+      <workItem from="1649169137370" duration="7162000" />
     </task>
     <task id="LOCAL-00001" summary="add version 3.16.2">
       <created>1647416300132</created>
@@ -215,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649158302021</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment">
+      <created>1649177160462</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1649177160462</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,6 +268,7 @@
     <MESSAGE value="v4.4.1&#10;complete methods find all student in all semester, find course in 1 semester" />
     <MESSAGE value="v4.4.2 final&#10;complete menu class" />
     <MESSAGE value="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu." />
-    <option name="LAST_COMMIT_MESSAGE" value="v4.5.1 Final version&#10;Complete all methods, delete all comment and unused methods in course, student, StudentEnrolment, menu." />
+    <MESSAGE value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="v4.5.2 Final version&#10;Covered all functions created&#10;Test all functions created&#10;Delete all unused functions&#10;Delete all unnecessary comment" />
   </component>
 </project>

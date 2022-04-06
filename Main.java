@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         StudentEnrolment stE = new StudentEnrolment();
-
+        ArrayList<Course> couList = stE.getCourseList();
+        ArrayList<Student> stuList = stE.getStudentsList();
+        ArrayList<String> semesters = stE.getSemesters();
+        HashMap<String, ArrayList<Course>> couInSem = stE.getSemesterCourses();
         //Create for testing purpose
         stE.setSemesters();
         stE.createNewData("1", "S001", "Khoi", "121212");
@@ -22,6 +27,6 @@ public class Main {
         stE.createEnrollment("S001", "C002", "2022A");
 
         Menu newMenu = new Menu();
-        newMenu.mainMenu(stE, sc);
+        newMenu.mainMenu(stE, sc, semesters, stuList, couList, couInSem);
     }
 }
