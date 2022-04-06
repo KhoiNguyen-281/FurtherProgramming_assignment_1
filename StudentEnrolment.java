@@ -149,15 +149,26 @@ public class StudentEnrolment{
             if (s.equalsIgnoreCase(semester)){
                 semester = s;
                 ArrayList<Course> couInSem  =  semesterCourses.get(semester);
-                for (Course couTemp : couInSem){
-                    if (couTemp.getCourseID().equalsIgnoreCase(inputCou)){
+                for (Iterator<Course> courseIterator = couInSem.iterator(); courseIterator.hasNext();){
+                    Course couTemp =  courseIterator.next();
+                    if (couTemp.getCourseID().equalsIgnoreCase(inputCou)) {
                         couInSem.remove(couTemp);
                         System.out.println("Remove course successfully");
                     }
                 }
+
+//                for (Course couTemp : couInSem){
+//                    System.out.println(couTemp.getCourseID().equals(inputCou));
+//                    if (couTemp.getCourseID().equalsIgnoreCase(inputCou)) {
+//                        couInSem.remove(couTemp);
+//
+//                        System.out.println("Remove course successfully");
+//                    }
+//                }
             }
         }
     }
+
 
     //Add enrollments to enrollment list
     //Tested

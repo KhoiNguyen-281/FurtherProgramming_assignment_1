@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Menu {
@@ -131,34 +132,39 @@ public class Menu {
             System.out.println("ID valid, continue");
             String name = "";
             String val = "";
-            inputNewData(sc, name, val, choice);
-            stE.createNewData(choice, ID, name, val);
+            inputNewData(stE, sc, ID, name, val, choice);
+//            inputNewData(sc, name, val, choice);
+//            System.out.println(name);
+//            System.out.println("121" + val);
+//            stE.createNewData(choice, ID, name, val);
 
         }
     }
     //Method for input new data
     //Tested
-    public void inputNewData(Scanner sc, String name, String val, String choice) {
+    public void inputNewData(StudentEnrolment stE, Scanner sc, String ID, String courseName, String num_credits, String choice) {
         System.out.print("Name: ");
-        name = sc.nextLine();
-        if (name.equalsIgnoreCase("exit")) {
+        courseName = sc.nextLine();
+        if (courseName.equalsIgnoreCase("exit")) {
             return;
         }
         if (choice.equals("1")) {
             System.out.print("Date of birth: ");
-            val = sc.nextLine();
-            if (val.equalsIgnoreCase("exit")) {
+            num_credits = sc.nextLine();
+            if (num_credits.equalsIgnoreCase("exit")) {
                 return;
             }
 
         }
         if (choice.equals("2")) {
             System.out.print("Number of credits: ");
-            val = sc.nextLine();
-            if (val.equalsIgnoreCase("exit")) {
+            num_credits = sc.nextLine();
+            System.out.println("1212" + num_credits);
+            if (num_credits.equalsIgnoreCase("exit")) {
                 return;
             }
         }
+        stE.createNewData(choice, ID, courseName, num_credits);
     }
     //Method check if user choice is valid
     //Tested
@@ -262,7 +268,7 @@ public class Menu {
     //Tested
     public void checkCourseInSem(StudentEnrolment stE, String input, String sem, HashMap<String, ArrayList<Course>> couInSem) {
         for (Course couTemp : couInSem.get(sem)) {
-            if (couTemp.getCourseID().equalsIgnoreCase(input)) {
+            if (couTemp.getCourseID().equalsIgnoreCase(input) || couTemp.getCourseName().equalsIgnoreCase(input)) {
                 System.out.println("Course is existed");
                 return;
             }
@@ -288,16 +294,21 @@ public class Menu {
     //Tested
     public void removeCourse(StudentEnrolment stE, Scanner sc, String input, String sem, HashMap<String, ArrayList<Course>> couInSem) {
         while (!input.equalsIgnoreCase("exit")) {
-            for (Course couTemp : couInSem.get(sem)) {
+            ArrayList<Course> couSem  =  couInSem.get(sem);
+            System.out.println(couSem);
+            for (Iterator<Course> courseIterator = couSem.iterator(); courseIterator.hasNext();){
+                Course couTemp =  courseIterator.next();
                 if (couTemp.getCourseID().equalsIgnoreCase(input)) {
-                    stE.removeCourseSem(input, sem);
+                    couSem.remove(couTemp);
                     return;
+
                 }
             }
             System.out.println("Course is not available, please try again or 'exit' to exit");
             System.out.print("Course ID or name: ");
             input = sc.nextLine();
         }
+
     }
     //Main method to add or remove course from semester
     //Tested
@@ -426,15 +437,6 @@ public class Menu {
     //Tested
     public void checkStuChoice(Scanner sc, String choice) {
         String[] choiceList = {"1", "2", "3"};
-        for (String s : choiceList)
-            while (!choice.equalsIgnoreCase(s)){
-                if (choice.equalsIgnoreCase(s)) {
-                    return;
-                }
-                System.out.println("Invalid input, please try again, 'exit' to exit");
-                System.out.print("Your choice: ");
-                choice = sc.nextLine();
-            }
 
         while (!choice.equalsIgnoreCase("exit")) {
             for (String s : choiceList) {
