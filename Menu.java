@@ -97,39 +97,42 @@ public class Menu {
 //    1. Create new student, course
     //Check if input ID is valid to create new object
     //Tested
-    public void checkIfIDExist(Scanner sc, String choice, String ID,
+    public void checkIfIDExist(StudentEnrolment stE, Scanner sc, String choice,
                                ArrayList<Student> stuTempList, ArrayList<Course> couTempList) {
         if (choice.equals("1") || choice.equals("2")) {
-            if (choice.equals("1")) {
-                while (!ID.equalsIgnoreCase("exit")) {
-                    for (Student student : stuTempList) {
-                        if (student.getStudentID().equalsIgnoreCase(ID)) {
-                            System.out.println("ID is existed, please input another, or 'exit' to exit");
-                            System.out.print("ID: ");
-                            ID = sc.nextLine();
-                        }
-                        return;
-                    }
-                    break;
-                }
+            System.out.println("Input ID to check");
+            System.out.print("ID: ");
+            String ID = sc.nextLine();
+            if (ID.equalsIgnoreCase("exit")) {
+                return;
             }
-            if (choice.equals("2")) {
-                while (!ID.equalsIgnoreCase("exit")) {
-                    for (Course course : couTempList) {
-                        if (course.getCourseID().equalsIgnoreCase(ID)){
+            if (choice.equals("1")) {
+                for (Student student : stuTempList)
+                    while (student.getStudentID().equalsIgnoreCase(ID)) {
                         System.out.println("ID is existed, please input another, or 'exit' to exit");
                         System.out.print("ID: ");
                         ID = sc.nextLine();
+                        if (ID.equalsIgnoreCase("exit")) {
+                            return;
                         }
+                    }
+            }
+            if (choice.equals("2")) {
+                for (Course course : couTempList)
+                while (course.getCourseID().equalsIgnoreCase(ID)){
+                    System.out.println("ID is existed, please input another, or 'exit' to exit");
+                    System.out.print("ID: ");
+                    ID = sc.nextLine();
+                    if (ID.equalsIgnoreCase("exit")){
                         return;
                     }
-                    break;
                 }
             }
             System.out.println("ID valid, continue");
             String name = "";
             String val = "";
             inputNewData(sc, name, val, choice);
+            stE.createNewData(choice, ID, name, val);
 
         }
     }
@@ -163,16 +166,17 @@ public class Menu {
         if (choice.equalsIgnoreCase("exit")) {
             return;
         }
-        while (!choice.equals("1")) {
+        while (choice.equalsIgnoreCase("exit")) {
             if (choice.equals("2")) {
+                break;
+            }
+            if (choice.equalsIgnoreCase("1")){
                 break;
             }
             System.out.println("Invalid input, please try again or type 'exit' to back");
             System.out.print("Input: ");
             choice = sc.nextLine();
-            if (choice.equalsIgnoreCase("exit")) {
-                return;
-            }
+
         }
     }
     //Method to create student and course
@@ -187,30 +191,7 @@ public class Menu {
         String choice = sc.nextLine();
         checkChoice(sc, choice);
         while (!choice.equalsIgnoreCase("exit")) {
-            System.out.println("Input student ID: ");
-            System.out.print("ID: ");
-            String ID = sc.nextLine();
-            if (ID.equalsIgnoreCase("exit")) {
-                return;
-            }
-            checkIfIDExist(sc,ID, choice, studentList, courseList);
-            String name = "";
-            String val = "";
-            if (choice.equals("1")) {
-                System.out.print("Date of birth: ");
-                val = sc.nextLine();
-                if (val.equalsIgnoreCase("exit")) {
-                    return;
-                }
-            }
-            if (choice.equals("2")) {
-                System.out.print("Number of credits: ");
-                val = sc.nextLine();
-                if (val.equalsIgnoreCase("exit")) {
-                    return;
-                }
-            }
-            stE.createNewData(choice, ID, name, val);
+            checkIfIDExist(stE, sc, choice, studentList, courseList);
             System.out.println("""
                     +Press '1': Create student
                     +Press '2': Create course
@@ -218,6 +199,7 @@ public class Menu {
             System.out.print("Your choice: ");
             choice = sc.nextLine();
             checkChoice(sc, choice);
+
         }
     }
 //----------------------------------------------------------------------------------------
@@ -444,6 +426,16 @@ public class Menu {
     //Tested
     public void checkStuChoice(Scanner sc, String choice) {
         String[] choiceList = {"1", "2", "3"};
+        for (String s : choiceList)
+            while (!choice.equalsIgnoreCase(s)){
+                if (choice.equalsIgnoreCase(s)) {
+                    return;
+                }
+                System.out.println("Invalid input, please try again, 'exit' to exit");
+                System.out.print("Your choice: ");
+                choice = sc.nextLine();
+            }
+
         while (!choice.equalsIgnoreCase("exit")) {
             for (String s : choiceList) {
                 if (choice.equalsIgnoreCase(s)) {
@@ -459,8 +451,6 @@ public class Menu {
     //Tested
     public void enrolNewCourse(StudentEnrolment stE,
                                String cou , String stuID, String sem, ArrayList<Student> studentList) {
-
-
         for (Student stuTemp : studentList) {
             if (stuTemp.getStudentID().equalsIgnoreCase(stuID)) {
                 ArrayList<Course> couOfStu = stuTemp.getCoursesList();

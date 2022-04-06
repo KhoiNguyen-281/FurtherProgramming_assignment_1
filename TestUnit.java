@@ -8,15 +8,22 @@ public class TestUnit {
 
         //Test create new function and add to list
         //Create student
+        stE.createNewData("1", "S001", "Khoi Nguyen", "28/01/2000");
+        stE.createNewData("1", "S002", "Khoa Le", "12/12/1996");
+        stE.createNewData("1", "S003", "Tu Le", "21/12/2000");
+
+        stE.createNewData("2", "C001", "Further", "12");
+        stE.createNewData("2", "C002", "Building", "12");
+        stE.createNewData("2", "C003", "UCD", "12");
 
 
         //Test display all course in semester (before add course)
         stE.getSemesterCourses().get("2022A");
 
         //Test add course to semester
-//        stE.addSemesterCourses("C001", "2022A");
-//        stE.addSemesterCourses("Further programming", "2022A");
-//        stE.addSemesterCourses("C003", "2022A");
+        stE.addSemesterCourses("C001", "2022A");
+        stE.addSemesterCourses("Further programming", "2022A");
+        stE.addSemesterCourses("C003", "2022A");
 
         //Test display all course in semester (after add course)
         stE.getSemesterCourses().get("2022A");
