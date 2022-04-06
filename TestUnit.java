@@ -48,7 +48,7 @@ public class TestUnit {
         stE.updateStudent("S001", "ID", "S004");
 
         //Test update course information
-        stE.updateCourseInfo("Further programming","2022A" , "Name", "Programming 1");
+        stE.updateCourseInfo("Further programming", "Name", "Programming 1");
         System.out.println(stE.getSemesterCourses().get("2022A"));
 
         //Test remove course in semester

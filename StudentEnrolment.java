@@ -285,7 +285,7 @@ public class StudentEnrolment{
 
     //Update student, course with ID and name
     //Tested
-    public void updateCourseInfo(String couIn, String field, String change ) {
+    public void updateCourseInfo(String couIn,  String field, String change ) {
         for (Course couTemp : courseList)
             if (couTemp.getCourseID().equalsIgnoreCase(couIn) || couTemp.getCourseName().equalsIgnoreCase(couIn)){
                 couTemp.update(field, change);

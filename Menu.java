@@ -626,7 +626,7 @@ public class Menu {
         }
         System.out.print("New data: ");
         String change = sc.nextLine();
-        stE.updateCourseInfo(cou,sem, field, change);
+        stE.updateCourseInfo(cou, field, change);
     }
     //Main method to find 1 course in 1 sem
     //Tested
